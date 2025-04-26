@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: AI Profile Enricher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .highlight-ai { background-color: #e0f2fe; border: 1px dashed #3b82f6; padding: 1px 3px; border-radius: 3px; box-shadow: 0 1px 2px rgba(59, 130, 246, 0.1); }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .slide-in { animation: slideIn 0.7s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse-highlight { animation: pulseHighlight 2s ease-in-out; }
+        @keyframes pulseHighlight { 
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.2); }
+            70% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .skill-bar { height: 8px; border-radius: 4px; background-color: #dbeafe; overflow: hidden; }
+        .skill-progress { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #3b82f6, #6366f1); }
+        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #6366f1; }
+        .profile-card { border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
+        .profile-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .ai-badge { 
+            display: inline-flex;
+            align-items: center;
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .ai-badge i { margin-right: 0.25rem; font-size: 0.65rem; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto mb-6">
+        <div class="flex justify-between items-center border-b pb-4">
+            <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-user-astronaut mr-2"></i>AI Profile Enricher Demo</h1>
+            <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div id="profile-photo-section" class="profile-card bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 p-4 mb-6 text-center">
+                        <div id="profile-photo-placeholder" class="mx-auto w-32 h-32 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center mb-3">
+                            <i class="fas fa-user text-gray-400 text-4xl"></i>
+                        </div>
+                        <div id="profile-photo-ai" class="hidden mx-auto w-32 h-32 rounded-full overflow-hidden mb-3 shadow-lg border-2 border-white">
+                            <img src="https://randomuser.me/api/portraits/men/42.jpg" class="w-full h-full object-cover" alt="Somchai T.">
+                        </div>
+                        <h3 class="text-lg font-semibold text-indigo-900" id="pe-display-name">Somchai T.</h3>
+                        <p class="text-sm text-gray-600" id="pe-display-title">Sales Representative</p>
+                        <div id="pe-photo-badge" class="hidden text-xs mt-1 text-indigo-600"><i class="fas fa-sync-alt fa-spin mr-1"></i> Photo recognized and enhanced</div>
+                    </div>
+                    
+                    <h2 class="text-lg font-semibold mb-4 text-gray-800">Employee Information</h2>
+                    <div class="space-y-4">
+                        <div><label for="pe-name" class="block text-sm font-medium text-gray-700">Full Name</label><input type="text" id="pe-name" value="Somchai T." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 sm:text-sm" readonly></div>
+                        <div><label for="pe-job_title" class="block text-sm font-medium text-gray-700">Job Title</label><input type="text" id="pe-job_title" value="Sales Representative" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 sm:text-sm" readonly></div>
+                        <div><label for="pe-resume-url" class="block text-sm font-medium text-gray-700">Upload CV/Resume or LinkedIn Profile URL</label><div class="mt-1 flex items-center space-x-2"><input type="text" id="pe-resume-url" placeholder="Paste LinkedIn URL or click Upload" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"><button class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Upload File</button></div><p class="text-xs text-gray-500 mt-1">AI will read the document to help complete your profile.</p></div>
+                        <div class="pt-4"><button id="pe-enrich-button" class="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"><i class="fas fa-magic mr-2"></i>Enrich Profile with AI</button><div id="pe-loading-indicator" class="hidden text-center mt-4 text-indigo-600"><div class="loader"></div> Analyzing document...</div></div>
+                    </div>
+                    <div id="pe-validator-section" class="mt-8 border-t pt-6 hidden"><h3 class="text-md font-semibold mb-2 text-orange-700"><i class="fas fa-exclamation-triangle mr-1"></i> Manual Entry Check</h3><label for="pe-manual-skill" class="block text-sm font-medium text-gray-700">Add another skill manually:</label><input type="text" id="pe-manual-skill" placeholder="e.g., Data analysis" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"><div id="pe-validator-message" class="hidden mt-2 p-3 bg-yellow-100 border border-yellow-300 rounded-md text-sm text-yellow-800"><p><i class="fas fa-robot mr-1"></i> Did you mean <strong id="pe-suggested-skill" class="underline cursor-pointer">Data Analytics (SKL-045)</strong>? Using standard codes helps keep our data consistent.</p></div></div>
+                </div>
+                <div class="lg:col-span-2 lg:border-l lg:pl-8">
+                    <div class="flex items-center">
+                        <h2 class="text-lg font-semibold mb-4 text-gray-800">Profile Details</h2>
+                        <span id="pe-ai-filled-badge" class="hidden ml-2 mb-4 ai-badge"><i class="fas fa-brain"></i>AI Enhanced</span>
+                    </div>
+
+                    <div id="pe-insights-summary" class="hidden mb-6 p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border border-blue-100 fade-in">
+                        <h3 class="text-md font-semibold text-indigo-800 mb-2"><i class="fas fa-chart-line mr-1"></i> AI-Generated Insights</h3>
+                        <p class="text-sm text-gray-700 italic">Based on resume analysis, Somchai shows strong potential for an <span class="highlight-ai pulse-highlight">Area Sales Manager</span> role with targeted development in leadership and strategic planning.</p>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Total Years Experience</label>
+                                <span id="pe-exp-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume page 1</span>
+                            </div>
+                            <p id="pe-exp-years" class="mt-1 text-sm text-gray-500"><em>Not specified</em></p>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Career History</label>
+                                <span id="pe-history-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume pages 1-2</span>
+                            </div>
+                            <div id="pe-history" class="mt-2 text-sm text-gray-500"><em>Upload CV or use AI Enricher</em></div>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Education</label>
+                                <span id="pe-education-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume page 2</span>
+                            </div>
+                            <div id="pe-education" class="mt-2 text-sm text-gray-500"><em>Upload CV or use AI Enricher</em></div>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Skills</label>
+                                <span id="pe-skills-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume + LinkedIn endorsements</span>
+                            </div>
+                            <div id="pe-skills-list" class="mt-3 text-sm text-gray-500"><em>Upload CV or use AI Enricher</em></div>
+                        </div>
+                        
+                        <div class="border-b pb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Activities / Interests</label>
+                                <span id="pe-activities-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume + LinkedIn</span>
+                            </div>
+                            <div id="pe-activities-list" class="mt-2 text-sm text-gray-500"><em>Upload CV or use AI Enricher</em></div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <label class="block text-sm font-medium text-gray-700">Religion (Optional)</label>
+                                <span id="pe-religion-source" class="hidden text-xs text-gray-500 italic fade-in">Source: Resume</span>
+                            </div>
+                            <p id="pe-religion" class="mt-1 text-sm text-gray-500"><em>Not specified</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box p-6 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Profile Enrichment</h2>
+            <div class="space-y-4 text-sm text-gray-700">
+                <div>
+                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
+                    <p>Manual profile entry leads to incomplete, inconsistent, or poorly coded data (e.g., skills, job titles), making reporting and analysis difficult.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong>Profile Enricher (LLM):</strong> Reads uploaded CVs/resumes or LinkedIn profiles (handling Thai & English) to automatically extract and fill fields like total experience, skills, activities, and religion.</li>
+                        <li><strong>Validator Bot:</strong> When users manually enter data (like skills or job titles), the AI checks against the company's standard codes (taxonomy). If it finds a likely mismatch or an unknown term, it suggests the closest official code in a pop-up.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
+                    <p>A new hire uploads their CV. The AI pre-fills ~90% of their profile fields. They manually type "data scientist" as a skill; the Validator Bot suggests the official code "Data Scientist (JT-123)".</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                     <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong class="text-green-600">Saves Time:</strong> Drastically reduces manual data entry for employees and HR.</li>
+                        <li><strong class="text-green-600">Improves Data Quality:</strong> Ensures profiles are more complete and use standardized codes.</li>
+                        <li><strong class="text-green-600">Enables Better Analytics:</strong> Provides clean, rich data foundation for subsequent AI features like skill gap analysis and matching.</li>
+                        <li><strong class="text-green-600">Reduces HR Clean-up:</strong> Minimizes the need for manual correction of inconsistent data.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const enrichButton = document.getElementById('pe-enrich-button');
+        const loadingIndicator = document.getElementById('pe-loading-indicator');
+        const expYearsEl = document.getElementById('pe-exp-years');
+        const skillsListEl = document.getElementById('pe-skills-list');
+        const activitiesListEl = document.getElementById('pe-activities-list');
+        const religionEl = document.getElementById('pe-religion');
+        const aiFilledBadge = document.getElementById('pe-ai-filled-badge');
+        const validatorSection = document.getElementById('pe-validator-section');
+        const manualSkillInput = document.getElementById('pe-manual-skill');
+        const validatorMessage = document.getElementById('pe-validator-message');
+        const suggestedSkill = document.getElementById('pe-suggested-skill');
+        const insightsSummary = document.getElementById('pe-insights-summary');
+        const profilePhotoPlaceholder = document.getElementById('profile-photo-placeholder');
+        const profilePhotoAI = document.getElementById('profile-photo-ai');
+        const photoRecognizedBadge = document.getElementById('pe-photo-badge');
+        const expSource = document.getElementById('pe-exp-source');
+        const historyEl = document.getElementById('pe-history');
+        const historySource = document.getElementById('pe-history-source');
+        const educationEl = document.getElementById('pe-education');
+        const educationSource = document.getElementById('pe-education-source');
+        const skillsSource = document.getElementById('pe-skills-source');
+        const activitiesSource = document.getElementById('pe-activities-source');
+        const religionSource = document.getElementById('pe-religion-source');
+
+        if (enrichButton && loadingIndicator && expYearsEl && skillsListEl && activitiesListEl && religionEl && aiFilledBadge && validatorSection && manualSkillInput && validatorMessage && suggestedSkill) {
+            enrichButton.addEventListener('click', () => {
+                expYearsEl.innerHTML = '<em>Processing...</em>'; 
+                skillsListEl.innerHTML = '<em>Processing...</em>'; 
+                activitiesListEl.innerHTML = '<em>Processing...</em>'; 
+                religionEl.innerHTML = '<em>Processing...</em>';
+                historyEl.innerHTML = '<em>Processing...</em>';
+                educationEl.innerHTML = '<em>Processing...</em>';
+                aiFilledBadge.classList.add('hidden'); 
+                insightsSummary.classList.add('hidden');
+                validatorSection.classList.add('hidden'); 
+                loadingIndicator.classList.remove('hidden'); 
+                enrichButton.disabled = true;
+                
+                // Hide all source notes
+                expSource.classList.add('hidden');
+                historySource.classList.add('hidden');
+                educationSource.classList.add('hidden');
+                skillsSource.classList.add('hidden');
+                activitiesSource.classList.add('hidden');
+                religionSource.classList.add('hidden');
+                
+                setTimeout(() => {
+                    // Switch the profile photo from placeholder to AI-detected
+                    profilePhotoPlaceholder.classList.add('hidden');
+                    profilePhotoAI.classList.remove('hidden');
+                    photoRecognizedBadge.classList.remove('hidden');
+                    
+                    expYearsEl.innerHTML = `<span class="highlight-ai fade-in">6 Years (4 internal, 2 external)</span>`;
+                    historyEl.innerHTML = `<div class="space-y-2 fade-in slide-in">
+                        <div class="bg-indigo-50 p-2 rounded border border-indigo-100">
+                            <p class="font-medium"><span class="highlight-ai">Sales Representative</span> - Your Company</p>
+                            <p class="text-xs text-gray-600">March 2021 - Present</p>
+                            <ul class="list-disc list-inside text-xs text-gray-700 mt-1">
+                                <li><span class="highlight-ai">Exceeded sales targets by 15% for 3 consecutive quarters</span></li>
+                                <li><span class="highlight-ai">Managed portfolio of 25+ clients in central region</span></li>
+                            </ul>
+                        </div>
+                        <div class="bg-indigo-50 p-2 rounded border border-indigo-100">
+                            <p class="font-medium"><span class="highlight-ai">Junior Sales Associate</span> - ABC Trading</p>
+                            <p class="text-xs text-gray-600">January 2019 - February 2021</p>
+                            <ul class="list-disc list-inside text-xs text-gray-700 mt-1">
+                                <li><span class="highlight-ai">Supported senior sales team with client management</span></li>
+                                <li><span class="highlight-ai">Received "Rising Star" award in 2020</span></li>
+                            </ul>
+                        </div>
+                    </div>`;
+                    
+                    educationEl.innerHTML = `<div class="space-y-2 fade-in slide-in">
+                        <div class="bg-indigo-50 p-2 rounded border border-indigo-100">
+                            <p class="font-medium"><span class="highlight-ai">Bachelor of Business Administration</span></p>
+                            <p class="text-xs text-gray-600"><span class="highlight-ai">Chulalongkorn University</span>, 2015-2019</p>
+                            <p class="text-xs text-gray-700 mt-1"><span class="highlight-ai">Major: Marketing</span></p>
+                        </div>
+                    </div>`;
+                    
+                    skillsListEl.innerHTML = `<div class="space-y-3 fade-in">
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span><span class="highlight-ai">Negotiation</span></span>
+                                <span class="text-xs font-medium text-indigo-600">Level 3/5</span>
+                            </div>
+                            <div class="skill-bar mt-1"><div class="skill-progress" style="width: 60%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span><span class="highlight-ai">CRM Software</span></span>
+                                <span class="text-xs font-medium text-indigo-600">Level 4/5</span>
+                            </div>
+                            <div class="skill-bar mt-1"><div class="skill-progress" style="width: 80%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span><span class="highlight-ai">Presentation Skills</span></span>
+                                <span class="text-xs font-medium text-indigo-600">Level 2/5</span>
+                            </div>
+                            <div class="skill-bar mt-1"><div class="skill-progress" style="width: 40%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span><span class="highlight-ai">Excel</span></span>
+                                <span class="text-xs font-medium text-indigo-600">Level 2/5</span>
+                            </div>
+                            <div class="skill-bar mt-1"><div class="skill-progress" style="width: 40%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <span><span class="highlight-ai">Product Knowledge</span></span>
+                                <span class="text-xs font-medium text-indigo-600">Level 4/5</span>
+                            </div>
+                            <div class="skill-bar mt-1"><div class="skill-progress" style="width: 80%"></div></div>
+                        </div>
+                    </div>`;
+                    
+                    activitiesListEl.innerHTML = `<ul class="list-disc list-inside space-y-1 fade-in">
+                        <li><span class="highlight-ai">Debate Club</span></li>
+                        <li><span class="highlight-ai">CSR Run</span></li>
+                        <li><span class="highlight-ai">Company Football Team</span></li>
+                        <li><span class="highlight-ai">Volunteer: English Tutor</span> <span class="text-xs text-blue-600">(New!)</span></li>
+                    </ul>`;
+                    
+                    religionEl.innerHTML = `<span class="highlight-ai fade-in">Buddhist</span>`;
+                    
+                    // Show insight summary
+                    insightsSummary.classList.remove('hidden');
+                    
+                    // Show all source notes
+                    expSource.classList.remove('hidden');
+                    historySource.classList.remove('hidden');
+                    educationSource.classList.remove('hidden');
+                    skillsSource.classList.remove('hidden');
+                    activitiesSource.classList.remove('hidden');
+                    religionSource.classList.remove('hidden');
+                    
+                    loadingIndicator.classList.add('hidden');
+                    enrichButton.disabled = false;
+                    aiFilledBadge.classList.remove('hidden');
+                    validatorSection.classList.remove('hidden');
+                }, 2000);
+            });
+            
+            manualSkillInput.addEventListener('input', (e) => {
+                const value = e.target.value.toLowerCase().trim();
+                validatorMessage.classList.toggle('hidden', !(value === 'data analysis' || value === 'data analyst'));
+            });
+            
+            suggestedSkill.addEventListener('click', () => {
+                manualSkillInput.value = 'Data Analytics (SKL-045)';
+                validatorMessage.classList.add('hidden');
+            });
+        } else {
+            console.error("One or more elements missing in Profile Enricher Demo");
+        }
+    </script>
+</body>
+</html> 
