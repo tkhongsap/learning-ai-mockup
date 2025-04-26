@@ -11,14 +11,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
-        .heatmap-cell { width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 500; color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.1); }
-        .bg-gap-red { background-color: #ef4444; } 
-        .bg-gap-yellow { background-color: #f59e0b; } 
-        .bg-gap-green { background-color: #22c55e; }
+        .heatmap-cell { width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 500; color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .heatmap-cell:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .bg-gap-red { background: linear-gradient(135deg, #ef4444, #b91c1c); } 
+        .bg-gap-yellow { background: linear-gradient(135deg, #f59e0b, #d97706); } 
+        .bg-gap-green { background: linear-gradient(135deg, #22c55e, #16a34a); }
         .tooltip { position: relative; display: inline-block; cursor: pointer; }
-        .tooltip .tooltiptext { visibility: hidden; width: 160px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -80px; opacity: 0; transition: opacity 0.3s; font-size: 0.75rem; }
+        .tooltip .tooltiptext { visibility: hidden; width: 200px; background-color: #1e293b; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s; font-size: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
         .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
         .explanation-box { background-color: #f3f4f6; border-left: 4px solid #6366f1; }
+        .dashboard-card { background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; }
+        .dashboard-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .skill-bar { height: 8px; border-radius: 4px; background-color: #e5e7eb; overflow: hidden; }
+        .skill-progress { height: 100%; border-radius: 4px; }
+        .progress-red { background: linear-gradient(90deg, #ef4444, #b91c1c); }
+        .progress-yellow { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .progress-green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+        .badge { display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-red { background-color: #fee2e2; color: #b91c1c; }
+        .badge-yellow { background-color: #fef3c7; color: #b45309; }
+        .badge-green { background-color: #d1fae5; color: #047857; }
+        .badge-gray { background-color: #f3f4f6; color: #4b5563; }
+        .tab-active { background-color: #4f46e5; color: white; }
+        .slide-in { animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -32,7 +50,40 @@
      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
         <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
-            <div class="mb-8 flex flex-wrap gap-4 items-center">
+            <!-- Dashboard header with stats -->
+            <div class="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="dashboard-card p-4 border border-gray-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Critical Gaps</p>
+                    <p class="text-2xl font-bold text-red-600 mt-1">2</p>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-arrow-up text-red-500"></i> 1 from last quarter
+                    </div>
+                </div>
+                <div class="dashboard-card p-4 border border-gray-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Ready Now</p>
+                    <p class="text-2xl font-bold text-green-600 mt-1">2</p>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-arrow-up text-green-500"></i> 1 from last quarter
+                    </div>
+                </div>
+                <div class="dashboard-card p-4 border border-gray-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">High Flight Risk</p>
+                    <p class="text-2xl font-bold text-red-600 mt-1">1</p>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-equals text-gray-400"></i> Unchanged
+                    </div>
+                </div>
+                <div class="dashboard-card p-4 border border-gray-100">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Readiness Index</p>
+                    <p class="text-2xl font-bold text-indigo-600 mt-1">71%</p>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-arrow-up text-green-500"></i> 5% from last quarter
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter section -->
+            <div class="mb-8 dashboard-card p-4 flex flex-wrap gap-4 items-center">
                 <label for="sg-bu-select" class="text-sm font-medium text-gray-700">Business Unit:</label>
                 <select id="sg-bu-select" class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
                     <option selected>Sales Department</option>
@@ -46,130 +97,383 @@
                     <option>Senior Software Architect</option>
                     <option>Marketing Manager</option>
                 </select>
-                <button class="px-4 py-1.5 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700">Apply Filters</button>
+                <button class="px-4 py-1.5 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-filter mr-1"></i> Apply Filters
+                </button>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div>
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Critical Skill Gaps Heatmap (Sales Dept)</h2>
-                    <p class="text-sm text-gray-600 mb-4">Comparing current team skills against requirements for 'Area Sales Manager'. Red indicates largest gaps.</p>
+
+            <!-- View tabs -->
+            <div class="mb-6 flex border-b">
+                <button class="px-4 py-2 mr-2 text-sm font-medium rounded-t-md tab-active">Department View</button>
+                <button class="px-4 py-2 mr-2 text-sm font-medium text-gray-700 hover:text-indigo-700">Individual View</button>
+                <button class="px-4 py-2 mr-2 text-sm font-medium text-gray-700 hover:text-indigo-700">Strategic View</button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 slide-in">
+                <div class="dashboard-card p-5 border border-gray-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Critical Skill Gaps</h2>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Sales Department</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Comparing current team skills against requirements for <span class="font-medium text-indigo-700">Area Sales Manager</span>.</p>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full border border-gray-300 text-sm">
-                            <thead class="bg-gray-100">
+                        <table class="min-w-full border border-gray-200 text-sm">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="p-2 border">Skill</th>
-                                    <th class="p-2 border">Avg. Current Level</th>
-                                    <th class="p-2 border">Required Level</th>
-                                    <th class="p-2 border">Gap Status</th>
+                                    <th class="p-2 border text-left">Skill</th>
+                                    <th class="p-2 border text-center">Current</th>
+                                    <th class="p-2 border text-center">Required</th>
+                                    <th class="p-2 border text-center">Gap</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
-                                <tr>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-indigo-50 transition-colors">
                                     <td class="p-2 border font-medium">Strategic Planning</td>
-                                    <td class="p-2 border text-center">2.5 / 5</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-red" style="width: 50%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">2.5 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="p-2 border text-center">4 / 5</td>
                                     <td class="p-0 border">
-                                        <div class="heatmap-cell bg-gap-red tooltip">Significant Gap
-                                            <span class="tooltiptext">Average gap: -1.5 levels. High priority for training.</span>
+                                        <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Strategic Planning</div>
+                                                <div>Gap: -1.5 levels</div>
+                                                <div>Priority: High</div>
+                                                <div class="text-xs mt-1">Recommended: Leadership workshop series</div>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
                                     <td class="p-2 border font-medium">Leadership</td>
-                                    <td class="p-2 border text-center">2.8 / 5</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-yellow" style="width: 56%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">2.8 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="p-2 border text-center">4 / 5</td>
                                     <td class="p-0 border">
-                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate Gap
-                                            <span class="tooltiptext">Average gap: -1.2 levels. Consider development programs.</span>
+                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Leadership</div>
+                                                <div>Gap: -1.2 levels</div>
+                                                <div>Priority: Medium</div>
+                                                <div class="text-xs mt-1">Recommended: Team Lead shadowing program</div>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
                                     <td class="p-2 border font-medium">Negotiation</td>
-                                    <td class="p-2 border text-center">3.5 / 5</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-red" style="width: 70%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">3.5 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="p-2 border text-center">5 / 5</td>
                                     <td class="p-0 border">
-                                        <div class="heatmap-cell bg-gap-red tooltip">Significant Gap
-                                            <span class="tooltiptext">Average gap: -1.5 levels. Critical for target role.</span>
+                                        <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Negotiation</div>
+                                                <div>Gap: -1.5 levels</div>
+                                                <div>Priority: High</div>
+                                                <div class="text-xs mt-1">Recommended: Advanced negotiation tactics course</div>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
                                     <td class="p-2 border font-medium">Financial Acumen</td>
-                                    <td class="p-2 border text-center">2.0 / 5</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-yellow" style="width: 40%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">2.0 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="p-2 border text-center">3 / 5</td>
                                     <td class="p-0 border">
-                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate Gap
-                                            <span class="tooltiptext">Average gap: -1.0 levels. Needs improvement.</span>
+                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Financial Acumen</div>
+                                                <div>Gap: -1.0 levels</div>
+                                                <div>Priority: Medium</div>
+                                                <div class="text-xs mt-1">Recommended: Finance for non-finance managers</div>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
                                     <td class="p-2 border font-medium">CRM Software</td>
-                                    <td class="p-2 border text-center">4.1 / 5</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-green" style="width: 82%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">4.1 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="p-2 border text-center">4 / 5</td>
                                     <td class="p-0 border">
                                         <div class="heatmap-cell bg-gap-green tooltip">Met/Exceeded
-                                            <span class="tooltiptext">Average level meets or exceeds requirement.</span>
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">CRM Software</div>
+                                                <div>Gap: +0.1 levels</div>
+                                                <div>Priority: Low</div>
+                                                <div class="text-xs mt-1">Current level exceeds requirements</div>
+                                            </span>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2">*Heatmap colors indicate average gap severity across the selected group.</p>
+                    <p class="text-xs text-gray-500 mt-3">
+                        <i class="fas fa-info-circle mr-1"></i> Hover over gap status for details and recommendations.
+                    </p>
+                    <div class="mt-4 text-right">
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 transition-colors">
+                            View All Skills <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Succession Readiness & Flight Risk (AI Prediction)</h2>
-                    <p class="text-sm text-gray-600 mb-4">Identifying potential successors for 'Area Sales Manager' and monitoring attrition risk.</p>
+                
+                <div class="dashboard-card p-5 border border-gray-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Succession Readiness & Risk</h2>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">AI Predictions</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Potential successors for <span class="font-medium text-indigo-700">Area Sales Manager</span> with attrition risk assessment.</p>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full border border-gray-300 text-sm">
-                            <thead class="bg-gray-100">
+                        <table class="min-w-full border border-gray-200 text-sm">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="p-2 border">Employee</th>
-                                    <th class="p-2 border">Current Role</th>
-                                    <th class="p-2 border">AI Readiness Score (for Target Role)</th>
-                                    <th class="p-2 border">AI Flight Risk</th>
+                                    <th class="p-2 border text-left">Employee</th>
+                                    <th class="p-2 border text-left">Current Role</th>
+                                    <th class="p-2 border text-center">Readiness</th>
+                                    <th class="p-2 border text-center">Flight Risk</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
-                                <tr>
-                                    <td class="p-2 border font-medium">Supaporn K.</td>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">
+                                        <div class="flex items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/45.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
+                                            Supaporn K.
+                                        </div>
+                                    </td>
                                     <td class="p-2 border">Key Account Mgr</td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-green-600">Ready Now (88%)</span></td>
-                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (15%)</span></td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-green">
+                                            <i class="fas fa-check-circle mr-1"></i> Ready Now (88%)
+                                        </span>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-gray tooltip">
+                                            <i class="fas fa-shield-alt mr-1"></i> Low (15%)
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Stable Employee</div>
+                                                <div>High engagement scores</div>
+                                                <div>Clear career path</div>
+                                                <div>Recent promotion (8 months ago)</div>
+                                            </span>
+                                        </span>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="p-2 border font-medium">Anucha P.</td>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">
+                                        <div class="flex items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
+                                            Anucha P.
+                                        </div>
+                                    </td>
                                     <td class="p-2 border">Regional Sales Lead</td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-green-600">Ready Now (85%)</span></td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-red-600">High (75%)</span></td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-green">
+                                            <i class="fas fa-check-circle mr-1"></i> Ready Now (85%)
+                                        </span>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-red tooltip">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i> High (75%)
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Risk Factors</div>
+                                                <div>LinkedIn profile recently updated</div>
+                                                <div>Declining engagement scores</div>
+                                                <div>No promotion in 3+ years</div>
+                                                <div>Market demand for their skills</div>
+                                            </span>
+                                        </span>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="p-2 border font-medium">Somchai T.</td>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">
+                                        <div class="flex items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/42.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
+                                            Somchai T.
+                                        </div>
+                                    </td>
                                     <td class="p-2 border">Sales Rep</td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Ready in 12-18m (65%)</span></td>
-                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (20%)</span></td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-yellow">
+                                            <i class="fas fa-clock mr-1"></i> Ready in 12-18m (65%)
+                                        </span>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-gray tooltip">
+                                            <i class="fas fa-shield-alt mr-1"></i> Low (20%)
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Stable Employee</div>
+                                                <div>Good engagement scores</div>
+                                                <div>Recently enrolled in development program</div>
+                                            </span>
+                                        </span>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="p-2 border font-medium">Pichai R.</td>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">
+                                        <div class="flex items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/65.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
+                                            Pichai R.
+                                        </div>
+                                    </td>
                                     <td class="p-2 border">Sales Rep</td>
-                                    <td class="p-2 border text-center"><span class="text-gray-500">Needs Development (40%)</span></td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Medium (55%)</span></td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-gray">
+                                            <i class="fas fa-user-graduate mr-1"></i> Needs Development (40%)
+                                        </span>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-yellow tooltip">
+                                            <i class="fas fa-exclamation-circle mr-1"></i> Medium (55%)
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Watch List</div>
+                                                <div>Mixed engagement survey results</div>
+                                                <div>Competitor recently hiring in this role</div>
+                                            </span>
+                                        </span>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="p-2 border font-medium">Nittaya S.</td>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">
+                                        <div class="flex items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/28.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
+                                            Nittaya S.
+                                        </div>
+                                    </td>
                                     <td class="p-2 border">Key Account Mgr</td>
-                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Ready in 6-12m (78%)</span></td>
-                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (10%)</span></td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-yellow">
+                                            <i class="fas fa-clock mr-1"></i> Ready in 6-12m (78%)
+                                        </span>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="badge badge-gray tooltip">
+                                            <i class="fas fa-shield-alt mr-1"></i> Low (10%)
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Stable Employee</div>
+                                                <div>High engagement scores</div>
+                                                <div>Career development plan in place</div>
+                                                <div>Recent recognition award</div>
+                                            </span>
+                                        </span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2">*AI predictions based on performance, skills, engagement, and market data.</p>
+                    <p class="text-xs text-gray-500 mt-3">
+                        <i class="fas fa-info-circle mr-1"></i> Predictions based on performance, skills, engagement, and market data.
+                    </p>
+                    <div class="mt-4 text-right">
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 transition-colors">
+                            View Detailed Report <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill gap summary chart - add at the bottom -->
+            <div class="mt-8 dashboard-card p-5 border border-gray-100 slide-in">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Department Skill Gap Summary</h2>
+                    <button class="text-sm text-indigo-600 hover:text-indigo-800 flex items-center">
+                        <i class="fas fa-download mr-1"></i> Export
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <div class="flex items-center space-x-1 min-w-max">
+                        <div class="w-32 p-2 text-right text-sm font-medium text-gray-700">Strategic Planning</div>
+                        <div class="w-96 bg-gray-200 h-6 rounded-sm overflow-hidden">
+                            <div class="bg-red-500 h-full" style="width: 65%"></div>
+                        </div>
+                        <div class="text-sm text-gray-700 ml-2">-1.5</div>
+                    </div>
+                    <div class="flex items-center space-x-1 min-w-max mt-2">
+                        <div class="w-32 p-2 text-right text-sm font-medium text-gray-700">Negotiation</div>
+                        <div class="w-96 bg-gray-200 h-6 rounded-sm overflow-hidden">
+                            <div class="bg-red-500 h-full" style="width: 65%"></div>
+                        </div>
+                        <div class="text-sm text-gray-700 ml-2">-1.5</div>
+                    </div>
+                    <div class="flex items-center space-x-1 min-w-max mt-2">
+                        <div class="w-32 p-2 text-right text-sm font-medium text-gray-700">Leadership</div>
+                        <div class="w-96 bg-gray-200 h-6 rounded-sm overflow-hidden">
+                            <div class="bg-yellow-500 h-full" style="width: 52%"></div>
+                        </div>
+                        <div class="text-sm text-gray-700 ml-2">-1.2</div>
+                    </div>
+                    <div class="flex items-center space-x-1 min-w-max mt-2">
+                        <div class="w-32 p-2 text-right text-sm font-medium text-gray-700">Financial Acumen</div>
+                        <div class="w-96 bg-gray-200 h-6 rounded-sm overflow-hidden">
+                            <div class="bg-yellow-500 h-full" style="width: 43%"></div>
+                        </div>
+                        <div class="text-sm text-gray-700 ml-2">-1.0</div>
+                    </div>
+                    <div class="flex items-center space-x-1 min-w-max mt-2">
+                        <div class="w-32 p-2 text-right text-sm font-medium text-gray-700">CRM Software</div>
+                        <div class="w-96 bg-gray-200 h-6 rounded-sm overflow-hidden">
+                            <div class="bg-green-500 h-full" style="width: 4%"></div>
+                        </div>
+                        <div class="text-sm text-green-700 ml-2">+0.1</div>
+                    </div>
+                </div>
+                <div class="mt-4 grid grid-cols-3 gap-2 text-xs text-center">
+                    <div class="p-1 bg-red-100 text-red-800 rounded">
+                        <span class="font-medium">Critical Gaps:</span> -1.5 or more
+                    </div>
+                    <div class="p-1 bg-yellow-100 text-yellow-800 rounded">
+                        <span class="font-medium">Moderate Gaps:</span> -0.5 to -1.4
+                    </div>
+                    <div class="p-1 bg-green-100 text-green-800 rounded">
+                        <span class="font-medium">Slight/No Gap:</span> -0.4 to +
+                    </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="explanation-box p-6 rounded-lg shadow-inner">
             <h2 class="text-xl font-semibold mb-4 text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Dashboards</h2>
              <div class="space-y-4 text-sm text-gray-700">
@@ -179,29 +483,139 @@
                 </div>
                 <div>
                     <h3 class="font-semibold text-gray-900">AI Solution:</h3>
-                    <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong>Skill-Gap Analyzer:</strong> (Used in IDP planning but visualized here) Compares current skills (from enriched profiles) against target role requirements to automatically identify and highlight gaps.</li>
-                        <li><strong>Skills Heat-Map:</strong> Aggregates skill data across business units or departments, visualizing strengths and weaknesses (Red/Yellow/Green) for quick executive overview.</li>
-                        <li><strong>Readiness & Flight-Risk Predictor (ML):</strong> Analyzes a combination of data (performance reviews, skill levels, engagement surveys, tenure, market trends) to score an employee's readiness for a future role (e.g., "Ready Now", "Ready in 6-12m") and predict their likelihood of leaving the company.</li>
-                         <li><strong>Auto-CDP Updater:</strong> (Background process) Consolidates data from various sources (LMS, PMS, 360 feedback) into a single, unified Career Development Profile timeline for each employee, ensuring data for predictions is current.</li>
+                    <ul class="list-disc list-outside pl-5 space-y-2">
+                        <li>
+                            <div class="flex items-start">
+                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">AI</div>
+                                <div>
+                                    <strong>Skill-Gap Analyzer:</strong> Compares current skills (from enriched profiles) against target role requirements to automatically identify and highlight gaps.
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-start">
+                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">AI</div>
+                                <div>
+                                    <strong>Skills Heat-Map:</strong> Aggregates skill data across business units or departments, visualizing strengths and weaknesses (Red/Yellow/Green) for quick executive overview.
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-start">
+                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">ML</div>
+                                <div>
+                                    <strong>Readiness & Flight-Risk Predictor:</strong> Analyzes a combination of data (performance reviews, skill levels, engagement surveys, tenure, market trends) to score an employee's readiness for a future role and predict their likelihood of leaving.
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-start">
+                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5">AI</div>
+                                <div>
+                                    <strong>Auto-CDP Updater:</strong> Consolidates data from various sources (LMS, PMS, 360 feedback) into a single, unified Career Development Profile timeline for each employee, ensuring data for predictions is current.
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                  <div>
                     <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
-                    <p>A manager reviews the dashboard for their team. The heatmap instantly shows a critical gap in "Strategic Planning". The readiness table identifies two "Ready Now" successors for a key role, but flags one as a "High" flight risk, prompting immediate retention action.</p>
+                    <div class="bg-white p-3 rounded-md border border-gray-200 shadow-sm">
+                        <p>A manager reviews the dashboard for their team. The heatmap instantly shows a critical gap in "Strategic Planning". The readiness table identifies two "Ready Now" successors for a key role, but flags one as a "High" flight risk, prompting immediate retention action.</p>
+                    </div>
                 </div>
                 <div>
                     <h3 class="font-semibold text-gray-900">Benefits:</h3>
                      <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong class="text-green-600">Proactive Succession Planning:</strong> Identify and develop future leaders based on data-driven readiness scores.</li>
-                         <li><strong class="text-green-600">Targeted Retention Efforts:</strong> Focus on high-potential employees identified as flight risks.</li>
-                         <li><strong class="text-green-600">Data-Driven L&D:</strong> Allocate training budgets effectively by focusing on the most critical, widespread skill gaps.</li>
-                         <li><strong class="text-green-600">Strategic Workforce Insights:</strong> Provide executives with clear visibility into the organization's overall skill health and talent pipeline.</li>
-                         <li><strong class="text-green-600">Real-time Data:</strong> Eliminates manual data consolidation, providing current insights.</li>
+                        <li><span class="text-green-600 font-medium">Proactive Succession Planning:</span> Identify and develop future leaders based on data-driven readiness scores.</li>
+                         <li><span class="text-green-600 font-medium">Targeted Retention Efforts:</span> Focus on high-potential employees identified as flight risks.</li>
+                         <li><span class="text-green-600 font-medium">Data-Driven L&D:</span> Allocate training budgets effectively by focusing on the most critical, widespread skill gaps.</li>
+                         <li><span class="text-green-600 font-medium">Strategic Workforce Insights:</span> Provide executives with clear visibility into the organization's overall skill health and talent pipeline.</li>
+                         <li><span class="text-green-600 font-medium">Real-time Data:</span> Eliminates manual data consolidation, providing current insights.</li>
+                    </ul>
+                </div>
+                
+                <div class="mt-6 p-3 bg-indigo-50 rounded-md border border-indigo-100">
+                    <h3 class="font-semibold text-indigo-800 flex items-center">
+                        <i class="fas fa-robot mr-2"></i> AI Recommendations
+                    </h3>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2"></i>
+                            <div>
+                                <span class="font-medium">Create Strategic Planning workshop series</span>
+                                <p class="text-xs text-gray-600">Addresses the most critical skill gap across the department</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2"></i>
+                            <div>
+                                <span class="font-medium">Schedule retention discussion with Anucha P.</span>
+                                <p class="text-xs text-gray-600">High flight risk for a "Ready Now" successor requires immediate attention</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2"></i>
+                            <div>
+                                <span class="font-medium">Accelerate IDP for Nittaya S.</span>
+                                <p class="text-xs text-gray-600">Could be ready sooner with targeted development in Strategic Planning</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Simple interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter button click animation
+            const filterButton = document.querySelector('.bg-indigo-600');
+            if (filterButton) {
+                filterButton.addEventListener('click', function() {
+                    this.classList.add('scale-95');
+                    setTimeout(() => {
+                        this.classList.remove('scale-95');
+                    }, 100);
+                });
+            }
+            
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.rounded-t-md');
+            if (tabs.length > 0) {
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        // Remove active class from all tabs
+                        tabs.forEach(t => {
+                            t.classList.remove('tab-active');
+                            t.classList.add('text-gray-700');
+                            t.classList.add('hover:text-indigo-700');
+                        });
+                        
+                        // Add active class to clicked tab
+                        this.classList.add('tab-active');
+                        this.classList.remove('text-gray-700');
+                        this.classList.remove('hover:text-indigo-700');
+                    });
+                });
+            }
+            
+            // Select box handling
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    // Add a subtle animation
+                    const parent = this.closest('.dashboard-card');
+                    if (parent) {
+                        parent.classList.add('bg-indigo-50');
+                        setTimeout(() => {
+                            parent.classList.remove('bg-indigo-50');
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
