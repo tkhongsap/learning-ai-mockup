@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Skill-Gap & Readiness Dashboards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .heatmap-cell { width: 100px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 500; color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.1); }
+        .bg-gap-red { background-color: #ef4444; } 
+        .bg-gap-yellow { background-color: #f59e0b; } 
+        .bg-gap-green { background-color: #22c55e; }
+        .tooltip { position: relative; display: inline-block; cursor: pointer; }
+        .tooltip .tooltiptext { visibility: hidden; width: 160px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -80px; opacity: 0; transition: opacity 0.3s; font-size: 0.75rem; }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #6366f1; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto mb-6">
+        <div class="flex justify-between items-center border-b pb-4">
+            <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-chart-line mr-2"></i>Skill-Gap & Readiness Dashboard Demo</h1>
+             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+        </div>
+    </div>
+
+     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <div class="mb-8 flex flex-wrap gap-4 items-center">
+                <label for="sg-bu-select" class="text-sm font-medium text-gray-700">Business Unit:</label>
+                <select id="sg-bu-select" class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
+                    <option selected>Sales Department</option>
+                    <option>Supply Chain</option>
+                    <option>Marketing</option>
+                    <option>Technology</option>
+                </select>
+                <label for="sg-role-select" class="text-sm font-medium text-gray-700">Target Role:</label>
+                <select id="sg-role-select" class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
+                    <option selected>Area Sales Manager</option>
+                    <option>Senior Software Architect</option>
+                    <option>Marketing Manager</option>
+                </select>
+                <button class="px-4 py-1.5 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700">Apply Filters</button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Critical Skill Gaps Heatmap (Sales Dept)</h2>
+                    <p class="text-sm text-gray-600 mb-4">Comparing current team skills against requirements for 'Area Sales Manager'. Red indicates largest gaps.</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border border-gray-300 text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-2 border">Skill</th>
+                                    <th class="p-2 border">Avg. Current Level</th>
+                                    <th class="p-2 border">Required Level</th>
+                                    <th class="p-2 border">Gap Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr>
+                                    <td class="p-2 border font-medium">Strategic Planning</td>
+                                    <td class="p-2 border text-center">2.5 / 5</td>
+                                    <td class="p-2 border text-center">4 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-red tooltip">Significant Gap
+                                            <span class="tooltiptext">Average gap: -1.5 levels. High priority for training.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Leadership</td>
+                                    <td class="p-2 border text-center">2.8 / 5</td>
+                                    <td class="p-2 border text-center">4 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate Gap
+                                            <span class="tooltiptext">Average gap: -1.2 levels. Consider development programs.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Negotiation</td>
+                                    <td class="p-2 border text-center">3.5 / 5</td>
+                                    <td class="p-2 border text-center">5 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-red tooltip">Significant Gap
+                                            <span class="tooltiptext">Average gap: -1.5 levels. Critical for target role.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Financial Acumen</td>
+                                    <td class="p-2 border text-center">2.0 / 5</td>
+                                    <td class="p-2 border text-center">3 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate Gap
+                                            <span class="tooltiptext">Average gap: -1.0 levels. Needs improvement.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">CRM Software</td>
+                                    <td class="p-2 border text-center">4.1 / 5</td>
+                                    <td class="p-2 border text-center">4 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-green tooltip">Met/Exceeded
+                                            <span class="tooltiptext">Average level meets or exceeds requirement.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">*Heatmap colors indicate average gap severity across the selected group.</p>
+                </div>
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Succession Readiness & Flight Risk (AI Prediction)</h2>
+                    <p class="text-sm text-gray-600 mb-4">Identifying potential successors for 'Area Sales Manager' and monitoring attrition risk.</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border border-gray-300 text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-2 border">Employee</th>
+                                    <th class="p-2 border">Current Role</th>
+                                    <th class="p-2 border">AI Readiness Score (for Target Role)</th>
+                                    <th class="p-2 border">AI Flight Risk</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr>
+                                    <td class="p-2 border font-medium">Supaporn K.</td>
+                                    <td class="p-2 border">Key Account Mgr</td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-green-600">Ready Now (88%)</span></td>
+                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (15%)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Anucha P.</td>
+                                    <td class="p-2 border">Regional Sales Lead</td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-green-600">Ready Now (85%)</span></td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-red-600">High (75%)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Somchai T.</td>
+                                    <td class="p-2 border">Sales Rep</td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Ready in 12-18m (65%)</span></td>
+                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (20%)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Pichai R.</td>
+                                    <td class="p-2 border">Sales Rep</td>
+                                    <td class="p-2 border text-center"><span class="text-gray-500">Needs Development (40%)</span></td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Medium (55%)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border font-medium">Nittaya S.</td>
+                                    <td class="p-2 border">Key Account Mgr</td>
+                                    <td class="p-2 border text-center"><span class="font-semibold text-yellow-600">Ready in 6-12m (78%)</span></td>
+                                    <td class="p-2 border text-center"><span class="text-gray-500">Low (10%)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">*AI predictions based on performance, skills, engagement, and market data.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box p-6 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Dashboards</h2>
+             <div class="space-y-4 text-sm text-gray-700">
+                <div>
+                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
+                    <p>HR and managers lack a clear, forward-looking view of talent readiness and potential attrition. Identifying skill gaps across teams is often manual and time-consuming. Executives need quick visibility into overall workforce skills.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong>Skill-Gap Analyzer:</strong> (Used in IDP planning but visualized here) Compares current skills (from enriched profiles) against target role requirements to automatically identify and highlight gaps.</li>
+                        <li><strong>Skills Heat-Map:</strong> Aggregates skill data across business units or departments, visualizing strengths and weaknesses (Red/Yellow/Green) for quick executive overview.</li>
+                        <li><strong>Readiness & Flight-Risk Predictor (ML):</strong> Analyzes a combination of data (performance reviews, skill levels, engagement surveys, tenure, market trends) to score an employee's readiness for a future role (e.g., "Ready Now", "Ready in 6-12m") and predict their likelihood of leaving the company.</li>
+                         <li><strong>Auto-CDP Updater:</strong> (Background process) Consolidates data from various sources (LMS, PMS, 360 feedback) into a single, unified Career Development Profile timeline for each employee, ensuring data for predictions is current.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
+                    <p>A manager reviews the dashboard for their team. The heatmap instantly shows a critical gap in "Strategic Planning". The readiness table identifies two "Ready Now" successors for a key role, but flags one as a "High" flight risk, prompting immediate retention action.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                     <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong class="text-green-600">Proactive Succession Planning:</strong> Identify and develop future leaders based on data-driven readiness scores.</li>
+                         <li><strong class="text-green-600">Targeted Retention Efforts:</strong> Focus on high-potential employees identified as flight risks.</li>
+                         <li><strong class="text-green-600">Data-Driven L&D:</strong> Allocate training budgets effectively by focusing on the most critical, widespread skill gaps.</li>
+                         <li><strong class="text-green-600">Strategic Workforce Insights:</strong> Provide executives with clear visibility into the organization's overall skill health and talent pipeline.</li>
+                         <li><strong class="text-green-600">Real-time Data:</strong> Eliminates manual data consolidation, providing current insights.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

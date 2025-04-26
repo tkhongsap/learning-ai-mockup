@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: Adaptive Learning Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .path-item { border-left: 3px solid #d1d5db; padding-left: 1.5rem; position: relative; margin-bottom: 1rem; }
+        .path-item::before { content: ''; position: absolute; left: -7px; top: 8px; width: 14px; height: 14px; background-color: white; border: 3px solid #d1d5db; border-radius: 50%; }
+        .path-item.completed::before { border-color: #10b981; background-color: #10b981; }
+        .path-item.active::before { border-color: #3b82f6; background-color: #3b82f6; }
+        .path-item.locked { opacity: 0.6; }
+        .path-item.adaptive-insert { border-left-color: #f59e0b; animation: fadeIn 0.5s ease-in-out; }
+        .path-item.adaptive-insert::before { border-color: #f59e0b; background-color: #fcd34d; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .quiz-option { cursor: pointer; transition: background-color 0.2s ease; }
+        .quiz-option:hover { background-color: #eef2ff; }
+        .quiz-option.selected { background-color: #c7d2fe; border-color: #6366f1; }
+        .quiz-option.correct { background-color: #dcfce7; border-color: #22c55e; }
+        .quiz-option.incorrect { background-color: #fee2e2; border-color: #ef4444; }
+        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #10b981; } /* bg-gray-100 border-green-600 */
+    </style>
+</head>
+<body class="p-4 md:p-8">
+     <div class="max-w-7xl mx-auto mb-6">
+        <div class="flex justify-between items-center border-b pb-4">
+            <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-certificate mr-2"></i>Adaptive Learning Path Demo</h1>
+             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+        </div>
+    </div>
+
+     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold mb-2 text-gray-800">Course: SAP Basics for Sales Teams</h2>
+            <p class="text-sm text-gray-600 mb-6">Your progress through the learning path. AI will adapt the sequence based on your performance.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <h3 class="text-lg font-semibold mb-4">Learning Path</h3>
+                    <div id="al-learning-path" class="space-y-4"></div>
+                    <div id="al-completion-message" class="hidden mt-8 p-4 bg-green-100 border border-green-300 rounded-md text-green-800 text-center fade-in">
+                        <i class="fas fa-check-circle fa-2x mb-2"></i>
+                        <p class="font-semibold">Congratulations! You have completed the course.</p>
+                        <p class="text-sm mt-1">Your certificate has been issued and added to your profile.</p>
+                    </div>
+                </div>
+                <div class="lg:border-l lg:pl-6">
+                    <h3 class="text-lg font-semibold mb-4">Current Activity</h3>
+                    <div id="al-current-activity" class="bg-gray-50 p-4 rounded-md border">
+                        <p class="text-gray-500 italic">Select an item from the learning path to begin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box p-6 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-green-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Learning Paths</h2>
+             <div class="space-y-4 text-sm text-gray-700">
+                <div>
+                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
+                    <p>Traditional linear courses have low completion rates because they don't adapt to individual learner needs. Learners get stuck or bored if the content is too hard or too easy.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong>Adaptive Sequencer:</strong> Monitors learner performance, typically through quiz scores or interaction patterns within modules.</li>
+                        <li>Based on performance, the AI can dynamically adjust the learning path:
+                            <ul class="list-['-_'] list-outside pl-5 mt-1">
+                                <li>If a learner struggles (e.g., fails a quiz), the AI inserts a relevant refresher module or directs them back to prerequisite content.</li>
+                                <li>If a learner demonstrates mastery quickly, the AI might allow them to skip introductory modules or offer more advanced optional content.</li>
+                            </ul>
+                        </li>
+                         <li>Certificates are automatically issued only upon successful completion of the *entire* potentially adapted path, ensuring mastery.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
+                    <p>A user fails "Quiz 1: Sales Order Basics". The AI detects the low score and automatically inserts a short "Refresher: Sales Order Process" module immediately after the quiz in their learning path before they can proceed to the next topic.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                     <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong class="text-green-600">Improved Mastery:</strong> Ensures learners understand concepts before moving on, reinforcing knowledge where needed.</li>
+                         <li><strong class="text-green-600">Increased Completion Rates:</strong> Reduces frustration and dropout by providing timely support or allowing advanced learners to progress faster. (Target: +15pp)</li>
+                         <li><strong class="text-green-600">Personalized Experience:</strong> Tailors the learning journey to individual needs and pace.</li>
+                         <li><strong class="text-green-600">Efficient Learning:</strong> Focuses time on areas where the learner needs the most help.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let al_currentStep = 0;
+        let al_pathItems = [];
+        const learningPathEl = document.getElementById('al-learning-path');
+        const currentActivityEl = document.getElementById('al-current-activity');
+        const completionMessageEl = document.getElementById('al-completion-message');
+
+        function al_renderPath() {
+            if (!learningPathEl) return;
+            learningPathEl.innerHTML = '';
+            
+            al_pathItems.forEach((item, index) => {
+                const isLocked = item.status === 'locked';
+                const isActive = index === al_currentStep && item.status !== 'completed';
+                const isCompleted = item.status === 'completed';
+                const isAdaptive = item.adaptive === true;
+                
+                let itemHtml = `
+                    <div id="al-path-item-${item.id}" class="path-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''} ${isLocked && !isActive ? 'locked' : ''} ${isAdaptive ? 'adaptive-insert' : ''}">
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium ${isLocked && !isActive ? 'text-gray-500' : 'text-gray-900'}">
+                                ${item.adaptive ? '<i class="fas fa-lightbulb text-yellow-500 mr-1"></i> ' : ''}${item.title}
+                                ${isCompleted ? '<i class="fas fa-check text-green-500 ml-2"></i>' : ''}
+                                ${isActive ? '<i class="fas fa-arrow-right text-blue-500 ml-2"></i>' : ''}
+                            </span>
+                            <span class="text-xs text-gray-500">${item.duration || (item.questions ? `${item.questions} Question(s)` : '')}</span>
+                        </div>
+                        ${isAdaptive ? '<p class="text-xs text-yellow-700 mt-1">AI Suggestion: Added based on recent performance.</p>' : ''}
+                    </div>
+                `;
+                
+                learningPathEl.insertAdjacentHTML('beforeend', itemHtml);
+                
+                const itemElement = document.getElementById(`al-path-item-${item.id}`);
+                if (itemElement && (!isLocked || isActive)) {
+                    itemElement.style.cursor = 'pointer';
+                    itemElement.onclick = () => al_loadActivity(index);
+                }
+            });
+        }
+
+        function al_loadActivity(index) {
+            if (!currentActivityEl || !completionMessageEl) return;
+            
+            al_currentStep = index;
+            al_renderPath();
+            
+            const item = al_pathItems[index];
+            currentActivityEl.innerHTML = '';
+            
+            if (item.status === 'completed') {
+                currentActivityEl.innerHTML = `<p class="text-sm text-gray-600">You have already completed: <strong>${item.title}</strong>.</p>`;
+                return;
+            }
+            
+            if (item.type === 'module') {
+                currentActivityEl.innerHTML = `
+                    <h4 class="font-semibold mb-2">${item.title}</h4>
+                    <p class="text-sm text-gray-600 mb-4">Estimated duration: ${item.duration}.</p>
+                    <div class="aspect-video bg-gray-300 rounded flex items-center justify-center mb-4">
+                        <span class="text-gray-500">(Module Content Placeholder)</span>
+                    </div>
+                    <button class="w-full px-4 py-2 bg-green-600 text-white text-sm rounded-md shadow hover:bg-green-700" 
+                            onclick="al_completeStep(${index})">Mark as Complete</button>
+                `;
+            } else if (item.type === 'quiz') {
+                currentActivityEl.innerHTML = `
+                    <h4 class="font-semibold mb-2">${item.title}</h4>
+                    <p class="text-sm text-gray-600 mb-4">Question 1 of 1:</p>
+                    <p class="mb-3 font-medium">Where do you typically create a standard Sales Order in SAP?</p>
+                    <div class="space-y-2">
+                        <div class="quiz-option border p-3 rounded-md text-sm" data-correct="true" onclick="al_selectAnswer(this)">A) Transaction VA01</div>
+                        <div class="quiz-option border p-3 rounded-md text-sm" onclick="al_selectAnswer(this)">B) Transaction ME21N</div>
+                        <div class="quiz-option border p-3 rounded-md text-sm" onclick="al_selectAnswer(this)">C) Transaction FB01</div>
+                    </div>
+                    <button id="al-submit-quiz-btn" class="w-full mt-4 px-4 py-2 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700 disabled:opacity-50"
+                            disabled onclick="al_submitQuiz(${index})">Submit Answer</button>
+                    <div id="al-quiz-feedback" class="hidden mt-3 text-sm"></div>
+                `;
+            } else if (item.type === 'final') {
+                currentActivityEl.innerHTML = `<p class="text-center text-green-600 font-semibold">Ready to complete the course!</p>`;
+                completionMessageEl.classList.remove('hidden');
+            }
+            
+            al_pathItems[index].status = 'active';
+        }
+
+        function al_selectAnswer(optionElement) {
+            const container = optionElement.closest('#al-current-activity');
+            if (!container) return;
+            
+            container.querySelectorAll('.quiz-option').forEach(el => el.classList.remove('selected'));
+            optionElement.classList.add('selected');
+            
+            const submitBtn = container.querySelector('#al-submit-quiz-btn');
+            if (submitBtn) submitBtn.disabled = false;
+        }
+
+        function al_submitQuiz(index) {
+            const container = document.getElementById('al-current-activity');
+            if (!container) return;
+            
+            const selectedOption = container.querySelector('.quiz-option.selected');
+            const feedbackEl = container.querySelector('#al-quiz-feedback');
+            const submitBtn = container.querySelector('#al-submit-quiz-btn');
+            
+            if (!selectedOption || !feedbackEl || !submitBtn) return;
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            const quizItemId = al_pathItems[index].id;
+            
+            feedbackEl.classList.remove('hidden');
+            
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                feedbackEl.innerHTML = `<p class="text-green-700 font-medium"><i class="fas fa-check mr-1"></i> Correct!</p>`;
+                setTimeout(() => al_completeStep(index), 1000);
+            } else {
+                selectedOption.classList.add('incorrect');
+                feedbackEl.innerHTML = `<p class="text-red-700 font-medium"><i class="fas fa-times mr-1"></i> Incorrect.</p> <p class="mt-1">AI has added a refresher module to your path.</p>`;
+                al_adaptPath(index, quizItemId);
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    const adaptiveIndex = al_pathItems.findIndex(item => item.adaptive && item.adaptiveSource === quizItemId);
+                    if (adaptiveIndex !== -1) al_loadActivity(adaptiveIndex);
+                }, 2000);
+            }
+            
+            container.querySelectorAll('.quiz-option').forEach(el => el.onclick = null);
+        }
+
+        function al_adaptPath(failedQuizIndex, quizId) {
+            if (al_pathItems.some(item => item.adaptiveSource === quizId)) return;
+            
+            const adaptiveModule = {
+                id: Date.now(),
+                type: 'module',
+                title: 'Refresher: Sales Order Process',
+                status: 'locked',
+                duration: '10 min',
+                adaptive: true,
+                adaptiveSource: quizId
+            };
+            
+            al_pathItems.splice(failedQuizIndex + 1, 0, adaptiveModule);
+            al_renderPath();
+        }
+
+        function al_completeStep(index) {
+            if (!currentActivityEl || !completionMessageEl) return;
+            
+            al_pathItems[index].status = 'completed';
+            currentActivityEl.innerHTML = `<p class="text-green-600 italic">Step completed!</p>`;
+            
+            if (index + 1 < al_pathItems.length) {
+                al_pathItems[index + 1].status = 'active';
+                al_currentStep = index + 1;
+                setTimeout(() => al_loadActivity(al_currentStep), 500);
+            } else {
+                completionMessageEl.classList.remove('hidden');
+            }
+            
+            al_renderPath();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            al_pathItems = [
+                { id: 1, type: 'module', title: 'Introduction to SAP Navigation', status: 'locked', duration: '15 min' },
+                { id: 2, type: 'module', title: 'Understanding Sales Orders', status: 'locked', duration: '25 min' },
+                { id: 3, type: 'quiz', title: 'Quiz 1: Sales Order Basics', status: 'locked', questions: 1 },
+                { id: 4, type: 'module', title: 'Customer Master Data', status: 'locked', duration: '20 min' },
+                { id: 5, type: 'module', title: 'Pricing and Conditions', status: 'locked', duration: '30 min' },
+                { id: 6, type: 'quiz', title: 'Quiz 2: Customer & Pricing', status: 'locked', questions: 1 },
+                { id: 7, type: 'module', title: 'Reporting in SAP Sales', status: 'locked', duration: '25 min' },
+                { id: 8, type: 'final', title: 'Course Completion', status: 'locked' }
+            ];
+            
+            al_currentStep = 0;
+            if(completionMessageEl) completionMessageEl.classList.add('hidden');
+            al_pathItems[0].status = 'active';
+            al_renderPath();
+            al_loadActivity(0);
+        });
+    </script>
+</body>
+</html> 

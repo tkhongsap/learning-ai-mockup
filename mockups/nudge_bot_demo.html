@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo: AI Nudge Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .chat-container { height: 500px; /* Fixed height for demo */ overflow-y: auto; }
+        .message-bot { background-color: #eef2ff; border-radius: 1rem 1rem 1rem 0; }
+        .message-user { background-color: #dcfce7; border-radius: 1rem 1rem 0 1rem; }
+        .timestamp { font-size: 0.7rem; color: #6b7280; }
+        .action-button { cursor: pointer; border: 1px solid #6366f1; color: #6366f1; padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; transition: background-color 0.2s ease; }
+        .action-button:hover { background-color: #e0e7ff; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #f59e0b; } /* bg-gray-100 border-amber-500 */
+    </style>
+</head>
+<body class="p-4 md:p-8">
+     <div class="max-w-7xl mx-auto mb-6">
+        <div class="flex justify-between items-center border-b pb-4">
+             <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-mobile-alt mr-2"></i>AI Nudge Bot Demo</h1>
+             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div class="md:col-span-2 flex justify-center">
+             <div class="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-indigo-600 p-4 text-white flex items-center justify-between">
+                    <div class="flex items-center"><i class="fas fa-robot mr-3 text-xl"></i><span class="font-semibold">LearnSphere AI Bot</span></div>
+                    </div>
+                <div id="nb-chat-messages" class="p-4 space-y-4 chat-container"></div>
+                <div class="p-4 border-t bg-gray-50"><p class="text-center text-xs text-gray-500">This is a simulation. Bot messages appear automatically.</p></div>
+            </div>
+        </div>
+
+        <div class="explanation-box p-6 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold mb-4 text-amber-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances the Nudge Bot</h2>
+             <div class="space-y-4 text-sm text-gray-700">
+                <div>
+                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
+                    <p>Learners often forget deadlines or lose momentum in self-paced courses, leading to low completion rates.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong>Nudge Bot (Line/MS Teams):</strong> An AI assistant integrated into employees' daily chat tools.</li>
+                        <li><strong>Reads LMS Status:</strong> Connects to the LMS database to check course progress, deadlines, and enrollment status.</li>
+                        <li><strong>Sends Smart Reminders:</strong> Proactively messages users who are falling behind schedule or approaching a deadline.</li>
+                        <li><strong>Provides TL;DR Summaries:</strong> Can offer concise (e.g., 3-line) summaries of course content to help learners quickly recall information and re-engage.</li>
+                        <li><strong>Contextual Suggestions:</strong> Can also nudge users about relevant new courses based on completed ones or profile interests.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
+                    <p>The bot detects Somchai is 50% behind schedule for his "SAP Basics" course. It sends him a message on MS Teams: "Hi Somchai, you're 50% behind schedule on 'SAP Basics'. Need a 3-line recap?"</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                     <ul class="list-disc list-outside pl-5 space-y-1">
+                        <li><strong class="text-green-600">Reduced Dropout Rates:</strong> Timely reminders help keep learners engaged. (Target: Halve dropout)</li>
+                         <li><strong class="text-green-600">Increased Completion:</strong> Helps learners stay on track to finish courses.</li>
+                         <li><strong class="text-green-600">Improved Satisfaction:</strong> Provides helpful, non-intrusive support within familiar tools.</li>
+                         <li><strong class="text-green-600">Just-in-Time Learning:</strong> Offers quick recaps to overcome forgetting curves.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let nb_messageQueue = [];
+        let nb_messageIndex = 0;
+        let nb_timeoutId = null;
+        const chatMessagesEl = document.getElementById('nb-chat-messages');
+        
+        function nb_addMessage(sender, text, actions = []) {
+            if (!chatMessagesEl) return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('flex', 'fade-in');
+            
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.classList.add('p-3', 'max-w-[80%]', 'text-sm');
+            
+            if (sender === 'bot') {
+                messageDiv.classList.add('justify-start');
+                bubbleDiv.classList.add('message-bot');
+            } else {
+                messageDiv.classList.add('justify-end');
+                bubbleDiv.classList.add('message-user');
+            }
+            
+            bubbleDiv.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
+            
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeEl = document.createElement('span');
+            timeEl.classList.add('block', 'mt-1', 'timestamp', sender === 'bot' ? 'text-left' : 'text-right');
+            timeEl.textContent = timestamp;
+            bubbleDiv.appendChild(timeEl);
+            
+            if (actions.length > 0) {
+                const actionsDiv = document.createElement('div');
+                actionsDiv.classList.add('mt-2', 'flex', 'flex-wrap', 'gap-2');
+                
+                actions.forEach(action => {
+                    const button = document.createElement('button');
+                    button.classList.add('action-button');
+                    button.textContent = action.label;
+                    button.onclick = () => nb_handleAction(action.action, actionsDiv);
+                    actionsDiv.appendChild(button);
+                });
+                
+                bubbleDiv.appendChild(actionsDiv);
+            }
+            
+            messageDiv.appendChild(bubbleDiv);
+            chatMessagesEl.appendChild(messageDiv);
+            chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+        }
+        
+        function nb_handleAction(actionType, buttonsContainer) {
+            buttonsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+            buttonsContainer.style.opacity = '0.6';
+            clearTimeout(nb_timeoutId);
+            
+            if (actionType === 'showRecap') {
+                nb_addMessage('user', "Yes, give recap");
+                
+                setTimeout(() => {
+                    nb_addMessage('bot', "Okay, here's a quick recap of 'SAP Basics':\n1. Focus on VA01 for creating orders.\n2. Understand customer master data fields.\n3. Check pricing conditions carefully.");
+                    setTimeout(nb_showNextMessage, 1500);
+                }, 1000);
+            } else if (actionType === 'declineRecap') {
+                nb_addMessage('user', "No, thanks");
+                
+                setTimeout(() => {
+                    nb_addMessage('bot', "Alright. Let me know if you need help later!");
+                    setTimeout(nb_showNextMessage, 1500);
+                }, 1000);
+            }
+        }
+        
+        function nb_showNextMessage() {
+            if (nb_messageIndex < nb_messageQueue.length) {
+                const msg = nb_messageQueue[nb_messageIndex];
+                nb_addMessage(msg.sender, msg.text, msg.actions);
+                nb_messageIndex++;
+                
+                if (!msg.actions || msg.actions.length === 0) {
+                    clearTimeout(nb_timeoutId);
+                    nb_timeoutId = setTimeout(nb_showNextMessage, 1500 + Math.random() * 1000);
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            chatMessagesEl.innerHTML = '';
+            
+            nb_messageQueue = [
+                { sender: 'bot', text: "Hi Somchai, welcome to the LearnSphere AI assistant!" },
+                { sender: 'bot', text: "I can help you stay on track with your learning. I see you're enrolled in 'SAP Basics for Sales Teams'." },
+                { sender: 'bot', text: "Looks like you're currently 50% behind the suggested schedule for 'SAP Basics for Sales Teams'. Would you like a quick 3-line recap to help you catch up?", 
+                  actions: [
+                    { label: "Yes, give recap", action: "showRecap" },
+                    { label: "No, thanks", action: "declineRecap" }
+                  ] 
+                },
+                { sender: 'bot', text: "By the way, congrats on completing 'Sales Fundamentals' last week!" },
+                { sender: 'bot', text: "Based on your interest in becoming an Area Sales Manager, the course 'Strategic Planning Essentials' might be a good next step after SAP Basics." }
+            ];
+            
+            nb_messageIndex = 0;
+            clearTimeout(nb_timeoutId);
+            nb_timeoutId = setTimeout(nb_showNextMessage, 1000);
+        });
+    </script>
+</body>
+</html> 
