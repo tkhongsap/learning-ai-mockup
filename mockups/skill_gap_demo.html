@@ -95,6 +95,9 @@
         const i18nextHttpBackend = window.i18nextHttpBackend;
         const i18nextBrowserLanguageDetector = window.i18nextBrowserLanguageDetector;
 
+        // Ensure translation files are loaded from correct path
+        const loadPath = '../locales/{{lng}}/{{ns}}.json';
+
         // Function to translate a specific element and its children
         function translateElement(element) {
             if (!element || !i18nextInstance || !i18nextInstance.isInitialized) {
@@ -213,11 +216,13 @@
                     ns: ['translation'],
                     defaultNS: 'translation',
                     backend: {
-                        loadPath: '../locales/{{lng}}/{{ns}}.json',
+                        loadPath: loadPath,
                         requestOptions: {
                             cache: 'no-store' // Prevent caching to ensure fresh translations
                         }
                     },
+                    ns: ['translation', 'demos'],
+                    defaultNS: 'demos',
                     detection: {
                         order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
                         caches: ['localStorage', 'cookie'],
