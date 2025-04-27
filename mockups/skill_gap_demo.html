@@ -172,18 +172,29 @@
             try {
                 console.log(`Changing language to: ${lang}`);
                 await i18nextInstance.changeLanguage(lang);
-                console.log(`Language changed to: ${i18nextInstance.language}`);
-                
-                // Force retranslation of all elements with data-i18n attributes
-                translateElement(document.body);
-                
-                // Update UI to show active language
-                updateLanguageSwitcherUI(lang);
-                
-                // Debug translation status after language change
-                if (window.debugTranslation) {
-                    window.debugTranslation();
+                console.log(`Language changed event finished for: ${i18nextInstance.language}`);
+
+                // Ensure resources for the new language are loaded before translating
+                if (i18nextInstance.hasResourceBundle(lang, 'translation')) {
+                    console.log(`Resource bundle confirmed for ${lang}. Translating body...`);
+                    translateElement(document.body);
+                    updateLanguageSwitcherUI(lang);
+                    if (window.debugTranslation) window.debugTranslation();
+                } else {
+                    // Wait for resources to be loaded if backend is used
+                    console.warn(`Resource bundle not immediately available for ${lang}. Waiting for backend...`);
+                    i18nextInstance.loadLanguages(lang, (err) => {
+                        if (err) {
+                            console.error(`Error loading language ${lang}:`, err);
+                        } else {
+                            console.log(`Resource bundle loaded via backend for ${lang}. Translating body...`);
+                            translateElement(document.body);
+                            updateLanguageSwitcherUI(lang);
+                            if (window.debugTranslation) window.debugTranslation();
+                        }
+                    });
                 }
+                
             } catch (err) {
                 console.error('Error changing language:', err);
             }
@@ -219,25 +230,43 @@
                     }
                 });
 
-                console.log('i18next initialized with language:', i18nextInstance.language);
-                
-                // Debug translation status
-                if (window.debugTranslation) {
-                    window.debugTranslation();
+                const initialLang = i18nextInstance.language;
+                console.log('i18next initialized with language:', initialLang);
+
+                // Ensure initial resources are loaded before first translation
+                const initialLoadCallback = (err) => {
+                    if (err) {
+                        console.error(`Error loading initial language ${initialLang}:`, err);
+                        return;
+                    }
+                    console.log(`Initial resource bundle confirmed/loaded for ${initialLang}.`);
+                    
+                    // Debug translation status
+                    if (window.debugTranslation) {
+                        window.debugTranslation();
+                    }
+
+                    // Update static content first
+                    translateElement(document.body);
+                    updateLanguageSwitcherUI(initialLang);
+
+                    // Load dynamic components AFTER i18n is ready AND initial resources are loaded
+                    loadComponentsAndViews(); // This function already calls translateElement internally
+                };
+
+                if (i18nextInstance.hasResourceBundle(initialLang, 'translation')) {
+                    console.log(`Initial resource bundle already available for ${initialLang}.`);
+                    initialLoadCallback();
+                } else {
+                    console.warn(`Initial resource bundle not immediately available for ${initialLang}. Waiting for backend...`);
+                    i18nextInstance.loadLanguages(initialLang, initialLoadCallback);
                 }
 
-                // Update static content first
-                translateElement(document.body);
-                updateLanguageSwitcherUI(i18nextInstance.language);
-
-                // Load dynamic components AFTER i18n is ready
-                await loadComponentsAndViews(); // Ensure this function waits for components
-
-                // Listen for language change events
+                // Listen for language change events - REMOVED redundant translation call here
+                // The changeLanguage function now handles translation after ensuring resources are loaded.
                 i18nextInstance.on('languageChanged', (lng) => {
-                    console.log(`Language changed event fired with language: ${lng}`);
-                    translateElement(document.body); // Retranslate everything on language change
-                    updateLanguageSwitcherUI(lng);
+                    console.log(`>>> i18next 'languageChanged' event fired for: ${lng}. UI/debug updates handled by changeLanguage function.`);
+                    // updateLanguageSwitcherUI(lng); // Also handled by changeLanguage now
                 });
 
           } catch (err) {
