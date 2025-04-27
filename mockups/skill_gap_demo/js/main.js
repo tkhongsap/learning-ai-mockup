@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
   // Animate skill gap bars on load
   const skillGapFills = document.querySelectorAll('.skill-gap-fill');
 

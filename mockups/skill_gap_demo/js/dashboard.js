@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
     // Initialize default tab
     const defaultTab = document.querySelector('[data-tab]');
     if (defaultTab) {
