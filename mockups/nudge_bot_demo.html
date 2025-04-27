@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="LearnSphere AI Nudge Bot Demo - Intelligent learning reminders">
-    <title>Demo: AI Nudge Bot</title>
+    <title data-i18n="demos.nudgeBot.pageTitle">Demo: AI Nudge Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,9 +140,9 @@
         <div class="flex justify-between items-center border-b pb-4">
             <h1 class="text-2xl font-bold text-indigo-700">
                 <i class="fas fa-robot mr-2" aria-hidden="true"></i>
-                AI Nudge Bot Demo
+                <span data-i18n="demos.nudgeBot.pageTitle">AI Nudge Bot Demo</span>
             </h1>
-            <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline hover:text-indigo-800 transition-colors">&larr; Back to Features</a>
+            <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline hover:text-indigo-800 transition-colors" data-i18n="demos.nudgeBot.backLink">&larr; Back to Features</a>
         </div>
     </div>
 
@@ -152,16 +152,16 @@
                 <div class="bot-header p-4 text-white flex items-center justify-between">
                     <div class="flex items-center">
                         <i class="fas fa-robot mr-3 text-xl" aria-hidden="true"></i>
-                        <span class="font-semibold">LearnSphere AI Bot</span>
+                        <span class="font-semibold" data-i18n="demos.nudgeBot.botHeaderTitle">LearnSphere AI Bot</span>
                     </div>
                     <div class="flex items-center" id="connection-status">
                         <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
-                        <span class="text-xs">Online</span>
+                        <span class="text-xs" data-i18n="demos.nudgeBot.connectionStatusOnline">Online</span>
                     </div>
                 </div>
                 <div id="chat-messages" class="p-4 space-y-4 chat-container" aria-live="polite"></div>
                 <div class="p-4 border-t bg-gray-50">
-                    <p class="text-center text-xs text-gray-500">This is a simulation. Bot messages appear automatically.</p>
+                    <p class="text-center text-xs text-gray-500" data-i18n="demos.nudgeBot.simulationNotice">This is a simulation. Bot messages appear automatically.</p>
                 </div>
             </div>
         </div>
@@ -169,21 +169,21 @@
         <div class="explanation-box p-6 rounded-lg shadow-inner">
             <!-- Add data-input map section before the How AI Enhances section -->
             <div class="mb-6 pb-6 border-b border-gray-200">
-                <h3 class="text-xl font-semibold mb-4 text-amber-800">Data-Input Map</h3>
+                <h3 class="text-xl font-semibold mb-4 text-amber-800" data-i18n="demos.nudgeBot.dataInputMapTitle">Data-Input Map</h3>
                 <div class="bg-amber-50 p-4 rounded-lg border border-amber-100 transition-all hover:shadow-md">
                     <div class="flex items-center mb-2">
                         <div class="bg-amber-100 text-amber-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <h4 class="font-semibold text-amber-700">Nudge Bot (Line/MS Teams)</h4>
+                        <h4 class="font-semibold text-amber-700" data-i18n="demos.nudgeBot.nudgeBotComponentTitle">Nudge Bot (Line/MS Teams)</h4>
                     </div>
                     <div class="ml-8 text-sm">
-                        <p class="text-gray-500 mb-1"><span class="text-gray-700 font-medium">Implementation file:</span> nudge_bot_demo.html</p>
-                        <p class="text-gray-700 font-medium mb-1">Minimal data requirements:</p>
+                        <p class="text-gray-500 mb-1"><span class="text-gray-700 font-medium" data-i18n="demos.nudgeBot.implementationFile">Implementation file:</span> nudge_bot_demo.html</p>
+                        <p class="text-gray-700 font-medium mb-1" data-i18n="demos.nudgeBot.minDataRequirements">Minimal data requirements:</p>
                         <ul class="list-disc list-inside text-gray-600 pl-2 space-y-1">
-                            <li>Real-time course status from LMS API (Not-started/In-progress)</li>
-                            <li>Comms IDs (Line UID, Teams AAD)</li>
-                            <li>Nudge rules (e.g., "ping after 3 days idle")</li>
+                            <li data-i18n="demos.nudgeBot.reqLmsStatus">Real-time course status from LMS API (Not-started/In-progress)</li>
+                            <li data-i18n="demos.nudgeBot.reqCommsIds">Comms IDs (Line UID, Teams AAD)</li>
+                            <li data-i18n="demos.nudgeBot.reqNudgeRules">Nudge rules (e.g., "ping after 3 days idle")</li>
                         </ul>
                     </div>
                 </div>
@@ -191,34 +191,34 @@
             
             <h2 class="text-xl font-semibold mb-4 text-amber-800">
                 <i class="fas fa-lightbulb mr-2" aria-hidden="true"></i>
-                How AI Enhances the Nudge Bot
+                <span data-i18n="demos.nudgeBot.howAiEnhancesTitle">How AI Enhances the Nudge Bot</span>
             </h2>
             <div class="space-y-4 text-sm text-gray-700">
                 <div>
-                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
-                    <p>Learners often forget deadlines or lose momentum in self-paced courses, leading to low completion rates.</p>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.nudgeBot.painPointTitle">Pain Point Addressed:</h3>
+                    <p data-i18n="demos.nudgeBot.painPointText">Learners often forget deadlines or lose momentum in self-paced courses, leading to low completion rates.</p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.nudgeBot.aiSolutionTitle">AI Solution:</h3>
                     <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong>Nudge Bot (Line/MS Teams):</strong> An AI assistant integrated into employees' daily chat tools.</li>
-                        <li><strong>Reads LMS Status:</strong> Connects to the LMS database to check course progress, deadlines, and enrollment status.</li>
-                        <li><strong>Sends Smart Reminders:</strong> Proactively messages users who are falling behind schedule or approaching a deadline.</li>
-                        <li><strong>Provides TL;DR Summaries:</strong> Can offer concise (e.g., 3-line) summaries of course content to help learners quickly recall information and re-engage.</li>
-                        <li><strong>Contextual Suggestions:</strong> Can also nudge users about relevant new courses based on completed ones or profile interests.</li>
+                        <li data-i18n="demos.nudgeBot.aiSolutionPoint1"><strong>Nudge Bot (Line/MS Teams):</strong> An AI assistant integrated into employees' daily chat tools.</li>
+                        <li data-i18n="demos.nudgeBot.aiSolutionPoint2"><strong>Reads LMS Status:</strong> Connects to the LMS database to check course progress, deadlines, and enrollment status.</li>
+                        <li data-i18n="demos.nudgeBot.aiSolutionPoint3"><strong>Sends Smart Reminders:</strong> Proactively messages users who are falling behind schedule or approaching a deadline.</li>
+                        <li data-i18n="demos.nudgeBot.aiSolutionPoint4"><strong>Provides TL;DR Summaries:</strong> Can offer concise (e.g., 3-line) summaries of course content to help learners quickly recall information and re-engage.</li>
+                        <li data-i18n="demos.nudgeBot.aiSolutionPoint5"><strong>Contextual Suggestions:</strong> Can also nudge users about relevant new courses based on completed ones or profile interests.</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
-                    <p>The bot detects Somchai is 50% behind schedule for his "SAP Basics" course. It sends him a message on MS Teams: "Hi Somchai, you're 50% behind schedule on 'SAP Basics'. Need a 3-line recap?"</p>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.nudgeBot.exampleScenarioTitle">Example Scenario:</h3>
+                    <p data-i18n="demos.nudgeBot.exampleScenarioText">The bot detects Somchai is 50% behind schedule for his "SAP Basics" course. It sends him a message on MS Teams: "Hi Somchai, you're 50% behind schedule on 'SAP Basics'. Need a 3-line recap?"</p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.nudgeBot.benefitsTitle">Benefits:</h3>
                     <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong class="text-green-600">Reduced Dropout Rates:</strong> Timely reminders help keep learners engaged. (Target: Halve dropout)</li>
-                        <li><strong class="text-green-600">Increased Completion:</strong> Helps learners stay on track to finish courses.</li>
-                        <li><strong class="text-green-600">Improved Satisfaction:</strong> Provides helpful, non-intrusive support within familiar tools.</li>
-                        <li><strong class="text-green-600">Just-in-Time Learning:</strong> Offers quick recaps to overcome forgetting curves.</li>
+                        <li data-i18n="demos.nudgeBot.benefitDropout"><strong class="text-green-600">Reduced Dropout Rates:</strong> Timely reminders help keep learners engaged. (Target: Halve dropout)</li>
+                        <li data-i18n="demos.nudgeBot.benefitCompletion"><strong class="text-green-600">Increased Completion:</strong> Helps learners stay on track to finish courses.</li>
+                        <li data-i18n="demos.nudgeBot.benefitSatisfaction"><strong class="text-green-600">Improved Satisfaction:</strong> Provides helpful, non-intrusive support within familiar tools.</li>
+                        <li data-i18n="demos.nudgeBot.benefitJitLearning"><strong class="text-green-600">Just-in-Time Learning:</strong> Offers quick recaps to overcome forgetting curves.</li>
                     </ul>
                 </div>
             </div>
@@ -251,225 +251,155 @@
                     return;
                 }
                 
-                chatContainer.innerHTML = '';
-                setupChatMessages();
-                startChatSimulation();
+                defineMessages();
+                scheduleNextMessage();
+                console.log("Nudge Bot Demo Initialized");
             }
-            
-            // Add a message to the chat
-            function addMessage(sender, text, actions = []) {
-                if (!chatContainer) return;
+
+            // Define the sequence of messages
+            function defineMessages() {
+                chatState.messageQueue = [
+                    { type: 'bot', textKey: 'botMsg1', actions: [{ key: 'botMsg1Action', textKey: 'botMsg1Action', delay: 1000 }] },
+                    { type: 'bot', textKey: 'botMsg2', actions: [
+                        { key: 'botMsg2Action1', textKey: 'botMsg2Action1', userResponseKey: 'userMsgRecap', nextMsgIndex: 3, delay: 500 },
+                        { key: 'botMsg2Action2', textKey: 'botMsg2Action2', nextMsgIndex: 4, delay: 500 }
+                    ]},
+                    { type: 'bot', textKey: 'botMsg3', actions: [
+                        { key: 'botMsg3Action1', textKey: 'botMsg3Action1', userResponseKey: 'userMsgContinue', nextMsgIndex: 4, delay: 700 },
+                        { key: 'botMsg3Action2', textKey: 'botMsg3Action2', nextMsgIndex: 4, delay: 700 }
+                    ] },
+                    { type: 'bot', textKey: 'botMsg4', actions: [
+                        { key: 'botMsg4Action1', textKey: 'botMsg4Action1', userResponseKey: 'userMsgViewDetails', delay: 1200 },
+                        { key: 'botMsg4Action2', textKey: 'botMsg4Action2', delay: 1200 }
+                    ]}
+                ];
+            }
+
+            // Render a message in the chat
+            function renderMessage(message) {
+                const msgDiv = document.createElement('div');
+                const isBot = message.type === 'bot';
+                msgDiv.className = `flex ${isBot ? 'justify-start' : 'justify-end'} mb-4`;
                 
-                // Remove typing indicator if present
-                if (chatState.typingIndicator && chatState.typingIndicator.parentNode) {
+                const contentDiv = document.createElement('div');
+                contentDiv.className = `p-3 max-w-xs lg:max-w-md ${isBot ? 'message-bot' : 'message-user'} fade-in`;
+                contentDiv.setAttribute('data-i18n', `demos.nudgeBot.${message.textKey}`);
+                contentDiv.textContent = `[${message.textKey}]`; // Placeholder text
+                
+                if (isBot && message.actions) {
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'mt-2 flex flex-wrap gap-2';
+                    message.actions.forEach(action => {
+                        const button = document.createElement('button');
+                        button.className = 'action-button';
+                        button.setAttribute('data-i18n', `demos.nudgeBot.${action.textKey}`);
+                        button.textContent = `[${action.textKey}]`; // Placeholder text
+                        button.onclick = () => handleActionClick(action);
+                        actionsDiv.appendChild(button);
+                    });
+                    contentDiv.appendChild(actionsDiv);
+                }
+
+                const timestampDiv = document.createElement('div');
+                timestampDiv.className = `timestamp text-right ${isBot ? 'mr-2' : 'ml-2'}`;
+                timestampDiv.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+                if (isBot) {
+                    msgDiv.appendChild(contentDiv);
+                    msgDiv.appendChild(timestampDiv);
+                } else {
+                    msgDiv.appendChild(timestampDiv);
+                    msgDiv.appendChild(contentDiv);
+                }
+                
+                chatContainer.appendChild(msgDiv);
+                scrollToBottom();
+            }
+
+            // Show typing indicator
+            function showTypingIndicator() {
+                if (chatState.typingIndicator) return; // Already showing
+                chatState.typingIndicator = document.createElement('div');
+                chatState.typingIndicator.className = 'flex justify-start mb-4';
+                chatState.typingIndicator.innerHTML = `
+                    <div class="p-3 message-bot fade-in">
+                        <div class="flex space-x-1">
+                            <span class="block w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0s;"></span>
+                            <span class="block w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
+                            <span class="block w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+                        </div>
+                    </div>
+                `;
+                chatContainer.appendChild(chatState.typingIndicator);
+                scrollToBottom();
+            }
+
+            // Hide typing indicator
+            function hideTypingIndicator() {
+                if (chatState.typingIndicator) {
                     chatState.typingIndicator.remove();
                     chatState.typingIndicator = null;
                 }
+            }
+
+            // Schedule the next message to appear
+            function scheduleNextMessage() {
+                clearTimeout(chatState.timeoutId);
                 
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('flex', 'fade-in');
+                const currentMessage = chatState.messageQueue[chatState.messageIndex];
+                if (!currentMessage) {
+                    console.log("End of message queue.");
+                    return; // No more messages
+                }
                 
-                const bubbleDiv = document.createElement('div');
-                bubbleDiv.classList.add('p-3', 'max-w-[80%]', 'text-sm');
+                const delay = MESSAGE_DELAY + Math.random() * RANDOM_DELAY;
+                chatState.timeoutId = setTimeout(() => {
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        renderMessage(currentMessage);
+                        chatState.messageIndex++; // Move to next message ONLY if it doesn't require user action
+                        // If the message has actions, progression stops until user clicks
+                    }, TYPING_DELAY);
+                }, delay);
+            }
+
+            // Handle user clicking an action button
+            function handleActionClick(action) {
+                 // Disable all buttons in the message once one is clicked
+                 const buttons = event.target.closest('.message-bot').querySelectorAll('.action-button');
+                 buttons.forEach(btn => btn.disabled = true);
+
+                // Optional: Show user response message
+                if (action.userResponseKey) {
+                    renderMessage({ type: 'user', textKey: action.userResponseKey });
+                }
                 
-                // Set speaker-specific classes
-                if (sender === 'bot') {
-                    messageDiv.classList.add('justify-start');
-                    bubbleDiv.classList.add('message-bot');
-                    messageDiv.setAttribute('aria-label', 'Bot message');
+                // Determine next message based on action
+                if (action.nextMsgIndex !== undefined) {
+                    chatState.messageIndex = action.nextMsgIndex;
                 } else {
-                    messageDiv.classList.add('justify-end');
-                    bubbleDiv.classList.add('message-user');
-                    messageDiv.setAttribute('aria-label', 'User message');
+                     // Default: just go to the next message in sequence if no index specified
+                    // This might happen if the last action doesn't lead anywhere
                 }
                 
-                // Message content
-                const textContent = document.createElement('p');
-                textContent.innerHTML = text.replace(/\n/g, '<br>');
-                bubbleDiv.appendChild(textContent);
-                
-                // Timestamp
-                const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const timeEl = document.createElement('span');
-                timeEl.classList.add('block', 'mt-1', 'timestamp', sender === 'bot' ? 'text-left' : 'text-right');
-                timeEl.textContent = timestamp;
-                bubbleDiv.appendChild(timeEl);
-                
-                // Action buttons
-                if (actions.length > 0) {
-                    const actionsDiv = document.createElement('div');
-                    actionsDiv.classList.add('mt-2', 'flex', 'flex-wrap', 'gap-2');
-                    
-                    actions.forEach(action => {
-                        const button = document.createElement('button');
-                        button.classList.add('action-button');
-                        button.textContent = action.label;
-                        button.onclick = () => handleAction(action.action, actionsDiv);
-                        button.setAttribute('aria-label', action.label);
-                        actionsDiv.appendChild(button);
-                    });
-                    
-                    bubbleDiv.appendChild(actionsDiv);
-                }
-                
-                messageDiv.appendChild(bubbleDiv);
-                chatContainer.appendChild(messageDiv);
-                scrollToBottom();
+                // Schedule the determined next message
+                const nextDelay = action.delay || MESSAGE_DELAY; // Use specific delay if provided
+                 chatState.timeoutId = setTimeout(() => {
+                    scheduleNextMessage();
+                }, nextDelay);
             }
-            
-            // Show typing indicator
-            function showTypingIndicator() {
-                const typingDiv = document.createElement('div');
-                typingDiv.classList.add('flex', 'justify-start', 'fade-in');
-                
-                const bubbleDiv = document.createElement('div');
-                bubbleDiv.classList.add('p-3', 'message-bot', 'text-sm');
-                
-                const dotsContainer = document.createElement('div');
-                dotsContainer.classList.add('flex', 'space-x-1');
-                dotsContainer.innerHTML = `
-                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
-                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
-                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" style="animation-delay: 0.4s"></span>
-                `;
-                
-                bubbleDiv.appendChild(dotsContainer);
-                typingDiv.appendChild(bubbleDiv);
-                
-                chatContainer.appendChild(typingDiv);
-                chatState.typingIndicator = typingDiv;
-                
-                scrollToBottom();
-            }
-            
-            // Handle user actions
-            function handleAction(actionType, buttonsContainer) {
-                // Disable buttons after clicking
-                buttonsContainer.querySelectorAll('button').forEach(btn => {
-                    btn.disabled = true;
-                    btn.classList.add('opacity-60');
-                });
-                
-                // Clear any pending message display
-                clearTimeout(chatState.timeoutId);
-                
-                // Process different action types
-                if (actionType === 'showRecap') {
-                    addMessage('user', "Yes, give recap");
-                    
-                    showTypingIndicator();
-                    setTimeout(() => {
-                        addMessage('bot', "Okay, here's a quick recap of 'SAP Basics':\n1. Focus on VA01 for creating orders.\n2. Understand customer master data fields.\n3. Check pricing conditions carefully.");
-                        
-                        chatState.timeoutId = setTimeout(showNextMessage, MESSAGE_DELAY);
-                    }, TYPING_DELAY);
-                    
-                } else if (actionType === 'declineRecap') {
-                    addMessage('user', "No, thanks");
-                    
-                    showTypingIndicator();
-                    setTimeout(() => {
-                        addMessage('bot', "Alright. Let me know if you need help later!");
-                        
-                        chatState.timeoutId = setTimeout(showNextMessage, MESSAGE_DELAY);
-                    }, TYPING_DELAY);
-                }
-            }
-            
-            // Show the next message in the queue
-            function showNextMessage() {
-                if (chatState.messageIndex < chatState.messageQueue.length) {
-                    const msg = chatState.messageQueue[chatState.messageIndex];
-                    
-                    // Show typing indicator before bot messages
-                    if (msg.sender === 'bot') {
-                        showTypingIndicator();
-                        
-                        chatState.timeoutId = setTimeout(() => {
-                            addMessage(msg.sender, msg.text, msg.actions);
-                            chatState.messageIndex++;
-                            
-                            // Schedule next message if there are no actions or after a response
-                            if (!msg.actions || msg.actions.length === 0) {
-                                const delay = MESSAGE_DELAY + Math.random() * RANDOM_DELAY;
-                                clearTimeout(chatState.timeoutId);
-                                chatState.timeoutId = setTimeout(showNextMessage, delay);
-                            }
-                        }, TYPING_DELAY);
-                    } else {
-                        // For user messages (should be rare in demo), just add immediately
-                        addMessage(msg.sender, msg.text, msg.actions);
-                        chatState.messageIndex++;
-                        
-                        if (!msg.actions || msg.actions.length === 0) {
-                            const delay = MESSAGE_DELAY;
-                            clearTimeout(chatState.timeoutId);
-                            chatState.timeoutId = setTimeout(showNextMessage, delay);
-                        }
-                    }
-                }
-            }
-            
-            // Scroll chat to bottom
+
+            // Scroll chat to the bottom
             function scrollToBottom() {
-                if (chatContainer) {
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
+                chatContainer.scrollTop = chatContainer.scrollHeight;
             }
             
-            // Set up the chat messages for the demo
-            function setupChatMessages() {
-                chatState.messageQueue = [
-                    { 
-                        sender: 'bot', 
-                        text: "Hi Somchai, welcome to the LearnSphere AI assistant!" 
-                    },
-                    { 
-                        sender: 'bot', 
-                        text: "I can help you stay on track with your learning. I see you're enrolled in 'SAP Basics for Sales Teams'." 
-                    },
-                    { 
-                        sender: 'bot', 
-                        text: "Looks like you're currently 50% behind the suggested schedule for 'SAP Basics for Sales Teams'. Would you like a quick 3-line recap to help you catch up?", 
-                        actions: [
-                            { label: "Yes, give recap", action: "showRecap" },
-                            { label: "No, thanks", action: "declineRecap" }
-                        ] 
-                    },
-                    { 
-                        sender: 'bot', 
-                        text: "By the way, congrats on completing 'Sales Fundamentals' last week!" 
-                    },
-                    { 
-                        sender: 'bot', 
-                        text: "Based on your interest in becoming an Area Sales Manager, the course 'Strategic Planning Essentials' might be a good next step after SAP Basics." 
-                    }
-                ];
-            }
-            
-            // Start the chat simulation
-            function startChatSimulation() {
-                chatState.messageIndex = 0;
-                clearTimeout(chatState.timeoutId);
-                chatState.timeoutId = setTimeout(showNextMessage, TYPING_DELAY);
-            }
-            
-            // Reset and restart the demo
-            function resetDemo() {
-                clearTimeout(chatState.timeoutId);
-                chatContainer.innerHTML = '';
-                
-                setupChatMessages();
-                chatState.messageIndex = 0;
-                startChatSimulation();
-            }
-            
-            // Make reset function available globally
-            window.resetNudgeDemo = resetDemo;
-            
-            // Initialize on document ready
+            // Run initialization when the DOM is ready
             document.addEventListener('DOMContentLoaded', init);
+
         })();
     </script>
+
 </body>
 </html> 

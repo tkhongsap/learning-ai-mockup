@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="LearnSphere AI 70-20-10 IDP Builder Demo - Structured development plans">
-    <title>Demo: AI 70-20-10 IDP Builder</title>
+    <title data-i18n="demos.idpBuilder.pageTitle">Demo: AI 70-20-10 IDP Builder</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,39 +196,39 @@
         <div class="flex flex-wrap justify-between items-center border-b pb-4">
             <h1 class="text-2xl font-bold text-indigo-700">
                 <i class="fas fa-book-open mr-2" aria-hidden="true"></i>
-                AI 70-20-10 IDP Builder Demo
+                <span data-i18n="demos.idpBuilder.pageTitle">AI 70-20-10 IDP Builder Demo</span>
             </h1>
-            <a href="../index.html#features" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-colors">&larr; Back to Features</a>
+            <a href="../index.html#features" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-colors" data-i18n="demos.idpBuilder.backLink">&larr; Back to Features</a>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <section aria-labelledby="idp-main-heading" class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
             <div class="mb-6 p-4 bg-indigo-50 rounded-md border border-indigo-200">
-                <h2 id="profile-heading" class="text-lg font-semibold text-indigo-800 mb-2">Development Plan For: Somchai T.</h2>
+                <h2 id="profile-heading" class="text-lg font-semibold text-indigo-800 mb-2" data-i18n="demos.idpBuilder.devPlanFor">Development Plan For: Somchai T.</h2>
                 <dl class="text-sm text-gray-700 space-y-1">
-                    <div><dt class="inline font-semibold">Current Role:</dt> <dd class="inline">Sales Rep</dd></div>
-                    <div><dt class="inline font-semibold">Target Aspiration:</dt> <dd class="inline">Area Sales Manager</dd></div>
-                    <div><dt class="inline font-semibold">Key Development Areas (from Gaps):</dt> <dd class="inline">Strategic Planning, Leadership, Advanced Negotiation.</dd></div>
+                    <div><dt class="inline font-semibold" data-i18n="demos.idpBuilder.currentRoleLabel">Current Role:</dt> <dd class="inline" data-i18n="demos.skillGap.roleSalesRep">Sales Rep</dd></div>
+                    <div><dt class="inline font-semibold" data-i18n="demos.idpBuilder.targetAspirationLabel">Target Aspiration:</dt> <dd class="inline" data-i18n="demos.skillGap.roleAreaSalesManager">Area Sales Manager</dd></div>
+                    <div><dt class="inline font-semibold" data-i18n="demos.idpBuilder.keyDevAreasLabel">Key Development Areas (from Gaps):</dt> <dd class="inline">Strategic Planning, Leadership, Advanced Negotiation.</dd></div>
                 </dl>
             </div>
             
             <div class="text-center mb-6">
                 <button id="generate-idp-btn" class="button button-primary">
-                    <i class="fas fa-magic mr-2" aria-hidden="true"></i>Generate IDP with AI (70-20-10)
+                    <i class="fas fa-magic mr-2" aria-hidden="true"></i><span data-i18n="demos.idpBuilder.generateButton">Generate IDP with AI (70-20-10)</span>
                 </button>
                 <div id="idp-loading" class="hidden text-center mt-4 text-indigo-600" aria-live="polite">
-                    <div class="loader"></div> Generating balanced development plan...
+                    <div class="loader"></div> <span data-i18n="demos.idpBuilder.loadingMessage">Generating balanced development plan...</span>
                 </div>
             </div>
             
             <div id="idp-results" class="hidden" aria-live="polite">
-                <h2 id="idp-main-heading" class="text-xl font-bold text-center mb-6 text-gray-800">Generated Individual Development Plan (Draft)</h2>
+                <h2 id="idp-main-heading" class="text-xl font-bold text-center mb-6 text-gray-800" data-i18n="demos.idpBuilder.generatedPlanTitle">Generated Individual Development Plan (Draft)</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
                     <section aria-labelledby="idp-70-heading" class="idp-section idp-section-70 lg:col-span-2">
                         <h3 id="idp-70-heading">
-                            <span class="percentage">70%</span> On-the-Job Experience & Practice
+                            <span class="percentage">70%</span> <span data-i18n="demos.idpBuilder.section70Title">On-the-Job Experience & Practice</span>
                         </h3>
                         <div id="idp-70-content" class="space-y-3"></div>
                     </section>
@@ -236,233 +236,146 @@
                     <div class="space-y-8 lg:col-span-1">
                         <section aria-labelledby="idp-20-heading" class="idp-section idp-section-20">
                             <h3 id="idp-20-heading">
-                                <span class="percentage">20%</span> Learning from Others
+                                <span class="percentage">20%</span> <span data-i18n="demos.idpBuilder.section20Title">Learning from Others</span>
                             </h3>
                             <div id="idp-20-content" class="space-y-3"></div>
                         </section>
                         
                         <section aria-labelledby="idp-10-heading" class="idp-section idp-section-10">
                             <h3 id="idp-10-heading">
-                                <span class="percentage">10%</span> Formal Learning
+                                <span class="percentage">10%</span> <span data-i18n="demos.idpBuilder.section10Title">Formal Learning</span>
                             </h3>
                             <div id="idp-10-content" class="space-y-3"></div>
                         </section>
                     </div>
                 </div>
-                <div class="mt-8 pt-6 border-t flex justify-end space-x-3">
-                    <button class="button button-secondary">Edit Plan</button>
-                    <button class="button button-success">Submit for Approval</button>
+                <div id="idp-success-msg" class="hidden text-center mt-6 p-3 bg-green-100 text-green-700 rounded-md fade-in" data-i18n="demos.idpBuilder.successMessage">
+                    IDP generated successfully!
                 </div>
-                 <p class="sr-only">IDP results generated.</p>
             </div>
         </section>
 
         <aside class="explanation-box">
-            <!-- Add data-input map section before the How AI Enhances section -->
             <div class="mb-6 pb-6 border-b border-gray-200">
-                <h3 class="text-xl font-semibold mb-4 text-blue-800">Data-Input Map</h3>
+                <h3 class="text-xl font-semibold mb-4 text-blue-800" data-i18n="demos.idpBuilder.dataInputMapTitle">Data-Input Map</h3>
                 <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 transition-all hover:shadow-md">
                     <div class="flex items-center mb-2">
                         <div class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">
                             <i class="fas fa-book-open"></i>
                         </div>
-                        <h4 class="font-semibold text-blue-700">70-20-10 IDP Builder</h4>
+                        <h4 class="font-semibold text-blue-700" data-i18n="demos.idpBuilder.idpBuilderComponentTitle">70-20-10 IDP Builder</h4>
                     </div>
                     <div class="ml-8 text-sm">
-                        <p class="text-gray-500 mb-1"><span class="text-gray-700 font-medium">Implementation file:</span> course_recommender.html</p>
-                        <p class="text-gray-700 font-medium mb-1">Minimal data requirements:</p>
+                        <p class="text-gray-500 mb-1"><span class="text-gray-700 font-medium" data-i18n="demos.idpBuilder.implementationFile">Implementation file:</span> idp_builder.html</p>
+                        <p class="text-gray-700 font-medium mb-1" data-i18n="demos.idpBuilder.minDataRequirements">Minimal data requirements:</p>
                         <ul class="list-disc list-inside text-gray-600 pl-2 space-y-1">
-                            <li>LMS catalogue: course ID, mode (70/20/10), mapped skills, cost</li>
-                            <li>Gap list from Skill-Gap engine</li>
-                            <li>Manager budget limits (optional)</li>
+                            <li data-i18n="demos.idpBuilder.reqProfile">Enriched employee profile (skills, goals)</li>
+                            <li data-i18n="demos.idpBuilder.reqOrgData">Org chart, available projects/mentors</li>
+                            <li data-i18n="demos.idpBuilder.reqCourseCatalog">LMS course catalog</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <h2 class="text-xl font-semibold mb-4 text-blue-800"><i class="fas fa-lightbulb mr-2" aria-hidden="true"></i>How AI Enhances IDP Building</h2>
+            <h2 class="text-xl font-semibold mb-4 text-blue-800"><i class="fas fa-lightbulb mr-2" aria-hidden="true"></i><span data-i18n="demos.idpBuilder.howAiEnhancesTitle">How AI Enhances IDP Building</span></h2>
             <div class="space-y-4 text-sm text-gray-700">
                 <div>
-                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
-                    <p>Employees and managers struggle to create well-balanced Individual Development Plans (IDPs) that follow the 70-20-10 model (70% on-the-job, 20% social, 10% formal). Manually finding relevant activities for each category is time-consuming.</p>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.idpBuilder.painPointTitle">Pain Point Addressed:</h3>
+                    <p data-i18n="demos.idpBuilder.painPointText">Creating meaningful Individual Development Plans (IDPs) is time-consuming for managers and often results in generic, ineffective plans that don't align with the 70-20-10 model for optimal learning.</p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.idpBuilder.aiSolutionTitle">AI Solution:</h3>
                     <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong>Skill-Gap Analyzer:</strong> (Prerequisite) Identifies the key skills the employee needs to develop for their target role or aspiration.</li>
-                        <li><strong>Course/Activity Recommender:</strong> Based on the identified skill gaps, the AI searches the LMS catalog, internal project databases, and mentor pool.</li>
-                        <li><strong>70-20-10 Balancer:</strong> Selects a mix of activities corresponding to the 70-20-10 framework:
-                            <ul class="list-['-_'] list-outside pl-5 mt-1">
-                                <li>**70%:** Suggests stretch assignments, job shadowing, leading small projects, presenting findings (On-the-Job).</li>
-                                <li>**20%:** Recommends specific mentors (using Mentor Matcher), communities of practice, or informational interviews (Social Learning).</li>
-                                <li>**10%:** Selects relevant formal courses, workshops, or micro-learnings from the catalog (Formal Learning).</li>
-                            </ul>
-                        </li>
-                        <li><strong>One-Click Generation:</strong> Provides a pre-filled IDP draft with balanced activities, ready for review and tweaking by the employee and manager.</li>
+                        <li data-i18n="demos.idpBuilder.aiSolutionPoint1"><strong>70-20-10 IDP Builder:</strong> Analyzes an employee's profile (current role, skills, identified gaps, aspirations) and organizational data (available mentors, projects, courses).</li>
+                        <li data-i18n="demos.idpBuilder.aiSolutionPoint2"><strong>Generates Balanced Draft:</strong> Automatically drafts a suggested IDP structured around the 70% (experience), 20% (exposure), and 10% (education) learning model.</li>
+                        <li data-i18n="demos.idpBuilder.aiSolutionPoint3"><strong>Suggests Specific Activities:</strong> Recommends concrete actions for each category, linking to relevant internal resources like specific projects, potential mentors (using the matching engine), or LMS courses.</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
-                    <p>Somchai needs "Strategic Planning" and "Leadership". He clicks "Generate IDP". The AI suggests: (70%) Assist with territory planning, lead team huddle; (20%) Request mentorship from Sales Director; (10%) Complete 'Strategic Planning Essentials' course.</p>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.idpBuilder.exampleScenarioTitle">Example Scenario:</h3>
+                    <p data-i18n="demos.idpBuilder.exampleScenarioText">A manager clicks "Generate IDP" for Somchai (Sales Rep aspiring to Area Manager). The AI drafts a plan including: 70% - leading a small cross-functional sales initiative, 20% - shadowing the current Area Manager, 10% - completing the online "Strategic Sales Planning" course.</p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                    <h3 class="font-semibold text-gray-900" data-i18n="demos.idpBuilder.benefitsTitle">Benefits:</h3>
                     <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li><strong class="text-green-600">Faster IDP Creation:</strong> Reduces plan creation time significantly (e.g., from 45 min to 10 min).</li>
-                        <li><strong class="text-green-600">Balanced Development:</strong> Ensures employees get a mix of learning experiences aligned with best practices.</li>
-                        <li><strong class="text-green-600">Actionable Plans:</strong> Provides concrete, relevant activities instead of vague goals.</li>
-                        <li><strong class="text-green-600">Improved Focus:</strong> Directly links development activities to identified skill gaps and career aspirations.</li>
+                        <li data-i18n="demos.idpBuilder.benefitManagerTime"><strong class="text-green-600">Saves Manager Time:</strong> Reduces IDP creation time significantly (Target: -80%).</li>
+                        <li data-i18n="demos.idpBuilder.benefitEffectiveness"><strong class="text-green-600">Improves Plan Effectiveness:</strong> Creates more structured, actionable, and balanced development plans.</li>
+                        <li data-i18n="demos.idpBuilder.benefitAlignment"><strong class="text-green-600">Aligns Development:</strong> Connects learning activities directly to skill gaps and career goals.</li>
+                        <li data-i18n="demos.idpBuilder.benefitResourceUtil"><strong class="text-green-600">Utilizes Resources:</strong> Promotes relevant internal projects, mentors, and courses.</li>
                     </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900">Related AI:</h3>
-                    <p>This feature leverages outputs from the Skill-Gap Analyzer, Course Recommender, and Mentor/Gig Matching engines.</p>
                 </div>
             </div>
         </aside>
     </main>
 
     <script>
-        // AI 70-20-10 IDP Builder Demo Logic
-        (function() {
-            // --- Configuration ---
-            const SIMULATION_DELAY = 2500;
+        // Dummy data and simple interaction logic
+        const generateBtn = document.getElementById('generate-idp-btn');
+        const loadingDiv = document.getElementById('idp-loading');
+        const resultsDiv = document.getElementById('idp-results');
+        const successMsg = document.getElementById('idp-success-msg');
+        const content70 = document.getElementById('idp-70-content');
+        const content20 = document.getElementById('idp-20-content');
+        const content10 = document.getElementById('idp-10-content');
 
-            // --- Mock Data ---
-            // In a real application, this would come from an API based on user profile and skill gaps
-            const MOCK_IDP_DATA = {
-                '70': [
-                    { id: 'j1', title: "Assist Area Sales Manager with Q3 territory planning", focus: "Strategic Planning" },
-                    { id: 'j2', title: "Lead weekly team huddle for 1 month", focus: "Leadership" },
-                    { id: 'j3', title: "Observe 3 complex negotiation calls with Senior Reps", focus: "Negotiation" },
-                    { id: 'j4', title: "Present monthly sales figures at team meeting", focus: "Presentation, Leadership" }
-                ],
-                '20': [
-                    { id: 's1', title: "Request mentorship from Supachai K. (Sales Director)", focus: "Sales Strategy, Leadership", link: "#" }, // Link could point to mentor profile/request page
-                    { id: 's2', title: "Join 'Future Leaders' Yammer group", focus: "Networking, Leadership" },
-                    { id: 's3', title: "Conduct informational interview with a Regional Manager", focus: "Career Pathing" }
-                ],
-                '10': [
-                    { id: 'f1', title: "Complete 'Strategic Planning Essentials' course", focus: "Strategic Planning", link: "#" }, // Link could point to LMS course
-                    { id: 'f2', title: "Attend 'Advanced Negotiation Tactics' workshop", focus: "Negotiation", link: "#" } // Link could point to workshop registration
-                ]
-            };
+        const idpItems = {
+            '70': [
+                { titleKey: 'idpItem70_1_Title', focusKey: 'idpItem70_1_Focus', linkKey: 'idpItem70_1_Link', linkText: 'Details...' },
+                { titleKey: 'idpItem70_2_Title', focusKey: 'idpItem70_2_Focus', linkKey: 'idpItem70_2_Link', linkText: 'Details...' },
+                { titleKey: 'idpItem70_3_Title', focusKey: 'idpItem70_3_Focus', linkKey: 'idpItem70_3_Link', linkText: 'Details...' }
+            ],
+            '20': [
+                { titleKey: 'idpItem20_1_Title', focusKey: 'idpItem20_1_Focus', linkKey: 'idpItem20_1_Link', linkText: 'Request Mentorship' },
+                { titleKey: 'idpItem20_2_Title', focusKey: 'idpItem20_2_Focus', linkKey: 'idpItem20_2_Link', linkText: 'Join Group' }
+            ],
+            '10': [
+                { titleKey: 'idpItem10_1_Title', focusKey: 'idpItem10_1_Focus', linkKey: 'idpItem10_1_Link', linkText: 'View Certificate' },
+                { titleKey: 'idpItem10_2_Title', focusKey: 'idpItem10_2_Focus', linkKey: 'idpItem10_2_Link', linkText: 'Go to LMS' }
+            ]
+        };
 
-            // --- DOM Element References ---
-            const elements = {
-                generateBtn: document.getElementById('generate-idp-btn'),
-                loadingEl: document.getElementById('idp-loading'),
-                resultsEl: document.getElementById('idp-results'),
-                content70: document.getElementById('idp-70-content'),
-                content20: document.getElementById('idp-20-content'),
-                content10: document.getElementById('idp-10-content')
-            };
+        function createIdpItem(item) {
+            const div = document.createElement('div');
+            div.className = 'idp-item fade-in';
+            div.innerHTML = `
+                <strong data-i18n="demos.idpBuilder.${item.titleKey}">${item.titleKey.replace(/_/g, ' ')}</strong> 
+                <a href="#" class="details-link" data-i18n="demos.idpBuilder.${item.linkKey}">${item.linkText}</a>
+                <span class="focus-area" data-i18n="demos.idpBuilder.${item.focusKey}">${item.focusKey.replace(/_/g, ' ')}</span>
+            `;
+            return div;
+        }
 
-            // --- Utility Functions ---
-            function showElement(element) {
-                element?.classList.remove('hidden');
-            }
+        generateBtn.addEventListener('click', () => {
+            generateBtn.disabled = true;
+            loadingDiv.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            successMsg.classList.add('hidden');
 
-            function hideElement(element) {
-                element?.classList.add('hidden');
-            }
-            
-            function clearContainer(element) {
-                if (element) element.innerHTML = '';
-            }
+            // Clear previous results
+            content70.innerHTML = '';
+            content20.innerHTML = '';
+            content10.innerHTML = '';
 
-            function disableButton(button) {
-                if (button) button.disabled = true;
-            }
-
-            function enableButton(button) {
-                if (button) button.disabled = false;
-            }
-
-            function simulateApiCall(delay) {
-                return new Promise(resolve => setTimeout(resolve, delay));
-            }
-
-            // --- UI Rendering Functions ---
-            function createIdpItemHTML(item) {
-                const title = item.title || 'Activity Title Missing';
-                const focus = item.focus || 'N/A';
-                const linkHTML = (item.link && item.link !== "#") 
-                    ? `<a href="${item.link}" target="_blank" class="details-link">(Details →)</a>` 
-                    : '';
-                    
-                return `
-                    <div class="idp-item" id="item-${item.id || Math.random().toString(36).substring(7)}">
-                        <p><strong>${title}</strong></p>
-                        <span class="focus-area">Focus Area(s): ${focus}${linkHTML}</span>
-                    </div>
-                `;
-            }
-
-            function displayIdpResults(data) {
-                const containers = {
-                    '70': elements.content70,
-                    '20': elements.content20,
-                    '10': elements.content10
-                };
-
-                Object.keys(containers).forEach(key => {
-                    const container = containers[key];
-                    const items = data[key] || [];
-                    if (container) {
-                         clearContainer(container);
-                         if (items.length > 0) {
-                             container.innerHTML = items.map(createIdpItemHTML).join('');
-                         } else {
-                             container.innerHTML = '<p class="text-sm text-gray-500">No activities suggested for this category.</p>';
-                         }
-                    }
-                });
-
-                showElement(elements.resultsEl);
-                elements.resultsEl.classList.add('fade-in');
-            }
-
-            // --- Event Handlers ---
-            async function handleGenerateIdpClick() {
-                if (!elements.generateBtn || !elements.loadingEl || !elements.resultsEl) return;
-
-                // Hide results immediately if they were previously visible
-                elements.resultsEl.classList.remove('fade-in');
-                hideElement(elements.resultsEl);
+            setTimeout(() => {
+                loadingDiv.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+                successMsg.classList.remove('hidden');
                 
-                showElement(elements.loadingEl);
-                disableButton(elements.generateBtn);
+                // Populate results (staggered animation)
+                 idpItems['70'].forEach((item, index) => {
+                    setTimeout(() => content70.appendChild(createIdpItem(item)), index * 100);
+                 });
+                 idpItems['20'].forEach((item, index) => {
+                    setTimeout(() => content20.appendChild(createIdpItem(item)), (index + idpItems['70'].length) * 100);
+                 });
+                 idpItems['10'].forEach((item, index) => {
+                    setTimeout(() => content10.appendChild(createIdpItem(item)), (index + idpItems['70'].length + idpItems['20'].length) * 100);
+                 });
 
-                // Clear previous results visually after potential fade-out
-                clearContainer(elements.content70);
-                clearContainer(elements.content20);
-                clearContainer(elements.content10);
-                
-                // Simulate API call to fetch and structure IDP data
-                await simulateApiCall(SIMULATION_DELAY);
-                
-                // Process and display results
-                hideElement(elements.loadingEl);
-                displayIdpResults(MOCK_IDP_DATA); // Use mock data for demo
-                enableButton(elements.generateBtn);
-            }
-
-            // --- Initialization ---
-            function initialize() {
-                if (!elements.generateBtn) {
-                    console.error("Initialization failed: Generate IDP button not found.");
-                    return;
-                }
-
-                elements.generateBtn.addEventListener('click', handleGenerateIdpClick);
-                console.log("AI IDP Builder Demo Initialized");
-            }
-
-            // Run initialization when the DOM is ready
-            document.addEventListener('DOMContentLoaded', initialize);
-
-        })();
+                generateBtn.disabled = false;
+            }, 2000); // Simulate AI processing time
+        });
     </script>
+
 </body>
 </html> 
