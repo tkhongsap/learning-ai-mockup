@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "brand": "LearnSphere AI",
+    "features": "AI Features",
+    "requestAccess": "Request Access"
+  },
+  "footer": {
+    "tagline": "Internal Learning & Career Growth.",
+    "quickLinks": {
+      "title": "Quick Links",
+      "features": "AI Features",
+      "docs": "Internal Docs",
+      "requestAccess": "Request Access"
+    },
+    "compliance": {
+      "title": "Compliance",
+      "privacy": "Data Privacy (PDPA)",
+      "usePolicy": "Acceptable Use Policy",
+      "aiEthics": "AI Ethics Statement"
+    },
+    "support": {
+      "title": "Support",
+      "contact": "Contact: internal-support@yourcompany.com"
+    },
+    "copyright": "&copy; 2025 Your Company Name. Internal Use Only."
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "th": "Thai"
+  }
+} 

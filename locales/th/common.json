@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "brand": "LearnSphere AI",
+    "features": "ฟีเจอร์ AI",
+    "requestAccess": "ขอสิทธิ์เข้าถึง"
+  },
+  "footer": {
+    "tagline": "การเรียนรู้ภายในองค์กรและการเติบโตทางอาชีพ",
+    "quickLinks": {
+      "title": "ลิงก์ด่วน",
+      "features": "ฟีเจอร์ AI",
+      "docs": "เอกสารภายใน",
+      "requestAccess": "ขอสิทธิ์เข้าถึง"
+    },
+    "compliance": {
+      "title": "การปฏิบัติตามข้อกำหนด",
+      "privacy": "ความเป็นส่วนตัวของข้อมูล (PDPA)",
+      "usePolicy": "นโยบายการใช้งานที่ยอมรับได้",
+      "aiEthics": "คำแถลงจริยธรรม AI"
+    },
+    "support": {
+      "title": "การสนับสนุน",
+      "contact": "ติดต่อ: internal-support@yourcompany.com"
+    },
+    "copyright": "&copy; 2025 ชื่อบริษัทของคุณ ใช้ภายในเท่านั้น"
+  },
+  "languageSwitcher": {
+    "en": "อังกฤษ",
+    "th": "ไทย"
+  }
+} 
