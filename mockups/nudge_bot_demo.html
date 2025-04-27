@@ -3,48 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LearnSphere AI Nudge Bot Demo - Intelligent learning reminders">
     <title>Demo: AI Nudge Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
-        .chat-container { height: 500px; /* Fixed height for demo */ overflow-y: auto; }
-        .message-bot { background-color: #eef2ff; border-radius: 1rem 1rem 1rem 0; }
-        .message-user { background-color: #dcfce7; border-radius: 1rem 1rem 0 1rem; }
-        .timestamp { font-size: 0.7rem; color: #6b7280; }
-        .action-button { cursor: pointer; border: 1px solid #6366f1; color: #6366f1; padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; transition: background-color 0.2s ease; }
-        .action-button:hover { background-color: #e0e7ff; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #f59e0b; } /* bg-gray-100 border-amber-500 */
+        :root {
+            --color-primary: #6366f1;
+            --color-primary-dark: #4f46e5;
+            --color-primary-light: #e0e7ff;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-bot-message: #eef2ff;
+            --color-user-message: #dcfce7;
+            --chat-height: 500px;
+            --transition-standard: 0.3s ease;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f9fafb;
+            line-height: 1.5;
+        }
+
+        .chat-container { 
+            height: var(--chat-height);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .message-bot { 
+            background-color: var(--color-bot-message); 
+            border-radius: 1rem 1rem 1rem 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .message-user { 
+            background-color: var(--color-user-message);
+            border-radius: 1rem 1rem 0 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .timestamp { 
+            font-size: 0.7rem; 
+            color: #6b7280;
+        }
+
+        .action-button { 
+            cursor: pointer; 
+            border: 1px solid var(--color-primary); 
+            color: var(--color-primary); 
+            padding: 4px 12px; 
+            border-radius: 999px; 
+            font-size: 0.8rem; 
+            transition: all var(--transition-standard);
+            background-color: white;
+        }
+
+        .action-button:hover { 
+            background-color: var(--color-primary-light);
+        }
+
+        .action-button:focus { 
+            outline: 2px solid var(--color-primary-light);
+            outline-offset: 1px;
+        }
+
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .fade-in { 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .explanation-box { 
+            background-color: #f3f4f6; 
+            border-left: 4px solid var(--color-warning);
+        }
+
+        .bot-header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Custom scrollbar */
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .chat-container {
+                height: 400px;
+            }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
-     <div class="max-w-7xl mx-auto mb-6">
+    <div class="max-w-7xl mx-auto mb-6">
         <div class="flex justify-between items-center border-b pb-4">
-             <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-mobile-alt mr-2"></i>AI Nudge Bot Demo</h1>
-             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+            <h1 class="text-2xl font-bold text-indigo-700">
+                <i class="fas fa-robot mr-2" aria-hidden="true"></i>
+                AI Nudge Bot Demo
+            </h1>
+            <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline hover:text-indigo-800 transition-colors">&larr; Back to Features</a>
         </div>
     </div>
 
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-
         <div class="md:col-span-2 flex justify-center">
-             <div class="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
-                <div class="bg-indigo-600 p-4 text-white flex items-center justify-between">
-                    <div class="flex items-center"><i class="fas fa-robot mr-3 text-xl"></i><span class="font-semibold">LearnSphere AI Bot</span></div>
+            <div class="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bot-header p-4 text-white flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-robot mr-3 text-xl" aria-hidden="true"></i>
+                        <span class="font-semibold">LearnSphere AI Bot</span>
                     </div>
-                <div id="nb-chat-messages" class="p-4 space-y-4 chat-container"></div>
-                <div class="p-4 border-t bg-gray-50"><p class="text-center text-xs text-gray-500">This is a simulation. Bot messages appear automatically.</p></div>
+                    <div class="flex items-center" id="connection-status">
+                        <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
+                        <span class="text-xs">Online</span>
+                    </div>
+                </div>
+                <div id="chat-messages" class="p-4 space-y-4 chat-container" aria-live="polite"></div>
+                <div class="p-4 border-t bg-gray-50">
+                    <p class="text-center text-xs text-gray-500">This is a simulation. Bot messages appear automatically.</p>
+                </div>
             </div>
         </div>
 
         <div class="explanation-box p-6 rounded-lg shadow-inner">
-            <h2 class="text-xl font-semibold mb-4 text-amber-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances the Nudge Bot</h2>
-             <div class="space-y-4 text-sm text-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-amber-800">
+                <i class="fas fa-lightbulb mr-2" aria-hidden="true"></i>
+                How AI Enhances the Nudge Bot
+            </h2>
+            <div class="space-y-4 text-sm text-gray-700">
                 <div>
                     <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
                     <p>Learners often forget deadlines or lose momentum in self-paced courses, leading to low completion rates.</p>
@@ -59,17 +186,17 @@
                         <li><strong>Contextual Suggestions:</strong> Can also nudge users about relevant new courses based on completed ones or profile interests.</li>
                     </ul>
                 </div>
-                 <div>
+                <div>
                     <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
                     <p>The bot detects Somchai is 50% behind schedule for his "SAP Basics" course. It sends him a message on MS Teams: "Hi Somchai, you're 50% behind schedule on 'SAP Basics'. Need a 3-line recap?"</p>
                 </div>
                 <div>
                     <h3 class="font-semibold text-gray-900">Benefits:</h3>
-                     <ul class="list-disc list-outside pl-5 space-y-1">
+                    <ul class="list-disc list-outside pl-5 space-y-1">
                         <li><strong class="text-green-600">Reduced Dropout Rates:</strong> Timely reminders help keep learners engaged. (Target: Halve dropout)</li>
-                         <li><strong class="text-green-600">Increased Completion:</strong> Helps learners stay on track to finish courses.</li>
-                         <li><strong class="text-green-600">Improved Satisfaction:</strong> Provides helpful, non-intrusive support within familiar tools.</li>
-                         <li><strong class="text-green-600">Just-in-Time Learning:</strong> Offers quick recaps to overcome forgetting curves.</li>
+                        <li><strong class="text-green-600">Increased Completion:</strong> Helps learners stay on track to finish courses.</li>
+                        <li><strong class="text-green-600">Improved Satisfaction:</strong> Provides helpful, non-intrusive support within familiar tools.</li>
+                        <li><strong class="text-green-600">Just-in-Time Learning:</strong> Offers quick recaps to overcome forgetting curves.</li>
                     </ul>
                 </div>
             </div>
@@ -77,111 +204,250 @@
     </div>
 
     <script>
-        let nb_messageQueue = [];
-        let nb_messageIndex = 0;
-        let nb_timeoutId = null;
-        const chatMessagesEl = document.getElementById('nb-chat-messages');
-        
-        function nb_addMessage(sender, text, actions = []) {
-            if (!chatMessagesEl) return;
+        // Chat simulation logic
+        (function() {
+            // Config
+            const TYPING_DELAY = 1000;
+            const MESSAGE_DELAY = 1500;
+            const RANDOM_DELAY = 1000; // Additional random delay
             
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('flex', 'fade-in');
+            // State management
+            const chatState = {
+                messageQueue: [],
+                messageIndex: 0,
+                timeoutId: null,
+                typingIndicator: null
+            };
             
-            const bubbleDiv = document.createElement('div');
-            bubbleDiv.classList.add('p-3', 'max-w-[80%]', 'text-sm');
+            // DOM Elements
+            const chatContainer = document.getElementById('chat-messages');
             
-            if (sender === 'bot') {
-                messageDiv.classList.add('justify-start');
-                bubbleDiv.classList.add('message-bot');
-            } else {
-                messageDiv.classList.add('justify-end');
-                bubbleDiv.classList.add('message-user');
+            // Initialize
+            function init() {
+                if (!chatContainer) {
+                    console.error('Chat container element not found');
+                    return;
+                }
+                
+                chatContainer.innerHTML = '';
+                setupChatMessages();
+                startChatSimulation();
             }
             
-            bubbleDiv.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
-            
-            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const timeEl = document.createElement('span');
-            timeEl.classList.add('block', 'mt-1', 'timestamp', sender === 'bot' ? 'text-left' : 'text-right');
-            timeEl.textContent = timestamp;
-            bubbleDiv.appendChild(timeEl);
-            
-            if (actions.length > 0) {
-                const actionsDiv = document.createElement('div');
-                actionsDiv.classList.add('mt-2', 'flex', 'flex-wrap', 'gap-2');
+            // Add a message to the chat
+            function addMessage(sender, text, actions = []) {
+                if (!chatContainer) return;
                 
-                actions.forEach(action => {
-                    const button = document.createElement('button');
-                    button.classList.add('action-button');
-                    button.textContent = action.label;
-                    button.onclick = () => nb_handleAction(action.action, actionsDiv);
-                    actionsDiv.appendChild(button);
+                // Remove typing indicator if present
+                if (chatState.typingIndicator && chatState.typingIndicator.parentNode) {
+                    chatState.typingIndicator.remove();
+                    chatState.typingIndicator = null;
+                }
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('flex', 'fade-in');
+                
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.classList.add('p-3', 'max-w-[80%]', 'text-sm');
+                
+                // Set speaker-specific classes
+                if (sender === 'bot') {
+                    messageDiv.classList.add('justify-start');
+                    bubbleDiv.classList.add('message-bot');
+                    messageDiv.setAttribute('aria-label', 'Bot message');
+                } else {
+                    messageDiv.classList.add('justify-end');
+                    bubbleDiv.classList.add('message-user');
+                    messageDiv.setAttribute('aria-label', 'User message');
+                }
+                
+                // Message content
+                const textContent = document.createElement('p');
+                textContent.innerHTML = text.replace(/\n/g, '<br>');
+                bubbleDiv.appendChild(textContent);
+                
+                // Timestamp
+                const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const timeEl = document.createElement('span');
+                timeEl.classList.add('block', 'mt-1', 'timestamp', sender === 'bot' ? 'text-left' : 'text-right');
+                timeEl.textContent = timestamp;
+                bubbleDiv.appendChild(timeEl);
+                
+                // Action buttons
+                if (actions.length > 0) {
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.classList.add('mt-2', 'flex', 'flex-wrap', 'gap-2');
+                    
+                    actions.forEach(action => {
+                        const button = document.createElement('button');
+                        button.classList.add('action-button');
+                        button.textContent = action.label;
+                        button.onclick = () => handleAction(action.action, actionsDiv);
+                        button.setAttribute('aria-label', action.label);
+                        actionsDiv.appendChild(button);
+                    });
+                    
+                    bubbleDiv.appendChild(actionsDiv);
+                }
+                
+                messageDiv.appendChild(bubbleDiv);
+                chatContainer.appendChild(messageDiv);
+                scrollToBottom();
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.classList.add('flex', 'justify-start', 'fade-in');
+                
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.classList.add('p-3', 'message-bot', 'text-sm');
+                
+                const dotsContainer = document.createElement('div');
+                dotsContainer.classList.add('flex', 'space-x-1');
+                dotsContainer.innerHTML = `
+                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
+                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
+                    <span class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse" style="animation-delay: 0.4s"></span>
+                `;
+                
+                bubbleDiv.appendChild(dotsContainer);
+                typingDiv.appendChild(bubbleDiv);
+                
+                chatContainer.appendChild(typingDiv);
+                chatState.typingIndicator = typingDiv;
+                
+                scrollToBottom();
+            }
+            
+            // Handle user actions
+            function handleAction(actionType, buttonsContainer) {
+                // Disable buttons after clicking
+                buttonsContainer.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-60');
                 });
                 
-                bubbleDiv.appendChild(actionsDiv);
-            }
-            
-            messageDiv.appendChild(bubbleDiv);
-            chatMessagesEl.appendChild(messageDiv);
-            chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
-        }
-        
-        function nb_handleAction(actionType, buttonsContainer) {
-            buttonsContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
-            buttonsContainer.style.opacity = '0.6';
-            clearTimeout(nb_timeoutId);
-            
-            if (actionType === 'showRecap') {
-                nb_addMessage('user', "Yes, give recap");
+                // Clear any pending message display
+                clearTimeout(chatState.timeoutId);
                 
-                setTimeout(() => {
-                    nb_addMessage('bot', "Okay, here's a quick recap of 'SAP Basics':\n1. Focus on VA01 for creating orders.\n2. Understand customer master data fields.\n3. Check pricing conditions carefully.");
-                    setTimeout(nb_showNextMessage, 1500);
-                }, 1000);
-            } else if (actionType === 'declineRecap') {
-                nb_addMessage('user', "No, thanks");
-                
-                setTimeout(() => {
-                    nb_addMessage('bot', "Alright. Let me know if you need help later!");
-                    setTimeout(nb_showNextMessage, 1500);
-                }, 1000);
-            }
-        }
-        
-        function nb_showNextMessage() {
-            if (nb_messageIndex < nb_messageQueue.length) {
-                const msg = nb_messageQueue[nb_messageIndex];
-                nb_addMessage(msg.sender, msg.text, msg.actions);
-                nb_messageIndex++;
-                
-                if (!msg.actions || msg.actions.length === 0) {
-                    clearTimeout(nb_timeoutId);
-                    nb_timeoutId = setTimeout(nb_showNextMessage, 1500 + Math.random() * 1000);
+                // Process different action types
+                if (actionType === 'showRecap') {
+                    addMessage('user', "Yes, give recap");
+                    
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        addMessage('bot', "Okay, here's a quick recap of 'SAP Basics':\n1. Focus on VA01 for creating orders.\n2. Understand customer master data fields.\n3. Check pricing conditions carefully.");
+                        
+                        chatState.timeoutId = setTimeout(showNextMessage, MESSAGE_DELAY);
+                    }, TYPING_DELAY);
+                    
+                } else if (actionType === 'declineRecap') {
+                    addMessage('user', "No, thanks");
+                    
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        addMessage('bot', "Alright. Let me know if you need help later!");
+                        
+                        chatState.timeoutId = setTimeout(showNextMessage, MESSAGE_DELAY);
+                    }, TYPING_DELAY);
                 }
             }
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            chatMessagesEl.innerHTML = '';
             
-            nb_messageQueue = [
-                { sender: 'bot', text: "Hi Somchai, welcome to the LearnSphere AI assistant!" },
-                { sender: 'bot', text: "I can help you stay on track with your learning. I see you're enrolled in 'SAP Basics for Sales Teams'." },
-                { sender: 'bot', text: "Looks like you're currently 50% behind the suggested schedule for 'SAP Basics for Sales Teams'. Would you like a quick 3-line recap to help you catch up?", 
-                  actions: [
-                    { label: "Yes, give recap", action: "showRecap" },
-                    { label: "No, thanks", action: "declineRecap" }
-                  ] 
-                },
-                { sender: 'bot', text: "By the way, congrats on completing 'Sales Fundamentals' last week!" },
-                { sender: 'bot', text: "Based on your interest in becoming an Area Sales Manager, the course 'Strategic Planning Essentials' might be a good next step after SAP Basics." }
-            ];
+            // Show the next message in the queue
+            function showNextMessage() {
+                if (chatState.messageIndex < chatState.messageQueue.length) {
+                    const msg = chatState.messageQueue[chatState.messageIndex];
+                    
+                    // Show typing indicator before bot messages
+                    if (msg.sender === 'bot') {
+                        showTypingIndicator();
+                        
+                        chatState.timeoutId = setTimeout(() => {
+                            addMessage(msg.sender, msg.text, msg.actions);
+                            chatState.messageIndex++;
+                            
+                            // Schedule next message if there are no actions or after a response
+                            if (!msg.actions || msg.actions.length === 0) {
+                                const delay = MESSAGE_DELAY + Math.random() * RANDOM_DELAY;
+                                clearTimeout(chatState.timeoutId);
+                                chatState.timeoutId = setTimeout(showNextMessage, delay);
+                            }
+                        }, TYPING_DELAY);
+                    } else {
+                        // For user messages (should be rare in demo), just add immediately
+                        addMessage(msg.sender, msg.text, msg.actions);
+                        chatState.messageIndex++;
+                        
+                        if (!msg.actions || msg.actions.length === 0) {
+                            const delay = MESSAGE_DELAY;
+                            clearTimeout(chatState.timeoutId);
+                            chatState.timeoutId = setTimeout(showNextMessage, delay);
+                        }
+                    }
+                }
+            }
             
-            nb_messageIndex = 0;
-            clearTimeout(nb_timeoutId);
-            nb_timeoutId = setTimeout(nb_showNextMessage, 1000);
-        });
+            // Scroll chat to bottom
+            function scrollToBottom() {
+                if (chatContainer) {
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+            }
+            
+            // Set up the chat messages for the demo
+            function setupChatMessages() {
+                chatState.messageQueue = [
+                    { 
+                        sender: 'bot', 
+                        text: "Hi Somchai, welcome to the LearnSphere AI assistant!" 
+                    },
+                    { 
+                        sender: 'bot', 
+                        text: "I can help you stay on track with your learning. I see you're enrolled in 'SAP Basics for Sales Teams'." 
+                    },
+                    { 
+                        sender: 'bot', 
+                        text: "Looks like you're currently 50% behind the suggested schedule for 'SAP Basics for Sales Teams'. Would you like a quick 3-line recap to help you catch up?", 
+                        actions: [
+                            { label: "Yes, give recap", action: "showRecap" },
+                            { label: "No, thanks", action: "declineRecap" }
+                        ] 
+                    },
+                    { 
+                        sender: 'bot', 
+                        text: "By the way, congrats on completing 'Sales Fundamentals' last week!" 
+                    },
+                    { 
+                        sender: 'bot', 
+                        text: "Based on your interest in becoming an Area Sales Manager, the course 'Strategic Planning Essentials' might be a good next step after SAP Basics." 
+                    }
+                ];
+            }
+            
+            // Start the chat simulation
+            function startChatSimulation() {
+                chatState.messageIndex = 0;
+                clearTimeout(chatState.timeoutId);
+                chatState.timeoutId = setTimeout(showNextMessage, TYPING_DELAY);
+            }
+            
+            // Reset and restart the demo
+            function resetDemo() {
+                clearTimeout(chatState.timeoutId);
+                chatContainer.innerHTML = '';
+                
+                setupChatMessages();
+                chatState.messageIndex = 0;
+                startChatSimulation();
+            }
+            
+            // Make reset function available globally
+            window.resetNudgeDemo = resetDemo;
+            
+            // Initialize on document ready
+            document.addEventListener('DOMContentLoaded', init);
+        })();
     </script>
 </body>
 </html> 
