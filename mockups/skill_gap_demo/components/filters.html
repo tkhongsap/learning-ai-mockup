@@ -4,31 +4,31 @@
     <div class="bg-white p-4 rounded-lg shadow w-full md:w-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="demos.skillGap.filtersDepartmentLabel">Department</label>
                 <select data-filter="department" class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 text-sm">
-                    <option>All Departments</option>
-                    <option>Engineering</option>
-                    <option>Marketing</option>
-                    <option>Sales</option>
-                    <option>Customer Support</option>
+                    <option data-i18n="demos.skillGap.filtersDepartmentOptionAll">All Departments</option>
+                    <option data-i18n="demos.skillGap.filtersDepartmentOptionEng">Engineering</option>
+                    <option data-i18n="demos.skillGap.filtersDepartmentOptionMkt">Marketing</option>
+                    <option data-i18n="demos.skillGap.filtersDepartmentOptionSales">Sales</option>
+                    <option data-i18n="demos.skillGap.filtersDepartmentOptionSupport">Customer Support</option>
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Time Period</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="demos.skillGap.filtersPeriodLabel">Time Period</label>
                 <select data-filter="period" class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 text-sm">
-                    <option>Current Quarter</option>
-                    <option>Last Quarter</option>
-                    <option>YTD</option>
-                    <option>Last 12 Months</option>
+                    <option data-i18n="demos.skillGap.filtersPeriodOptionCurrentQ">Current Quarter</option>
+                    <option data-i18n="demos.skillGap.filtersPeriodOptionLastQ">Last Quarter</option>
+                    <option data-i18n="demos.skillGap.filtersPeriodOptionYTD">YTD</option>
+                    <option data-i18n="demos.skillGap.filtersPeriodOptionLast12M">Last 12 Months</option>
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Skill Category</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="demos.skillGap.filtersCategoryLabel">Skill Category</label>
                 <select data-filter="category" class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 text-sm">
-                    <option>All Categories</option>
-                    <option>Technical</option>
-                    <option>Soft Skills</option>
-                    <option>Leadership</option>
+                    <option data-i18n="demos.skillGap.filtersCategoryOptionAll">All Categories</option>
+                    <option data-i18n="demos.skillGap.filtersCategoryOptionTech">Technical</option>
+                    <option data-i18n="demos.skillGap.filtersCategoryOptionSoft">Soft Skills</option>
+                    <option data-i18n="demos.skillGap.filtersCategoryOptionLead">Leadership</option>
                 </select>
             </div>
         </div>
@@ -36,19 +36,19 @@
 
     <!-- Skill gap legend -->
     <div class="bg-white p-4 rounded-lg shadow w-full md:w-auto">
-        <h3 class="text-sm font-medium text-gray-700 mb-2">Skill Gap Legend</h3>
+        <h3 class="text-sm font-medium text-gray-700 mb-2" data-i18n="demos.skillGap.legendTitle">Skill Gap Legend</h3>
         <div class="flex space-x-4">
-            <div class="tooltip flex items-center" data-tooltip="Critical gap requiring immediate attention">
+            <div class="tooltip flex items-center" data-tooltip-i18n="demos.skillGap.legendCriticalTooltip" data-tooltip="Critical gap requiring immediate attention">
                 <div class="w-4 h-4 rounded bg-gap-red mr-1"></div>
-                <span class="text-xs">Critical Gap</span>
+                <span class="text-xs" data-i18n="demos.skillGap.legendCritical">Critical Gap</span>
             </div>
-            <div class="tooltip flex items-center" data-tooltip="Moderate gap that should be addressed soon">
+            <div class="tooltip flex items-center" data-tooltip-i18n="demos.skillGap.legendModerateTooltip" data-tooltip="Moderate gap that should be addressed soon">
                 <div class="w-4 h-4 rounded bg-gap-yellow mr-1"></div>
-                <span class="text-xs">Moderate Gap</span>
+                <span class="text-xs" data-i18n="demos.skillGap.legendModerate">Moderate Gap</span>
             </div>
-            <div class="tooltip flex items-center" data-tooltip="Minor or no gap; skills are aligned with requirements">
+            <div class="tooltip flex items-center" data-tooltip-i18n="demos.skillGap.legendMinorTooltip" data-tooltip="Minor or no gap; skills are aligned with requirements">
                 <div class="w-4 h-4 rounded bg-gap-green mr-1"></div>
-                <span class="text-xs">Minor/No Gap</span>
+                <span class="text-xs" data-i18n="demos.skillGap.legendMinor">Minor/No Gap</span>
             </div>
         </div>
     </div>

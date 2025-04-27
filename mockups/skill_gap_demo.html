@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Gap & Readiness Dashboard</title>
+    <title data-i18n="demos.skillGap.pageTitle">Skill Gap & Readiness Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="skill_gap_demo/css/styles.css">
+    <!-- i18next CDNs -->
+    <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+    <style>
+        /* Style for language switcher */
+        .lang-switcher button { margin-left: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.875rem; border: 1px solid transparent; border-radius: 0.25rem; cursor: pointer; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        .lang-switcher button.active { background-color: #4f46e5; color: white; border-color: #4f46e5; }
+        .lang-switcher button:not(.active) { color: #4b5563; }
+        .lang-switcher button:not(.active):hover { background-color: #e0e7ff; }
+    </style>
     <!-- Scripts will be loaded at the end of body to avoid conflicts -->
 </head>
 <body class="bg-gray-50">
     <div class="max-w-screen-2xl mx-auto mb-6 px-4">
         <div class="flex justify-between items-center border-b pb-4">
-            <h1 class="text-xl md:text-2xl font-bold text-indigo-700"><i class="fas fa-chart-line mr-2"></i>Skill-Gap & Readiness Dashboard Demo</h1>
-             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+            <h1 class="text-xl md:text-2xl font-bold text-indigo-700"><i class="fas fa-chart-line mr-2"></i><span data-i18n="demos.skillGap.pageTitle">Skill-Gap & Readiness Dashboard Demo</span></h1>
+             <!-- Language Switcher Demo -->
+             <div class="lang-switcher flex items-center ml-4">
+                <button id="lang-en-desktop" onclick="changeLanguage('en')" class="active">EN</button>
+                <span class="mx-1 text-gray-400">|</span>
+                <button id="lang-th-desktop" onclick="changeLanguage('th')">TH</button>
+            </div>
+             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline" data-i18n="demos.skillGap.backLink">&larr; Back to Features</a>
         </div>
     </div>
 
@@ -33,24 +50,24 @@
                 <!-- Filter section -->
                 <div class="mb-6 md:mb-8 dashboard-card p-3 md:p-4 flex flex-wrap gap-3 md:gap-4 items-center">
                     <div class="w-full md:w-auto flex flex-wrap items-center gap-2">
-                        <label for="sg-bu-select" class="text-sm font-medium text-gray-700">Business Unit:</label>
+                        <label for="sg-bu-select" class="text-sm font-medium text-gray-700" data-i18n="filtersDepartmentLabel">Business Unit:</label>
                         <select id="sg-bu-select" class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm flex-grow md:flex-grow-0">
-                            <option selected>Sales Department</option>
-                            <option>Supply Chain</option>
-                            <option>Marketing</option>
-                            <option>Technology</option>
+                            <option selected data-i18n="filtersDepartmentOptionSales">Sales Department</option>
+                            <option data-i18n="filtersDepartmentOptionSupply">Supply Chain</option>
+                            <option data-i18n="filtersDepartmentOptionMkt">Marketing</option>
+                            <option data-i18n="filtersDepartmentOptionTech">Technology</option>
                         </select>
                     </div>
                     <div class="w-full md:w-auto flex flex-wrap items-center gap-2">
-                        <label for="sg-role-select" class="text-sm font-medium text-gray-700">Target Role:</label>
+                        <label for="sg-role-select" class="text-sm font-medium text-gray-700" data-i18n="tableHeaderCurrentRole">Target Role:</label>
                         <select id="sg-role-select" class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm flex-grow md:flex-grow-0">
-                            <option selected>Area Sales Manager</option>
-                            <option>Senior Software Architect</option>
-                            <option>Marketing Manager</option>
+                            <option selected data-i18n="roleAreaSalesManager">Area Sales Manager</option>
+                            <option data-i18n="roleSrSoftwareArchitect">Senior Software Architect</option>
+                            <option data-i18n="roleMarketingManager">Marketing Manager</option>
                         </select>
                     </div>
                     <button class="w-full md:w-auto mt-2 md:mt-0 px-4 py-1.5 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition-colors">
-                        <i class="fas fa-filter mr-1"></i> Apply Filters
+                        <i class="fas fa-filter mr-1"></i> <span data-i18n="applyFiltersButton">Apply Filters</span>
                     </button>
                 </div>
 
@@ -70,12 +87,118 @@
     <script src="skill_gap_demo/js/main.js"></script>
     <script src="skill_gap_demo/js/dashboard.js"></script>
     
-    <!-- Component/View loader script -->
+    <!-- i18next Initialization -->
     <script>
-        // Ensure external scripts (main.js, dashboard.js) define their init functions globally
-        // e.g., window.initializeDashboard = function() { ... };
-        // e.g., window.initializeAnimations = function() { ... };
+        const i18nextInstance = window.i18next;
+        const i18nextHttpBackend = window.i18nextHttpBackend;
+        const i18nextBrowserLanguageDetector = window.i18nextBrowserLanguageDetector;
 
+        // Function to translate a specific element and its children
+        function translateElement(element) {
+            if (!element || !i18nextInstance || !i18nextInstance.isInitialized) {
+                console.warn('translateElement called before i18next is ready or with invalid element');
+                return;
+            }
+            const elements = element.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const options = {};
+                let targetAttr = 'innerHTML';
+                let translationKey = key;
+
+                if (key.startsWith('[')) {
+                    const match = key.match(/^\[(.*?)\](.*)/);
+                    if (match && match.length === 3) {
+                        targetAttr = match[1];
+                        translationKey = match[2];
+                        const translatedValue = i18nextInstance.t(translationKey);
+                        if (el[targetAttr] !== undefined) {
+                           el[targetAttr] = translatedValue;
+                        }
+                    } else {
+                        console.warn(`Malformed attribute key: ${key}`);
+                    }
+                } else {
+                    el.innerHTML = i18nextInstance.t(translationKey, options);
+                }
+            });
+            // Also translate the root element if it has the attribute
+            if (element.hasAttribute('data-i18n')) {
+                const key = element.getAttribute('data-i18n');
+                 let targetAttr = 'innerHTML';
+                let translationKey = key;
+                 if (key.startsWith('[')) {
+                     // Simplified handling for root, assuming innerHTML or textContent if needed
+                     // Add more specific handling if root attributes need translation
+                } else {
+                     element.innerHTML = i18nextInstance.t(translationKey);
+                 }
+            }
+        }
+
+        function updateLanguageSwitcherUI(lang) {
+             ['en', 'th'].forEach(l => {
+                const desktopButton = document.getElementById(`lang-${l}-desktop`);
+                if (desktopButton) {
+                    desktopButton.classList.toggle('active', l === lang);
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        async function changeLanguage(lang) {
+            if (!i18nextInstance || !i18nextInstance.isInitialized) return;
+            try {
+                await i18nextInstance.changeLanguage(lang);
+                // updateContent(); // Called by languageChanged event listener
+                updateLanguageSwitcherUI(lang);
+            } catch (err) {
+                console.error('Error changing language:', err);
+            }
+        }
+
+        async function initializeI18n() {
+          try {
+            await i18nextInstance
+                .use(i18nextHttpBackend) 
+                .use(i18nextBrowserLanguageDetector)
+                .init({
+                    debug: false, 
+                    fallbackLng: 'en',
+                    supportedLngs: ['en', 'th'],
+                    ns: ['translation'],
+                    defaultNS: 'translation',
+                    backend: {
+                        loadPath: '../locales/{{lng}}/{{ns}}.json' 
+                    },
+                    detection: {
+                        order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+                        caches: ['localStorage', 'cookie']
+                    },
+                    interpolation: {
+                         escapeValue: false
+                    }
+                });
+
+                // Update static content first
+                translateElement(document.body);
+                updateLanguageSwitcherUI(i18nextInstance.language);
+
+                // Load dynamic components AFTER i18n is ready
+                await loadComponentsAndViews(); // Ensure this function waits for components
+
+                // Listen for language change events
+                i18nextInstance.on('languageChanged', (lng) => {
+                    translateElement(document.body); // Retranslate everything on language change
+                    updateLanguageSwitcherUI(lng);
+                });
+
+          } catch (err) {
+             console.error('Error initializing i18next:', err);
+          }
+        }
+
+        // Component/View loader script (modified)
         async function loadHtml(url) {
             try {
                 const response = await fetch(url);
@@ -85,14 +208,14 @@
                 return await response.text();
             } catch (error) {
                 console.error(`Error fetching ${url}:`, error);
-                return ''; // Return empty string on error
+                return '';
             }
         }
 
         async function loadComponentsAndViews() {
             const componentPromises = [
                 { id: 'header-component', path: 'skill_gap_demo/components/header.html' },
-                { id: 'filters-component', path: 'skill_gap_demo/components/filters.html' },
+               // { id: 'filters-component', path: 'skill_gap_demo/components/filters.html' }, // Removed as filters are inline
                 { id: 'dashboard-stats-component', path: 'skill_gap_demo/components/dashboard_stats.html' },
                 { id: 'tabs-component', path: 'skill_gap_demo/components/tabs.html' },
                 { id: 'explanation-component', path: 'skill_gap_demo/components/explanation_box.html' },
@@ -110,6 +233,7 @@
                     const element = document.getElementById(comp.id);
                     if (element && comp.html) {
                         element.innerHTML = comp.html;
+                        translateElement(element); // Translate component after loading
                     }
                 });
 
@@ -125,48 +249,35 @@
                             if (!view.isDefault) {
                                 viewDiv.classList.add('hidden');
                             }
-                            viewDiv.classList.add('space-y-6'); // Add common view styling if needed
+                            viewDiv.classList.add('space-y-6');
                             viewDiv.innerHTML = view.html;
                             viewContainer.appendChild(viewDiv);
+                            translateElement(viewDiv); // Translate view after loading
                         }
                     });
                 }
 
-                // Now that all HTML is loaded and injected, run initialization scripts
-                console.log('Components and views loaded. Initializing scripts...');
-                if (typeof initializeDashboard === 'function') {
-                    initializeDashboard();
-                } else {
-                    console.error('initializeDashboard function not found.');
-                }
-                if (typeof initializeAnimations === 'function') {
-                    initializeAnimations();
-                } else {
-                    console.error('initializeAnimations function not found.');
-                }
-                
-                // Trigger click on the default tab after a minimal delay to ensure styles apply
-                setTimeout(() => {
-                    const defaultTabButton = document.querySelector('.tab-active[data-tab]');
-                    if(defaultTabButton) {
-                         // No need to click, it's already active. Ensure content visible.
-                         const targetId = defaultTabButton.dataset.tab;
-                         const targetContent = document.querySelector(`[data-tab-content='${targetId}']`);
-                         if(targetContent) targetContent.classList.remove('hidden');
-                    } else {
-                        // Fallback if no tab is active initially
-                         const firstTabButton = document.querySelector('[data-tab]');
-                         if(firstTabButton) firstTabButton.click();
-                    }
-                }, 50);
+                // Initialize other JS AFTER components are loaded and translated
+                console.log('Components and views loaded & translated. Initializing scripts...');
+                 if (typeof initializeDashboard === 'function') {
+                     initializeDashboard(); // This likely sets up tab switching etc.
+                 } else {
+                     console.error('initializeDashboard function not found.');
+                 }
+                 //Animations might not be needed or defined
+                // if (typeof initializeAnimations === 'function') {
+                //     initializeAnimations();
+                // } else {
+                //     console.error('initializeAnimations function not found.');
+                // }
 
             } catch (error) {
                 console.error('Error loading components or views:', error);
             }
         }
 
-        // Run the loader after the DOM is ready
-        document.addEventListener('DOMContentLoaded', loadComponentsAndViews);
+        // Initialize i18next, which will then load components
+        document.addEventListener('DOMContentLoaded', initializeI18n);
     </script>
 </body>
 </html> 

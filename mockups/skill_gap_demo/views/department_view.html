@@ -3,24 +3,24 @@
     
     <div class="dashboard-card p-3 md:p-5 border border-gray-100">
         <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-            <h2 class="text-base md:text-lg font-semibold text-gray-800">Critical Skill Gaps</h2>
-            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0">Sales Department</span>
+            <h2 class="text-base md:text-lg font-semibold text-gray-800" data-i18n="demos.skillGap.departmentViewTitle">Critical Skill Gaps</h2>
+            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0" data-i18n="demos.skillGap.departmentViewBusinessUnit">Sales Department</span>
         </div>
-        <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Comparing current team skills against requirements for <span class="font-medium text-indigo-700">Area Sales Manager</span>.</p>
+        <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4" data-i18n="demos.skillGap.departmentViewSubTitle">Comparing current team skills against requirements for <span class="font-medium text-indigo-700">Area Sales Manager</span>.</p>
         <div class="overflow-x-auto -mx-3 md:mx-0">
             <div class="min-w-full px-3 md:px-0">
                 <table class="min-w-full border border-gray-200 text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="p-2 border text-left w-1/3 md:w-auto">Skill</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Current</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Required</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Gap</th>
+                            <th class="p-2 border text-left w-1/3 md:w-auto" data-i18n="demos.skillGap.tableHeaderSkill">Skill</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderCurrent">Current</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderRequired">Required</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderGap">Gap</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Strategic Planning</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillStrategicPlanning">Strategic Planning</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -33,18 +33,18 @@
                             </td>
                             <td class="p-2 border text-center">4 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                <div class="heatmap-cell bg-gap-red tooltip" data-i18n="demos.skillGap.gapSignificant">Significant
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Strategic Planning</div>
-                                        <div>Gap: -1.5 levels</div>
-                                        <div>Priority: High</div>
-                                        <div class="text-xs mt-1">Recommended: Leadership workshop series</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillStrategicPlanning">Strategic Planning</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -1.5}'>-1.5 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityHigh">High</span>
+                                        <div class="text-xs mt-1"><span data-i18n="demos.skillGap.tooltipRecommended">Recommended:</span> <span data-i18n="demos.skillGap.tooltipRecStratPlanning">Leadership workshop series</span></div>
                                     </span>
                                 </div>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Leadership</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillLeadership">Leadership</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -57,18 +57,18 @@
                             </td>
                             <td class="p-2 border text-center">4 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                <div class="heatmap-cell bg-gap-yellow tooltip" data-i18n="demos.skillGap.gapModerate">Moderate
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Leadership</div>
-                                        <div>Gap: -1.2 levels</div>
-                                        <div>Priority: Medium</div>
-                                        <div class="text-xs mt-1">Recommended: Team Lead shadowing program</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillLeadership">Leadership</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -1.2}'>-1.2 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityMedium">Medium</span>
+                                        <div class="text-xs mt-1"><span data-i18n="demos.skillGap.tooltipRecommended">Recommended:</span> <span data-i18n="demos.skillGap.tooltipRecLeadership">Team Lead shadowing program</span></div>
                                     </span>
                                 </div>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Negotiation</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillNegotiation">Negotiation</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -81,18 +81,18 @@
                             </td>
                             <td class="p-2 border text-center">5 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                <div class="heatmap-cell bg-gap-red tooltip" data-i18n="demos.skillGap.gapSignificant">Significant
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Negotiation</div>
-                                        <div>Gap: -1.5 levels</div>
-                                        <div>Priority: High</div>
-                                        <div class="text-xs mt-1">Recommended: Advanced negotiation tactics course</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillNegotiation">Negotiation</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -1.5}'>-1.5 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityHigh">High</span>
+                                        <div class="text-xs mt-1"><span data-i18n="demos.skillGap.tooltipRecommended">Recommended:</span> <span data-i18n="demos.skillGap.tooltipRecNegotiation">Advanced negotiation tactics course</span></div>
                                     </span>
                                 </div>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Financial Acumen</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillFinancialAcumen">Financial Acumen</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -105,18 +105,18 @@
                             </td>
                             <td class="p-2 border text-center">3 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                <div class="heatmap-cell bg-gap-yellow tooltip" data-i18n="demos.skillGap.gapModerate">Moderate
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Financial Acumen</div>
-                                        <div>Gap: -1.0 levels</div>
-                                        <div>Priority: Medium</div>
-                                        <div class="text-xs mt-1">Recommended: Finance for non-finance managers</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillFinancialAcumen">Financial Acumen</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -1.0}'>-1.0 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityMedium">Medium</span>
+                                        <div class="text-xs mt-1"><span data-i18n="demos.skillGap.tooltipRecommended">Recommended:</span> <span data-i18n="demos.skillGap.tooltipRecFinancial">Finance for non-finance managers</span></div>
                                     </span>
                                 </div>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">CRM Software</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillCRMSoftware">CRM Software</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -129,12 +129,12 @@
                             </td>
                             <td class="p-2 border text-center">4 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-green tooltip">Met/Exceeded
+                                <div class="heatmap-cell bg-gap-green tooltip" data-i18n="demos.skillGap.gapMetExceeded">Met/Exceeded
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">CRM Software</div>
-                                        <div>Gap: +0.1 levels</div>
-                                        <div>Priority: Low</div>
-                                        <div class="text-xs mt-1">Current level exceeds requirements</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillCRMSoftware">CRM Software</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": 0.1}'>+0.1 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityLow">Low</span>
+                                        <div class="text-xs mt-1" data-i18n="demos.skillGap.tooltipRecCRM">Current level exceeds requirements</div>
                                     </span>
                                 </div>
                             </td>
@@ -145,29 +145,29 @@
         </div>
         <div class="mt-3 md:mt-4 flex flex-wrap justify-between items-center">
             <p class="text-xs text-gray-500">
-                <i class="fas fa-info-circle mr-1"></i> Hover over gap status for details and recommendations.
+                <i class="fas fa-info-circle mr-1"></i> <span data-i18n="demos.skillGap.gapHoverInstruction">Hover over gap status for details and recommendations.</span>
             </p>
             <button class="text-indigo-600 text-sm hover:text-indigo-800 transition-colors mt-2 md:mt-0">
-                View All Skills <i class="fas fa-chevron-right ml-1"></i>
+                <span data-i18n="demos.skillGap.viewAllSkillsButton">View All Skills</span> <i class="fas fa-chevron-right ml-1"></i>
             </button>
         </div>
     </div>
     
     <div class="dashboard-card p-3 md:p-5 border border-gray-100">
         <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-            <h2 class="text-base md:text-lg font-semibold text-gray-800">Succession Readiness & Risk</h2>
-            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0">AI Predictions</span>
+            <h2 class="text-base md:text-lg font-semibold text-gray-800" data-i18n="demos.skillGap.readinessTitle">Succession Readiness & Risk</h2>
+            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0" data-i18n="demos.skillGap.readinessAIPrediction">AI Predictions</span>
         </div>
-        <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4">Potential successors for <span class="font-medium text-indigo-700">Area Sales Manager</span> with attrition risk assessment.</p>
+        <p class="text-xs md:text-sm text-gray-600 mb-3 md:mb-4" data-i18n="demos.skillGap.readinessSubTitle">Potential successors for <span class="font-medium text-indigo-700">Area Sales Manager</span> with attrition risk assessment.</p>
         <div class="overflow-x-auto -mx-3 md:mx-0">
             <div class="min-w-full px-3 md:px-0">
                 <table class="min-w-full border border-gray-200 text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="p-2 border text-left w-1/4 md:w-auto">Employee</th>
-                            <th class="p-2 border text-left w-1/4 md:w-auto">Current Role</th>
-                            <th class="p-2 border text-center w-1/4 md:w-auto">Readiness</th>
-                            <th class="p-2 border text-center w-1/4 md:w-auto">Flight Risk</th>
+                            <th class="p-2 border text-left w-1/4 md:w-auto" data-i18n="demos.skillGap.tableHeaderEmployee">Employee</th>
+                            <th class="p-2 border text-left w-1/4 md:w-auto" data-i18n="demos.skillGap.tableHeaderCurrentRole">Current Role</th>
+                            <th class="p-2 border text-center w-1/4 md:w-auto" data-i18n="demos.skillGap.tableHeaderReadiness">Readiness</th>
+                            <th class="p-2 border text-center w-1/4 md:w-auto" data-i18n="demos.skillGap.tableHeaderFlightRisk">Flight Risk</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -175,23 +175,23 @@
                             <td class="p-2 border font-medium">
                                 <div class="flex items-center">
                                     <img src="https://randomuser.me/api/portraits/women/45.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
-                                    Supaporn K.
+                                    <span data-i18n="demos.skillGap.employeeSupaporn">Supaporn K.</span>
                                 </div>
                             </td>
-                            <td class="p-2 border">Key Account Mgr</td>
+                            <td class="p-2 border" data-i18n="demos.skillGap.roleKeyAccountMgr">Key Account Mgr</td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-green">
-                                    <i class="fas fa-check-circle mr-1"></i> Ready Now (88%)
+                                    <i class="fas fa-check-circle mr-1"></i> <span data-i18n="demos.skillGap.readinessReadyNow">Ready Now</span> (88%)
                                 </span>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-gray tooltip">
-                                    <i class="fas fa-shield-alt mr-1"></i> Low (15%)
+                                    <i class="fas fa-shield-alt mr-1"></i> <span data-i18n="demos.skillGap.riskLow">Low</span> (15%)
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Stable Employee</div>
-                                        <div>High engagement scores</div>
-                                        <div>Clear career path</div>
-                                        <div>Recent promotion (8 months ago)</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.riskTooltipStable">Stable Employee</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipEngagementHigh">High engagement scores</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipClearPath">Clear career path</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipRecentPromo">Recent promotion (8 months ago)</div>
                                     </span>
                                 </span>
                             </td>
@@ -200,24 +200,24 @@
                             <td class="p-2 border font-medium">
                                 <div class="flex items-center">
                                     <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
-                                    Anucha P.
+                                    <span data-i18n="demos.skillGap.employeeAnucha">Anucha P.</span>
                                 </div>
                             </td>
-                            <td class="p-2 border">Regional Sales Lead</td>
+                            <td class="p-2 border" data-i18n="demos.skillGap.roleRegionalSalesLead">Regional Sales Lead</td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-green">
-                                    <i class="fas fa-check-circle mr-1"></i> Ready Now (85%)
+                                    <i class="fas fa-check-circle mr-1"></i> <span data-i18n="demos.skillGap.readinessReadyNow">Ready Now</span> (85%)
                                 </span>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-red tooltip">
-                                    <i class="fas fa-exclamation-triangle mr-1"></i> High (75%)
+                                    <i class="fas fa-exclamation-triangle mr-1"></i> <span data-i18n="demos.skillGap.riskHigh">High</span> (75%)
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Risk Factors</div>
-                                        <div>LinkedIn profile recently updated</div>
-                                        <div>Declining engagement scores</div>
-                                        <div>No promotion in 3+ years</div>
-                                        <div>Market demand for their skills</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.riskTooltipRiskFactors">Risk Factors</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipLinkedInUpdate">LinkedIn profile recently updated</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipEngagementLow">Declining engagement scores</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipNoPromo">No promotion in 3+ years</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipMarketDemand">Market demand for their skills</div>
                                     </span>
                                 </span>
                             </td>
@@ -226,22 +226,22 @@
                             <td class="p-2 border font-medium">
                                 <div class="flex items-center">
                                     <img src="https://randomuser.me/api/portraits/men/42.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
-                                    Somchai T.
+                                    <span data-i18n="demos.skillGap.employeeSomchai">Somchai T.</span>
                                 </div>
                             </td>
-                            <td class="p-2 border">Sales Rep</td>
+                            <td class="p-2 border" data-i18n="demos.skillGap.roleSalesRep">Sales Rep</td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-yellow">
-                                    <i class="fas fa-clock mr-1"></i> Ready in 12-18m (65%)
+                                    <i class="fas fa-clock mr-1"></i> <span data-i18n="demos.skillGap.readinessReadyIn12M">Ready in 12-18m</span> (65%)
                                 </span>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-gray tooltip">
-                                    <i class="fas fa-shield-alt mr-1"></i> Low (20%)
+                                    <i class="fas fa-shield-alt mr-1"></i> <span data-i18n="demos.skillGap.riskLow">Low</span> (20%)
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Stable Employee</div>
-                                        <div>Good engagement scores</div>
-                                        <div>Recently enrolled in development program</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.riskTooltipStable">Stable Employee</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipGoodEngagement">Good engagement scores</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipDevProgram">Recently enrolled in development program</div>
                                     </span>
                                 </span>
                             </td>
@@ -250,22 +250,22 @@
                             <td class="p-2 border font-medium">
                                 <div class="flex items-center">
                                     <img src="https://randomuser.me/api/portraits/men/65.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
-                                    Pichai R.
+                                    <span data-i18n="demos.skillGap.employeePichai">Pichai R.</span>
                                 </div>
                             </td>
-                            <td class="p-2 border">Sales Rep</td>
+                            <td class="p-2 border" data-i18n="demos.skillGap.roleSalesRep">Sales Rep</td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-gray">
-                                    <i class="fas fa-user-graduate mr-1"></i> Needs Development (40%)
+                                    <i class="fas fa-user-graduate mr-1"></i> <span data-i18n="demos.skillGap.readinessNeedsDevelopment">Needs Development</span> (40%)
                                 </span>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-yellow tooltip">
-                                    <i class="fas fa-exclamation-circle mr-1"></i> Medium (55%)
+                                    <i class="fas fa-exclamation-circle mr-1"></i> <span data-i18n="demos.skillGap.riskMedium">Medium</span> (55%)
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Watch List</div>
-                                        <div>Mixed engagement survey results</div>
-                                        <div>Competitor recently hiring in this role</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.riskTooltipWatchList">Watch List</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipMixedResults">Mixed engagement survey results</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipCompetitorHiring">Competitor recently hiring in this role</div>
                                     </span>
                                 </span>
                             </td>
@@ -274,23 +274,23 @@
                             <td class="p-2 border font-medium">
                                 <div class="flex items-center">
                                     <img src="https://randomuser.me/api/portraits/women/28.jpg" class="w-8 h-8 rounded-full mr-2" alt="Employee">
-                                    Nittaya S.
+                                    <span data-i18n="demos.skillGap.employeeNittaya">Nittaya S.</span>
                                 </div>
                             </td>
-                            <td class="p-2 border">Key Account Mgr</td>
+                            <td class="p-2 border" data-i18n="demos.skillGap.roleKeyAccountMgr">Key Account Mgr</td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-yellow">
-                                    <i class="fas fa-clock mr-1"></i> Ready in 6-12m (78%)
+                                    <i class="fas fa-clock mr-1"></i> <span data-i18n="demos.skillGap.readinessReadyIn6M">Ready in 6-12m</span> (78%)
                                 </span>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="badge badge-gray tooltip">
-                                    <i class="fas fa-shield-alt mr-1"></i> Low (10%)
+                                    <i class="fas fa-shield-alt mr-1"></i> <span data-i18n="demos.skillGap.riskLow">Low</span> (10%)
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Stable Employee</div>
-                                        <div>High engagement scores</div>
-                                        <div>Career development plan in place</div>
-                                        <div>Recent recognition award</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.riskTooltipStable">Stable Employee</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipEngagementHigh">High engagement scores</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipCareerDevPlan">Career development plan in place</div>
+                                        <div data-i18n="demos.skillGap.riskTooltipRecentRecognition">Recent recognition award</div>
                                     </span>
                                 </span>
                             </td>

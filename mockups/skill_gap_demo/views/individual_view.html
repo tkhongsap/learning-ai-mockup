@@ -4,16 +4,16 @@
     <div class="dashboard-card p-3 md:p-5 border border-gray-100">
         <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
             <div>
-                <h2 class="text-base md:text-lg font-semibold text-gray-800">Individual Skill Assessment</h2>
-                <p class="text-xs text-gray-500 mt-1">Select an employee to view their personal skill gaps</p>
+                <h2 class="text-base md:text-lg font-semibold text-gray-800" data-i18n="demos.skillGap.individualViewTitle">Individual Skill Assessment</h2>
+                <p class="text-xs text-gray-500 mt-1" data-i18n="demos.skillGap.individualViewSubTitle">Select an employee to view their personal skill gaps</p>
             </div>
             <div class="mt-2 md:mt-0">
                 <select class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
-                    <option>Supaporn K.</option>
-                    <option selected>Anucha P.</option>
-                    <option>Somchai T.</option>
-                    <option>Pichai R.</option>
-                    <option>Nittaya S.</option>
+                    <option data-i18n="demos.skillGap.employeeSupaporn">Supaporn K.</option>
+                    <option selected data-i18n="demos.skillGap.employeeAnucha">Anucha P.</option>
+                    <option data-i18n="demos.skillGap.employeeSomchai">Somchai T.</option>
+                    <option data-i18n="demos.skillGap.employeePichai">Pichai R.</option>
+                    <option data-i18n="demos.skillGap.employeeNittaya">Nittaya S.</option>
                 </select>
             </div>
         </div>
@@ -21,26 +21,29 @@
         <!-- AI Insight Box -->
         <div class="mb-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
             <h4 class="text-sm font-semibold text-indigo-800 flex items-center mb-1">
-                <i class="fas fa-robot mr-2"></i> AI Insight for Anucha P.
+                <i class="fas fa-robot mr-2"></i> <span data-i18n="demos.skillGap.aiInsightTitle">AI Insight for Anucha P.</span>
             </h4>
-            <p class="text-xs text-indigo-700">
+            <p class="text-xs text-indigo-700" data-i18n="demos.skillGap.aiInsightText">
                 High potential (85% Readiness) for Area Sales Manager role, but significant Negotiation gap (-3.0) requires urgent attention. High flight risk (75%) necessitates immediate retention focus.
             </p>
             <p class="text-xs text-indigo-700 mt-1">
-                <span class="font-medium">Recommended Actions:</span> 1) Enroll in Advanced Negotiation course. 2) Schedule retention discussion. 3) Monitor Strategic Planning workshop progress.
+                <span class="font-medium" data-i18n="demos.skillGap.aiInsightRecommendedActions">Recommended Actions:</span> 
+                <span data-i18n="demos.skillGap.aiInsightRecAction1">1) Enroll in Advanced Negotiation course.</span> 
+                <span data-i18n="demos.skillGap.aiInsightRecAction2">2) Schedule retention discussion.</span> 
+                <span data-i18n="demos.skillGap.aiInsightRecAction3">3) Monitor Strategic Planning workshop progress.</span>
             </p>
         </div>
         
         <div class="flex flex-wrap items-center gap-4 p-3 bg-gray-50 rounded-md mb-4">
             <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full border-2 border-white shadow" alt="Employee">
             <div>
-                <h3 class="font-semibold">Anucha P.</h3>
-                <p class="text-sm text-gray-600">Regional Sales Lead</p>
+                <h3 class="font-semibold" data-i18n="demos.skillGap.employeeAnucha">Anucha P.</h3>
+                <p class="text-sm text-gray-600" data-i18n="demos.skillGap.roleRegionalSalesLead">Regional Sales Lead</p>
                 <div class="mt-1 flex items-center">
                     <span class="badge badge-green mr-2">
-                        <i class="fas fa-check-circle mr-1"></i> Ready Now (85%)
+                        <i class="fas fa-check-circle mr-1"></i> <span data-i18n="demos.skillGap.readinessReadyNow">Ready Now</span> (85%)
                     </span>
-                    <span class="badge badge-red">
+                    <span class="badge badge-red" data-i18n="demos.skillGap.readinessHighFlightRiskBadge">
                         <i class="fas fa-exclamation-triangle mr-1"></i> High Flight Risk
                     </span>
                 </div>
@@ -52,16 +55,16 @@
                 <table class="min-w-full border border-gray-200 text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="p-2 border text-left w-1/3 md:w-auto">Skill</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Current Level</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Required Level</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">Gap</th>
-                            <th class="p-2 border text-center w-1/6 md:w-auto">AI Recommended Development</th>
+                            <th class="p-2 border text-left w-1/3 md:w-auto" data-i18n="demos.skillGap.tableHeaderSkill">Skill</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderCurrentLevel">Current Level</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderRequiredLevel">Required Level</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderGap">Gap</th>
+                            <th class="p-2 border text-center w-1/6 md:w-auto" data-i18n="demos.skillGap.tableHeaderRecommendedDev">AI Recommended Development</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Strategic Planning</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillStrategicPlanning">Strategic Planning</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -74,22 +77,22 @@
                             </td>
                             <td class="p-2 border text-center">4 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                <div class="heatmap-cell bg-gap-yellow tooltip" data-i18n="demos.skillGap.gapModerate">Moderate
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Strategic Planning</div>
-                                        <div>Gap: -1.0 levels</div>
-                                        <div>Priority: Medium</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillStrategicPlanning">Strategic Planning</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -1.0}'>-1.0 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityMedium">Medium</span>
                                     </span>
                                 </div>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="text-xs text-indigo-600 bg-indigo-50 py-1 px-2 rounded">
-                                    <i class="fas fa-lightbulb mr-1 text-indigo-400"></i> Strategic Workshop (Enrolled)
+                                    <i class="fas fa-lightbulb mr-1 text-indigo-400"></i> <span data-i18n="demos.skillGap.devActionWorkshopEnrolled">Strategic Workshop (Enrolled)</span>
                                 </span>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Leadership</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillLeadership">Leadership</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -102,22 +105,22 @@
                             </td>
                             <td class="p-2 border text-center">4 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-green tooltip">Met
+                                <div class="heatmap-cell bg-gap-green tooltip" data-i18n="demos.skillGap.gapMet">Met
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Leadership</div>
-                                        <div>Gap: 0 levels</div>
-                                        <div>Priority: Low</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillLeadership">Leadership</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": 0}'>0 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityLow">Low</span>
                                     </span>
                                 </div>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="text-xs text-green-600 bg-green-50 py-1 px-2 rounded">
-                                    <i class="fas fa-check mr-1"></i> No Action Required
+                                    <i class="fas fa-check mr-1"></i> <span data-i18n="demos.skillGap.devActionNone">No Action Required</span>
                                 </span>
                             </td>
                         </tr>
                         <tr class="hover:bg-indigo-50 transition-colors">
-                            <td class="p-2 border font-medium">Negotiation</td>
+                            <td class="p-2 border font-medium" data-i18n="demos.skillGap.skillNegotiation">Negotiation</td>
                             <td class="p-2 border text-center">
                                 <div class="flex items-center justify-center">
                                     <div class="w-24">
@@ -130,17 +133,17 @@
                             </td>
                             <td class="p-2 border text-center">5 / 5</td>
                             <td class="p-0 border">
-                                <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                <div class="heatmap-cell bg-gap-red tooltip" data-i18n="demos.skillGap.gapSignificant">Significant
                                     <span class="tooltiptext">
-                                        <div class="font-semibold text-center mb-1">Negotiation</div>
-                                        <div>Gap: -3.0 levels</div>
-                                        <div>Priority: High</div>
+                                        <div class="font-semibold text-center mb-1" data-i18n="demos.skillGap.skillNegotiation">Negotiation</div>
+                                        <div data-i18n="demos.skillGap.tooltipGap">Gap:</div> <span data-i18n="demos.skillGap.tooltipLevel" data-i18n-options='{"count": -3.0}'>-3.0 levels</span>
+                                        <div data-i18n="demos.skillGap.tooltipPriority">Priority:</div> <span data-i18n="demos.skillGap.tooltipPriorityHigh">High</span>
                                     </span>
                                 </div>
                             </td>
                             <td class="p-2 border text-center">
                                 <span class="text-xs text-red-600 bg-red-50 py-1 px-2 rounded">
-                                    <i class="fas fa-robot mr-1 text-red-400"></i> AI: Advanced Negotiation Course
+                                    <i class="fas fa-robot mr-1 text-red-400"></i> <span data-i18n="demos.skillGap.devActionNegotiationCourse">AI: Advanced Negotiation Course</span>
                                 </span>
                             </td>
                         </tr>
@@ -152,8 +155,8 @@
     
     <div class="dashboard-card p-3 md:p-5 border border-gray-100">
         <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-            <h2 class="text-base md:text-lg font-semibold text-gray-800">AI-Powered Development Timeline</h2>
-            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Anucha P.</span>
+            <h2 class="text-base md:text-lg font-semibold text-gray-800" data-i18n="demos.skillGap.timelineTitle">AI-Powered Development Timeline</h2>
+            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded" data-i18n="demos.skillGap.employeeAnucha">Anucha P.</span>
         </div>
         
         <div class="space-y-4">
@@ -162,13 +165,13 @@
                     <div class="w-10 h-10 bg-green-100 text-green-700 flex items-center justify-center rounded-full mx-auto">
                         <i class="fas fa-check"></i>
                     </div>
-                    <div class="text-xs mt-1">Completed</div>
+                    <div class="text-xs mt-1" data-i18n="demos.skillGap.timelineStatusCompleted">Completed</div>
                     <div class="text-xs font-semibold">Jan 2023</div>
                 </div>
                 <div class="flex-grow pl-4 border-l border-gray-200">
-                    <h3 class="font-medium">Leadership Excellence Program</h3>
-                    <p class="text-xs text-gray-600 mt-1">Completed the 6-week leadership program with certification</p>
-                    <div class="text-xs text-green-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Skill Impact: Leadership +1.5</div>
+                    <h3 class="font-medium" data-i18n="demos.skillGap.timelineEvent1Title">Leadership Excellence Program</h3>
+                    <p class="text-xs text-gray-600 mt-1" data-i18n="demos.skillGap.timelineEvent1Desc">Completed the 6-week leadership program with certification</p>
+                    <div class="text-xs text-green-600 mt-1"><i class="fas fa-chart-line mr-1"></i> <span data-i18n="demos.skillGap.timelineEvent1Impact">Skill Impact: Leadership +1.5</span></div>
                 </div>
             </div>
             
@@ -177,13 +180,13 @@
                     <div class="w-10 h-10 bg-indigo-100 text-indigo-700 flex items-center justify-center rounded-full mx-auto">
                         <i class="fas fa-play"></i>
                     </div>
-                    <div class="text-xs mt-1">In Progress</div>
+                    <div class="text-xs mt-1" data-i18n="demos.skillGap.timelineStatusInProgress">In Progress</div>
                     <div class="text-xs font-semibold">Apr 2023</div>
                 </div>
                 <div class="flex-grow pl-4 border-l border-gray-200">
-                    <h3 class="font-medium">Strategic Planning Workshop</h3>
-                    <p class="text-xs text-gray-600 mt-1">4 sessions completed out of 8 total sessions</p>
-                    <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Expected Skill Impact: Strategic Planning +1.0</div>
+                    <h3 class="font-medium" data-i18n="demos.skillGap.timelineEvent2Title">Strategic Planning Workshop</h3>
+                    <p class="text-xs text-gray-600 mt-1" data-i18n="demos.skillGap.timelineEvent2Desc">4 sessions completed out of 8 total sessions</p>
+                    <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> <span data-i18n="demos.skillGap.timelineEvent2Impact">Expected Skill Impact: Strategic Planning +1.0</span></div>
                     <div class="mt-2 w-full bg-gray-200 h-2 rounded-full">
                         <div class="bg-indigo-500 h-2 rounded-full" style="width: 50%"></div>
                     </div>
@@ -195,13 +198,13 @@
                     <div class="w-10 h-10 bg-gray-100 text-gray-700 flex items-center justify-center rounded-full mx-auto">
                         <i class="fas fa-calendar"></i>
                     </div>
-                    <div class="text-xs mt-1">Scheduled</div>
+                    <div class="text-xs mt-1" data-i18n="demos.skillGap.timelineStatusScheduled">Scheduled</div>
                     <div class="text-xs font-semibold">Jun 2023</div>
                 </div>
                 <div class="flex-grow pl-4 border-l border-gray-200">
-                    <h3 class="font-medium"><i class="fas fa-robot mr-1 text-indigo-400"></i> AI Recommended: Advanced Negotiation Tactics</h3>
-                    <p class="text-xs text-gray-600 mt-1">2-day intensive negotiation skills bootcamp to address critical gap</p>
-                    <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Expected Skill Impact: Negotiation +2.0</div>
+                    <h3 class="font-medium" data-i18n="demos.skillGap.timelineEvent3Title"><i class="fas fa-robot mr-1 text-indigo-400"></i> AI Recommended: Advanced Negotiation Tactics</h3>
+                    <p class="text-xs text-gray-600 mt-1" data-i18n="demos.skillGap.timelineEvent3Desc">2-day intensive negotiation skills bootcamp to address critical gap</p>
+                    <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> <span data-i18n="demos.skillGap.timelineEvent3Impact">Expected Skill Impact: Negotiation +2.0</span></div>
                 </div>
             </div>
         </div>
