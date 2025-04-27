@@ -2,6 +2,7 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from collections import defaultdict
 import time
+import os
 
 class RateLimitedHandler(SimpleHTTPRequestHandler):
     # Store request counts per IP
@@ -27,7 +28,11 @@ class RateLimitedHandler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
 if __name__ == '__main__':
-    server_address = ('0.0.0.0', 5000)
+    # Change to the directory containing index.html
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    
+    # Use port 8080 which is forwarded to port 80 in production
+    server_address = ('0.0.0.0', 8080)
     httpd = HTTPServer(server_address, RateLimitedHandler)
     print(f'Serving HTTP on {server_address[0]} port {server_address[1]}...')
     httpd.serve_forever()
