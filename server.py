@@ -5,8 +5,7 @@ app = Flask(__name__, static_folder='.')
 
 @app.route('/')
 def index():
-    # Quick response for health checks
-    return 'OK', 200
+    return send_from_directory('.', 'index.html')
 
 @app.route('/<path:path>')
 def serve_files(path):
