@@ -22,3 +22,37 @@ window.initializeAnimations = function() {
   
   console.log('Animations initialized.');
 };
+
+// Debug function to log translation issues
+window.debugTranslation = function() {
+  console.log('Debugging translations...');
+  console.log('Current language:', i18nextInstance?.language);
+  console.log('i18next initialized:', i18nextInstance?.isInitialized);
+  
+  // Check if translation files are loaded properly
+  if (i18nextInstance?.isInitialized) {
+    // Test some translations
+    console.log('Test translation for demos.skillGap.pageTitle:', i18nextInstance.t('demos.skillGap.pageTitle'));
+    console.log('Test translation for filtersDepartmentLabel:', i18nextInstance.t('filtersDepartmentLabel'));
+    console.log('Test translation for applyFiltersButton:', i18nextInstance.t('applyFiltersButton'));
+    
+    // Log namespaces and resource store info
+    console.log('Available namespaces:', i18nextInstance.options.ns);
+    console.log('Resource store:', i18nextInstance.store?.data);
+  }
+  
+  // Check DOM elements with data-i18n attributes
+  const i18nElements = document.querySelectorAll('[data-i18n]');
+  console.log('Number of elements with data-i18n:', i18nElements.length);
+  
+  // Log first 5 elements with their keys
+  console.log('Sample elements with data-i18n:');
+  for (let i = 0; i < Math.min(5, i18nElements.length); i++) {
+    const el = i18nElements[i];
+    console.log(`Element ${i}:`, {
+      key: el.getAttribute('data-i18n'),
+      currentText: el.innerHTML,
+      element: el
+    });
+  }
+}
