@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- i18next CDNs -->
+    <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
     <style>
         :root {
             --color-primary: #6366f1;
@@ -133,6 +137,12 @@
                 height: 400px;
             }
         }
+        
+        /* Style for language switcher */
+        .lang-switcher button { margin-left: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.875rem; border: 1px solid transparent; border-radius: 0.25rem; cursor: pointer; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        .lang-switcher button.active { background-color: #4f46e5; color: white; border-color: #4f46e5; }
+        .lang-switcher button:not(.active) { color: #4b5563; }
+        .lang-switcher button:not(.active):hover { background-color: #e0e7ff; }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -142,6 +152,12 @@
                 <i class="fas fa-robot mr-2" aria-hidden="true"></i>
                 <span data-i18n="demos.nudgeBot.pageTitle">AI Nudge Bot Demo</span>
             </h1>
+            <!-- Language Switcher Demo -->
+            <div class="lang-switcher flex items-center ml-4">
+                <button id="lang-en-desktop" onclick="changeLanguage('en')" class="active">EN</button>
+                <span class="mx-1 text-gray-400">|</span>
+                <button id="lang-th-desktop" onclick="changeLanguage('th')">TH</button>
+            </div>
             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline hover:text-indigo-800 transition-colors" data-i18n="demos.nudgeBot.backLink">&larr; Back to Features</a>
         </div>
     </div>
@@ -401,5 +417,80 @@
         })();
     </script>
 
+    <script src="js/nudge_bot.js"></script>
+    
+    <!-- i18next Initialization and Functions -->
+    <script>
+        const i18nextInstance = window.i18next;
+        const i18nextHttpBackend = window.i18nextHttpBackend;
+        const i18nextBrowserLanguageDetector = window.i18nextBrowserLanguageDetector;
+
+        function updateContent() {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = i18nextInstance.t(key);
+            });
+            // Update page title
+            document.title = i18nextInstance.t('demos.nudgeBot.pageTitle');
+        }
+
+        function updateLanguageSwitcherUI(lang) {
+            ['en', 'th'].forEach(l => {
+                document.getElementById(`lang-${l}-desktop`)?.classList.toggle('active', l === lang);
+            });
+            // Set HTML lang attribute
+            document.documentElement.lang = lang;
+            // Add specific lang attribute to body for non-Latin script handling
+            document.body.setAttribute('lang', lang);
+        }
+
+        async function changeLanguage(lang) {
+            try {
+                await i18nextInstance.changeLanguage(lang);
+                // updateContent(); // Called by languageChanged event
+                updateLanguageSwitcherUI(lang);
+            } catch (err) {
+                console.error('Error changing language:', err);
+            }
+        }
+
+        async function initializeI18n() {
+            try {
+                await i18nextInstance
+                    .use(i18nextHttpBackend) 
+                    .use(i18nextBrowserLanguageDetector)
+                    .init({
+                        debug: true, // Set to false in production
+                        fallbackLng: 'en',
+                        supportedLngs: ['en', 'th'],
+                        ns: ['translation'],
+                        defaultNS: 'translation',
+                        backend: {
+                            loadPath: '/locales/{{lng}}/{{ns}}.json' // Path to translation files
+                        },
+                        detection: {
+                            order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+                            caches: ['localStorage', 'cookie']
+                        }
+                    });
+
+                    // Update content after initialization
+                    updateContent();
+                    updateLanguageSwitcherUI(i18nextInstance.language);
+                    
+                    // Listen for language change event
+                    i18nextInstance.on('languageChanged', () => {
+                        updateContent();
+                    });
+                
+            } catch (err) {
+                console.error('Error initializing i18next:', err);
+            }
+        }
+
+        // Initialize i18next when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeI18n);
+    </script>
 </body>
 </html> 
