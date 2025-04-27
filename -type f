@@ -1,0 +1,5 @@
+[33mcommit 151e1dd534f37fdc7de39e21895b4c3c1723e4ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: tkhongsap <ta.khongsap@gmail.com>
+Date:   Sun Apr 27 07:57:20 2025 +0000
+
+    Implement improved i18n architecture with namespaces and key constants
