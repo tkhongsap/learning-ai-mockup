@@ -104,36 +104,55 @@
             const elements = element.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                const options = {};
+                const options = {}; // Consider parsing options if needed, e.g., from data-i18n-options
                 let targetAttr = 'innerHTML';
                 let translationKey = key;
 
-                if (key.startsWith('[')) {
-                    const match = key.match(/^\[(.*?)\](.*)/);
-                    if (match && match.length === 3) {
-                        targetAttr = match[1];
-                        translationKey = match[2];
-                        const translatedValue = i18nextInstance.t(translationKey);
-                        if (el[targetAttr] !== undefined) {
-                           el[targetAttr] = translatedValue;
+                try {
+                    if (key.startsWith('[')) {
+                        const match = key.match(/^\[(.*?)\](.*)/);
+                        if (match && match.length === 3) {
+                            targetAttr = match[1];
+                            translationKey = match[2];
+                            const translatedValue = i18nextInstance.t(translationKey, options);
+                            console.log(`Translating attribute [${targetAttr}] for key '${translationKey}' -> '${translatedValue}'`);
+                            if (el[targetAttr] !== undefined) {
+                               el[targetAttr] = translatedValue;
+                            } else {
+                                console.warn(`Target attribute '${targetAttr}' not found on element for key '${translationKey}'`);
+                            }
+                        } else {
+                            console.warn(`Malformed attribute key: ${key}`);
                         }
                     } else {
-                        console.warn(`Malformed attribute key: ${key}`);
+                        translationKey = key;
+                        const translatedValue = i18nextInstance.t(translationKey, options);
+                        console.log(`Translating innerHTML for key '${translationKey}' -> '${translatedValue}'`);
+                        el.innerHTML = translatedValue;
                     }
-                } else {
-                    el.innerHTML = i18nextInstance.t(translationKey, options);
+                } catch (error) {
+                    console.error(`Error during translation for key '${translationKey}':`, error);
                 }
             });
+
             // Also translate the root element if it has the attribute
             if (element.hasAttribute('data-i18n')) {
                 const key = element.getAttribute('data-i18n');
                  let targetAttr = 'innerHTML';
-                let translationKey = key;
-                 if (key.startsWith('[')) {
-                     // Simplified handling for root, assuming innerHTML or textContent if needed
-                     // Add more specific handling if root attributes need translation
-                } else {
-                     element.innerHTML = i18nextInstance.t(translationKey);
+                 let translationKey = key;
+                 try {
+                     if (key.startsWith('[')) {
+                         // Simplified handling for root, assuming innerHTML or textContent if needed
+                         // Add more specific handling if root attributes need translation
+                        console.warn('Attribute translation for root element not fully implemented.');
+                    } else {
+                        translationKey = key;
+                        const translatedValue = i18nextInstance.t(translationKey);
+                        console.log(`Translating root element innerHTML for key '${translationKey}' -> '${translatedValue}'`);
+                         element.innerHTML = translatedValue;
+                     }
+                 } catch (error) {
+                    console.error(`Error during root element translation for key '${translationKey}':`, error);
                  }
             }
         }
@@ -183,7 +202,7 @@
                     ns: ['translation'],
                     defaultNS: 'translation',
                     backend: {
-                        loadPath: './locales/{{lng}}/{{ns}}.json',
+                        loadPath: '../locales/{{lng}}/{{ns}}.json',
                         requestOptions: {
                             cache: 'no-store' // Prevent caching to ensure fresh translations
                         }
