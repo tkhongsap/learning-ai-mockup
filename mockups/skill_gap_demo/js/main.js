@@ -33,12 +33,27 @@ window.debugTranslation = function() {
   if (i18nextInstance?.isInitialized) {
     // Test some translations
     console.log('Test translation for demos.skillGap.pageTitle:', i18nextInstance.t('demos.skillGap.pageTitle'));
-    console.log('Test translation for filtersDepartmentLabel:', i18nextInstance.t('filtersDepartmentLabel'));
-    console.log('Test translation for applyFiltersButton:', i18nextInstance.t('applyFiltersButton'));
+    console.log('Test translation for demos.skillGap.filtersDepartmentLabel:', i18nextInstance.t('demos.skillGap.filtersDepartmentLabel'));
+    console.log('Test translation for demos.skillGap.applyFiltersButton:', i18nextInstance.t('demos.skillGap.applyFiltersButton'));
     
     // Log namespaces and resource store info
     console.log('Available namespaces:', i18nextInstance.options.ns);
     console.log('Resource store:', i18nextInstance.store?.data);
+    
+    // Check if translations exist for common elements
+    const testKeys = [
+      'demos.skillGap.pageTitle',
+      'demos.skillGap.backLink',
+      'demos.skillGap.headerTitle',
+      'demos.skillGap.exportButton',
+      'demos.skillGap.statsCriticalGaps'
+    ];
+    
+    console.log('Translation test for common keys:');
+    testKeys.forEach(key => {
+      console.log(`${key}: '${i18nextInstance.t(key)}'`);
+      console.log(`Has translation: ${i18nextInstance.exists(key)}`);
+    });
   }
   
   // Check DOM elements with data-i18n attributes

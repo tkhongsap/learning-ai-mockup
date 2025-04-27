@@ -30,6 +30,8 @@
                 <button id="lang-en-desktop" onclick="changeLanguage('en')" class="active">EN</button>
                 <span class="mx-1 text-gray-400">|</span>
                 <button id="lang-th-desktop" onclick="changeLanguage('th')">TH</button>
+                <span class="mx-1 text-gray-400">|</span>
+                <button id="debug-button" onclick="window.debugTranslation()" class="text-xs bg-gray-200 px-2 py-1 rounded">Debug</button>
             </div>
              <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline" data-i18n="demos.skillGap.backLink">&larr; Back to Features</a>
         </div>
@@ -181,7 +183,7 @@
                     ns: ['translation'],
                     defaultNS: 'translation',
                     backend: {
-                        loadPath: '../locales/{{lng}}/{{ns}}.json',
+                        loadPath: './locales/{{lng}}/{{ns}}.json',
                         requestOptions: {
                             cache: 'no-store' // Prevent caching to ensure fresh translations
                         }
