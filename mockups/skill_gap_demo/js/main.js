@@ -46,10 +46,17 @@ window.debugTranslation = function() {
       'demos.skillGap.backLink',
       'demos.skillGap.headerTitle',
       'demos.skillGap.exportButton',
-      'demos.skillGap.statsCriticalGaps'
+      'demos.skillGap.printButton',
+      'demos.skillGap.statsCriticalGaps',
+      'demos.skillGap.filtersDepartmentLabel',
+      'demos.skillGap.filtersDepartmentOptionSales',
+      'demos.skillGap.tableHeaderCurrentRole',
+      'demos.skillGap.roleAreaSalesManager',
+      'demos.skillGap.applyFiltersButton',
+      'demos.skillGap.departmentViewTab'
     ];
     
-    console.log('Translation test for common keys:');
+    console.log('Translation test for specific keys:');
     testKeys.forEach(key => {
       console.log(`${key}: '${i18nextInstance.t(key)}'`);
       console.log(`Has translation: ${i18nextInstance.exists(key)}`);
