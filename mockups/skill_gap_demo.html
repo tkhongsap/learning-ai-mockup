@@ -84,11 +84,11 @@
 
     <!-- Include Explanation Box Component -->
     <div id="explanation-component"></div>
-    
+
     <!-- Load external scripts first -->
     <script src="skill_gap_demo/js/main.js"></script>
     <script src="skill_gap_demo/js/dashboard.js"></script>
-    
+
     <!-- i18next Initialization -->
     <script>
         const i18nextInstance = window.i18next;
@@ -197,7 +197,7 @@
                         }
                     });
                 }
-                
+
             } catch (err) {
                 console.error('Error changing language:', err);
             }
@@ -243,7 +243,7 @@
                         return;
                     }
                     console.log(`Initial resource bundle confirmed/loaded for ${initialLang}.`);
-                    
+
                     // Debug translation status
                     if (window.debugTranslation) {
                         window.debugTranslation();
@@ -351,7 +351,7 @@
                 } else {
                     console.error('initializeDashboard function not found.');
                 }
-                
+
                 if (typeof initializeAnimations === 'function') {
                     initializeAnimations(); // Enable animations
                 }
@@ -365,4 +365,4 @@
         document.addEventListener('DOMContentLoaded', initializeI18n);
     </script>
 </body>
-</html> 
+</html>
