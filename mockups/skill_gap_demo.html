@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="skill_gap_demo/css/styles.css">
-    <script src="skill_gap_demo/js/main.js"></script>
-    <script src="skill_gap_demo/js/dashboard.js"></script>
+    <!-- Scripts will be loaded at the end of body to avoid conflicts -->
 </head>
 <body class="bg-gray-50">
-    <div class="max-w-screen-2xl mx-auto mb-6">
+    <div class="max-w-screen-2xl mx-auto mb-6 px-4">
         <div class="flex justify-between items-center border-b pb-4">
             <h1 class="text-xl md:text-2xl font-bold text-indigo-700"><i class="fas fa-chart-line mr-2"></i>Skill-Gap & Readiness Dashboard Demo</h1>
              <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
@@ -22,7 +21,7 @@
     <!-- Include Header Component -->
     <div id="header-component"></div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4">
         <!-- Include Filters Component -->
         <div id="filters-component"></div>
 
@@ -67,47 +66,107 @@
     <!-- Include Explanation Box Component -->
     <div id="explanation-component"></div>
     
+    <!-- Load external scripts first -->
+    <script src="skill_gap_demo/js/main.js"></script>
+    <script src="skill_gap_demo/js/dashboard.js"></script>
+    
+    <!-- Component/View loader script -->
     <script>
-        // Load component files
-        window.addEventListener('load', function() {
-            const components = [
+        // Ensure external scripts (main.js, dashboard.js) define their init functions globally
+        // e.g., window.initializeDashboard = function() { ... };
+        // e.g., window.initializeAnimations = function() { ... };
+
+        async function loadHtml(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.text();
+            } catch (error) {
+                console.error(`Error fetching ${url}:`, error);
+                return ''; // Return empty string on error
+            }
+        }
+
+        async function loadComponentsAndViews() {
+            const componentPromises = [
                 { id: 'header-component', path: 'skill_gap_demo/components/header.html' },
                 { id: 'filters-component', path: 'skill_gap_demo/components/filters.html' },
                 { id: 'dashboard-stats-component', path: 'skill_gap_demo/components/dashboard_stats.html' },
                 { id: 'tabs-component', path: 'skill_gap_demo/components/tabs.html' },
                 { id: 'explanation-component', path: 'skill_gap_demo/components/explanation_box.html' },
-            ];
-            
-            const views = [
-                { path: 'skill_gap_demo/views/department_view.html' },
-                { path: 'skill_gap_demo/views/individual_view.html' },
-                { path: 'skill_gap_demo/views/strategic_view.html' }
-            ];
-            
-            // Load all components
-            Promise.all(components.map(component => 
-                fetch(component.path)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById(component.id).innerHTML = html;
-                    })
-                    .catch(error => {
-                        console.error(`Error loading component ${component.path}:`, error);
-                    })
-            )).then(() => {
-                // After loading components, load views
-                return Promise.all(views.map(view => 
-                    fetch(view.path)
-                        .then(response => response.text())
-                        .then(html => {
-                            document.getElementById('view-components').innerHTML += html;
-                        })
-                        .catch(error => {
-                            console.error(`Error loading view ${view.path}:`, error);
-                        })
-                ));
-            });
-        });
+            ].map(comp => loadHtml(comp.path).then(html => ({ id: comp.id, html })) );
+
+            const viewPromises = [
+                { id: 'department-view', path: 'skill_gap_demo/views/department_view.html', isDefault: true },
+                { id: 'individual-view', path: 'skill_gap_demo/views/individual_view.html' },
+                { id: 'strategic-view', path: 'skill_gap_demo/views/strategic_view.html' }
+            ].map(view => loadHtml(view.path).then(html => ({ id: view.id, html, isDefault: view.isDefault })) );
+
+            try {
+                const components = await Promise.all(componentPromises);
+                components.forEach(comp => {
+                    const element = document.getElementById(comp.id);
+                    if (element && comp.html) {
+                        element.innerHTML = comp.html;
+                    }
+                });
+
+                const views = await Promise.all(viewPromises);
+                const viewContainer = document.getElementById('view-components');
+                if (viewContainer) {
+                    viewContainer.innerHTML = ''; // Clear placeholder
+                    views.forEach(view => {
+                        if (view.html) {
+                            const viewDiv = document.createElement('div');
+                            viewDiv.id = view.id;
+                            viewDiv.dataset.tabContent = view.id.replace('-view', '');
+                            if (!view.isDefault) {
+                                viewDiv.classList.add('hidden');
+                            }
+                            viewDiv.classList.add('space-y-6'); // Add common view styling if needed
+                            viewDiv.innerHTML = view.html;
+                            viewContainer.appendChild(viewDiv);
+                        }
+                    });
+                }
+
+                // Now that all HTML is loaded and injected, run initialization scripts
+                console.log('Components and views loaded. Initializing scripts...');
+                if (typeof initializeDashboard === 'function') {
+                    initializeDashboard();
+                } else {
+                    console.error('initializeDashboard function not found.');
+                }
+                if (typeof initializeAnimations === 'function') {
+                    initializeAnimations();
+                } else {
+                    console.error('initializeAnimations function not found.');
+                }
+                
+                // Trigger click on the default tab after a minimal delay to ensure styles apply
+                setTimeout(() => {
+                    const defaultTabButton = document.querySelector('.tab-active[data-tab]');
+                    if(defaultTabButton) {
+                         // No need to click, it's already active. Ensure content visible.
+                         const targetId = defaultTabButton.dataset.tab;
+                         const targetContent = document.querySelector(`[data-tab-content='${targetId}']`);
+                         if(targetContent) targetContent.classList.remove('hidden');
+                    } else {
+                        // Fallback if no tab is active initially
+                         const firstTabButton = document.querySelector('[data-tab]');
+                         if(firstTabButton) firstTabButton.click();
+                    }
+                }, 50);
+
+            } catch (error) {
+                console.error('Error loading components or views:', error);
+            }
+        }
+
+        // Run the loader after the DOM is ready
+        document.addEventListener('DOMContentLoaded', loadComponentsAndViews);
     </script>
 </body>
 </html> 
