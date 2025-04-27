@@ -3,73 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LearnSphere AI Mentor & Gig Matching Demo - Personalized career development">
     <title>Demo: AI Mentor & Gig Matching</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; vertical-align: middle; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .match-card { transition: box-shadow 0.3s ease; }
-        .match-card:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .match-score { font-weight: 600; }
-        .match-score.high { color: #16a34a; } 
-        .match-score.medium { color: #f59e0b; }
-        .explanation-box { background-color: #f3f4f6; border-left: 4px solid #a855f7; } /* bg-gray-100 border-purple-600 */
+        :root {
+            --color-primary: #6366f1; /* indigo-500 */
+            --color-primary-dark: #4f46e5; /* indigo-700 */
+            --color-secondary: #8b5cf6; /* purple-500 */
+            --color-secondary-dark: #7c3aed; /* purple-700 */
+            --color-tertiary: #14b8a6; /* teal-500 */
+            --color-tertiary-dark: #0d9488; /* teal-600 */
+            --color-success: #16a34a; /* green-600 */
+            --color-warning: #f59e0b; /* amber-500 */
+            --color-text: #374151; /* gray-700 */
+            --color-text-light: #6b7280; /* gray-500 */
+            --color-background: #f9fafb; /* gray-50 */
+            --color-card: #ffffff;
+            --color-card-subtle: #f3f4f6; /* gray-100 */
+            --border-color: #e5e7eb; /* gray-200 */
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition-standard: 0.3s ease;
+            --border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--color-background); 
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .loader { 
+            border: 4px solid var(--color-card-subtle); 
+            border-radius: 50%; 
+            width: 24px; 
+            height: 24px; 
+            animation: spin 1s linear infinite; 
+            display: inline-block; 
+            margin-right: 8px; 
+            vertical-align: middle; 
+        }
+
+        .loader-mentor { border-top-color: var(--color-secondary); }
+        .loader-gig { border-top-color: var(--color-tertiary); }
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+
+        .fade-in { 
+            animation: fadeIn 0.5s ease-in-out; 
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(5px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .match-card { 
+            transition: box-shadow var(--transition-standard); 
+            background-color: var(--color-card-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+        }
+
+        .match-card:hover { 
+            box-shadow: var(--shadow-md); 
+        }
+
+        .match-score { 
+            font-weight: 600; 
+            font-size: 1.125rem; /* text-lg */
+            border-radius: 0.25rem;
+            padding: 0.1rem 0.4rem;
+            background-color: rgba(0,0,0,0.03);
+        }
+        .match-score.high { color: var(--color-success); border: 1px solid currentColor; } 
+        .match-score.medium { color: var(--color-warning); border: 1px solid currentColor; }
+        .match-score.low { color: var(--color-text-light); }
+
+        .explanation-box { 
+            background-color: var(--color-card-subtle); 
+            border-left: 4px solid var(--color-secondary); 
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .primary-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid transparent;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            font-size: 1rem; /* text-base */
+            font-weight: 500; /* font-medium */
+            color: white;
+            transition: all var(--transition-standard);
+        }
+        .primary-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.4); /* Ring effect */
+        }
+        .primary-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .mentor-button { background-color: var(--color-secondary); }
+        .mentor-button:hover:not(:disabled) { background-color: var(--color-secondary-dark); }
+
+        .gig-button { background-color: var(--color-tertiary); }
+        .gig-button:hover:not(:disabled) { background-color: var(--color-tertiary-dark); }
+        
+        .secondary-button {
+            font-size: 0.75rem; /* text-xs */
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            transition: background-color var(--transition-standard);
+        }
+        .mentor-secondary-button {
+            background-color: #ede9fe; /* purple-100 */
+            color: #6d28d9; /* purple-800 */
+        }
+        .mentor-secondary-button:hover { background-color: #ddd6fe; /* purple-200 */ }
+
+        .gig-secondary-button {
+            background-color: #ccfbf1; /* teal-100 */
+            color: #0f766e; /* teal-700 */
+        }
+        .gig-secondary-button:hover { background-color: #99f6e4; /* teal-200 */ }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
     </style>
 </head>
 <body class="p-4 md:p-8">
-     <div class="max-w-7xl mx-auto mb-6">
-        <div class="flex justify-between items-center border-b pb-4">
-            <h1 class="text-2xl font-bold text-indigo-700"><i class="fas fa-cogs mr-2"></i>AI Mentor & Gig Matching Demo</h1>
-             <a href="../index.html#features" class="text-sm text-indigo-600 hover:underline">&larr; Back to Features</a>
+    <header class="max-w-7xl mx-auto mb-6">
+        <div class="flex flex-wrap justify-between items-center border-b pb-4">
+            <h1 class="text-2xl font-bold text-indigo-700">
+                <i class="fas fa-cogs mr-2" aria-hidden="true"></i>
+                AI Mentor & Gig Matching Demo
+            </h1>
+            <a href="../index.html#features" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-colors">&larr; Back to Features</a>
         </div>
-    </div>
+    </header>
 
-     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
+    <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section aria-labelledby="matching-heading" class="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-lg">
             <div class="mb-8 p-4 bg-indigo-50 rounded-md border border-indigo-200">
-                <h2 class="text-lg font-semibold text-indigo-800 mb-2">Your Profile Summary</h2>
-                <p class="text-sm text-gray-700"><strong>Name:</strong> Somchai T.</p>
-                <p class="text-sm text-gray-700"><strong>Current Role:</strong> Sales Rep</p>
-                <p class="text-sm text-gray-700"><strong>Aspiration:</strong> Area Sales Manager</p>
-                <p class="text-sm text-gray-700"><strong>Development Goals:</strong> Improve Strategic Planning, Gain Leadership Experience.</p>
+                <h2 id="profile-heading" class="text-lg font-semibold text-indigo-800 mb-2">Your Profile Summary</h2>
+                <dl class="text-sm text-gray-700 space-y-1">
+                    <div><dt class="inline font-semibold">Name:</dt> <dd class="inline">Somchai T.</dd></div>
+                    <div><dt class="inline font-semibold">Current Role:</dt> <dd class="inline">Sales Rep</dd></div>
+                    <div><dt class="inline font-semibold">Aspiration:</dt> <dd class="inline">Area Sales Manager</dd></div>
+                    <div><dt class="inline font-semibold">Development Goals:</dt> <dd class="inline">Improve Strategic Planning, Gain Leadership Experience.</dd></div>
+                </dl>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Find a Mentor</h2>
-                    <p class="text-sm text-gray-600 mb-4">AI suggests mentors based on your goals, skills needed, and compatibility.</p>
-                    <button id="mg-find-mentor-btn" class="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50">
-                        <i class="fas fa-user-friends mr-2"></i>Find AI Mentor Matches
-                    </button>
-                    <div id="mg-mentor-loading" class="hidden text-center mt-4 text-purple-600">
-                        <div class="loader" style="border-top-color: #9333ea;"></div> Finding best matches...
-                    </div>
-                    <div id="mg-mentor-results" class="mt-6 space-y-4 hidden"></div>
-                </div>
-                <div>
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Find Development Gigs</h2>
-                    <p class="text-sm text-gray-600 mb-4">Discover short-term projects to build skills relevant to your goals.</p>
-                    <button id="mg-find-gig-btn" class="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50">
-                        <i class="fas fa-briefcase mr-2"></i>Find AI Gig Matches
-                    </button>
-                    <div id="mg-gig-loading" class="hidden text-center mt-4 text-teal-600">
-                        <div class="loader" style="border-top-color: #0d9488;"></div> Searching for opportunities...
-                    </div>
-                    <div id="mg-gig-results" class="mt-6 space-y-4 hidden"></div>
-                </div>
-            </div>
-        </div>
 
-        <div class="explanation-box p-6 rounded-lg shadow-inner">
-            <h2 class="text-xl font-semibold mb-4 text-purple-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Matching</h2>
-             <div class="space-y-4 text-sm text-gray-700">
+            <h2 id="matching-heading" class="sr-only">Matching Sections</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <section aria-labelledby="mentor-heading">
+                    <h3 id="mentor-heading" class="text-xl font-semibold mb-2 text-gray-800">Find a Mentor</h3>
+                    <p class="text-sm text-gray-600 mb-4">AI suggests mentors based on your goals, skills needed, and compatibility.</p>
+                    <button id="find-mentor-btn" class="primary-button mentor-button">
+                        <i class="fas fa-user-friends mr-2" aria-hidden="true"></i>Find AI Mentor Matches
+                    </button>
+                    <div id="mentor-loading" class="hidden text-center mt-4 text-purple-700" aria-live="polite">
+                        <div class="loader loader-mentor"></div> Finding best matches...
+                    </div>
+                    <div id="mentor-results" class="mt-6 space-y-4 hidden" aria-live="polite">
+                        <!-- Mentor results will be injected here -->
+                        <p class="sr-only">Mentor results loaded.</p>
+                    </div>
+                </section>
+                
+                <section aria-labelledby="gig-heading">
+                    <h3 id="gig-heading" class="text-xl font-semibold mb-2 text-gray-800">Find Development Gigs</h3>
+                    <p class="text-sm text-gray-600 mb-4">Discover short-term projects to build skills relevant to your goals.</p>
+                    <button id="find-gig-btn" class="primary-button gig-button">
+                        <i class="fas fa-briefcase mr-2" aria-hidden="true"></i>Find AI Gig Matches
+                    </button>
+                    <div id="gig-loading" class="hidden text-center mt-4 text-teal-700" aria-live="polite">
+                        <div class="loader loader-gig"></div> Searching for opportunities...
+                    </div>
+                    <div id="gig-results" class="mt-6 space-y-4 hidden" aria-live="polite">
+                        <!-- Gig results will be injected here -->
+                        <p class="sr-only">Gig results loaded.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <aside class="explanation-box">
+            <h2 class="text-xl font-semibold mb-4 text-purple-800"><i class="fas fa-lightbulb mr-2" aria-hidden="true"></i>How AI Enhances Matching</h2>
+            <div class="space-y-4 text-sm text-gray-700">
                 <div>
                     <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
                     <p>Finding the right mentor or relevant short-term project (gig) is often manual, relies on personal networks, and can lead to inconsistent or suboptimal matches.</p>
@@ -81,147 +231,230 @@
                         <li><strong>Mobility/Gig Recommender:</strong> Analyzes available short-term projects, assignments, or even business trips. It matches these opportunities based on the skills required for the gig versus the skills the employee wants to develop, employee readiness level, and stated travel/mobility preferences.</li>
                     </ul>
                 </div>
-                 <div>
+                <div>
                     <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
                     <p>Somchai, aiming for Area Sales Manager, needs 'Strategic Planning'. The AI finds a gig "Assist Regional Sales Planning Q3" requiring that skill. Simultaneously, it identifies Supachai K. as a top mentor match due to his 'Sales Strategy' expertise and Somchai's leadership goal.</p>
                 </div>
                 <div>
                     <h3 class="font-semibold text-gray-900">Benefits:</h3>
-                     <ul class="list-disc list-outside pl-5 space-y-1">
+                    <ul class="list-disc list-outside pl-5 space-y-1">
                         <li><strong class="text-green-600">Stronger Mentorship:</strong> Creates more effective mentoring relationships based on deeper compatibility.</li>
-                         <li><strong class="text-green-600">Targeted Skill Development:</strong> Connects employees with gigs that directly address their development needs.</li>
-                         <li><strong class="text-green-600">Increased Engagement:</strong> Makes finding growth opportunities easier and more relevant.</li>
-                         <li><strong class="text-green-600">Agile Talent Deployment:</strong> Helps quickly find internal talent for short-term needs or assignments.</li>
-                         <li><strong class="text-green-600">Supports 70-20-10 Model:</strong> Directly facilitates the crucial 20% (learning from others) and 70% (on-the-job experience) components.</li>
+                        <li><strong class="text-green-600">Targeted Skill Development:</strong> Connects employees with gigs that directly address their development needs.</li>
+                        <li><strong class="text-green-600">Increased Engagement:</strong> Makes finding growth opportunities easier and more relevant.</li>
+                        <li><strong class="text-green-600">Agile Talent Deployment:</strong> Helps quickly find internal talent for short-term needs or assignments.</li>
+                        <li><strong class="text-green-600">Supports 70-20-10 Model:</strong> Directly facilitates the crucial 20% (learning from others) and 70% (on-the-job experience) components.</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
+        </aside>
+    </main>
 
     <script>
-        const findMentorBtn = document.getElementById('mg-find-mentor-btn');
-        const mentorLoading = document.getElementById('mg-mentor-loading');
-        const mentorResults = document.getElementById('mg-mentor-results');
-        const findGigBtn = document.getElementById('mg-find-gig-btn');
-        const gigLoading = document.getElementById('mg-gig-loading');
-        const gigResults = document.getElementById('mg-gig-results');
+        // AI Mentor & Gig Matching Demo Logic
+        (function() {
+            // --- Configuration ---
+            const SIMULATION_DELAY = {
+                MENTOR: 1500,
+                GIG: 1800
+            };
 
-        const mockMentors = [
-            {
-                name: "Supachai K.",
-                title: "Sales Director",
-                expertise: ["Sales Strategy", "Team Leadership"],
-                match: 92,
-                img: "https://placehold.co/60x60/667eea/ffffff?text=SK"
-            },
-            {
-                name: "Vichai P.",
-                title: "Principal Engineer",
-                expertise: ["Mentoring", "Problem Solving"],
-                match: 85,
-                img: "https://placehold.co/60x60/764ba2/ffffff?text=VP"
-            },
-            {
-                name: "Anya R.",
-                title: "Engineering Lead",
-                expertise: ["Project Management", "Cross-functional Teams"],
-                match: 78,
-                img: "https://placehold.co/60x60/9f7aea/ffffff?text=AR"
+            // --- Mock Data ---
+            // In a real application, this would come from an API
+            const MOCK_DATA = {
+                mentors: [
+                    { id: 'm1', name: "Supachai K.", title: "Sales Director", expertise: ["Sales Strategy", "Team Leadership"], match: 92, img: "https://placehold.co/60x60/667eea/ffffff?text=SK" },
+                    { id: 'm2', name: "Vichai P.", title: "Principal Engineer", expertise: ["Mentoring", "Problem Solving"], match: 85, img: "https://placehold.co/60x60/764ba2/ffffff?text=VP" },
+                    { id: 'm3', name: "Anya R.", title: "Engineering Lead", expertise: ["Project Management", "Cross-functional Teams"], match: 78, img: "https://placehold.co/60x60/9f7aea/ffffff?text=AR" }
+                ],
+                gigs: [
+                    { id: 'g1', title: "Assist Regional Sales Planning Q3", skills: ["Strategic Planning", "Excel"], duration: "4 weeks (Part-time)", match: 88 },
+                    { id: 'g2', title: "Shadow Area Sales Manager (Central Region)", skills: ["Leadership", "Sales Operations"], duration: "2 weeks", match: 82 },
+                    { id: 'g3', title: "Cross-functional Project: New Product Launch Team", skills: ["Collaboration", "Presentation"], duration: "6 weeks (10 hrs/week)", match: 75 }
+                ]
+            };
+
+            // --- DOM Element References ---
+            const elements = {
+                findMentorBtn: document.getElementById('find-mentor-btn'),
+                mentorLoading: document.getElementById('mentor-loading'),
+                mentorResultsContainer: document.getElementById('mentor-results'),
+                findGigBtn: document.getElementById('find-gig-btn'),
+                gigLoading: document.getElementById('gig-loading'),
+                gigResultsContainer: document.getElementById('gig-results')
+            };
+
+            // --- Utility Functions ---
+            function getMatchScoreClass(score) {
+                if (score >= 90) return 'high';
+                if (score >= 80) return 'medium';
+                return 'low';
             }
-        ];
 
-        const mockGigs = [
-            {
-                title: "Assist Regional Sales Planning Q3",
-                skills: ["Strategic Planning", "Excel"],
-                duration: "4 weeks (Part-time)",
-                match: 88
-            },
-            {
-                title: "Shadow Area Sales Manager (Central Region)",
-                skills: ["Leadership", "Sales Operations"],
-                duration: "2 weeks",
-                match: 82
-            },
-            {
-                title: "Cross-functional Project: New Product Launch Team",
-                skills: ["Collaboration", "Presentation"],
-                duration: "6 weeks (10 hrs/week)",
-                match: 75
+            function showElement(element) {
+                element?.classList.remove('hidden');
             }
-        ];
 
-        function mg_requestMentorship(mentorName) {
-            alert(`Mentorship request sent to ${mentorName}. (Simulation)`);
-        }
+            function hideElement(element) {
+                element?.classList.add('hidden');
+            }
 
-        function mg_expressInterest(gigTitle) {
-            alert(`Interest expressed for '${gigTitle}'. You will be contacted if selected. (Simulation)`);
-        }
+            function disableButton(button) {
+                if (button) button.disabled = true;
+            }
 
-        if (findMentorBtn && mentorLoading && mentorResults) {
-            findMentorBtn.addEventListener('click', () => {
-                mentorLoading.classList.remove('hidden');
-                mentorResults.classList.add('hidden');
-                findMentorBtn.disabled = true;
-                mentorResults.innerHTML = '';
+            function enableButton(button) {
+                if (button) button.disabled = false;
+            }
+            
+            function simulateApiCall(delay) {
+                return new Promise(resolve => setTimeout(resolve, delay));
+            }
+
+            // --- UI Rendering Functions ---
+            function createMentorCardHTML(mentor) {
+                const scoreClass = getMatchScoreClass(mentor.match);
+                // Use textContent for security unless HTML is required
+                const name = mentor.name || 'Unnamed Mentor';
+                const title = mentor.title || 'No Title';
+                const expertise = mentor.expertise?.join(', ') || 'N/A';
                 
-                setTimeout(() => {
-                    mockMentors.forEach(mentor => {
-                        const scoreClass = mentor.match >= 90 ? 'high' : (mentor.match >= 80 ? 'medium' : '');
-                        mentorResults.insertAdjacentHTML('beforeend', `
-                            <div class="match-card flex items-start p-4 border rounded-lg bg-gray-50 fade-in">
-                                <img src="${mentor.img}" alt="${mentor.name}" class="w-12 h-12 rounded-full mr-4">
-                                <div class="flex-grow">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <h4 class="font-semibold text-gray-900">${mentor.name}</h4>
-                                        <span class="match-score ${scoreClass} text-lg">${mentor.match}%</span>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mb-1">${mentor.title}</p>
-                                    <p class="text-xs text-gray-700 mb-2"><strong>Relevant Expertise:</strong> ${mentor.expertise.join(', ')}</p>
-                                    <button class="text-xs px-3 py-1 bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-200" onclick="mg_requestMentorship('${mentor.name}')">Request Mentorship</button>
-                                </div>
+                return `
+                    <article class="match-card flex items-start fade-in" aria-labelledby="mentor-name-${mentor.id}">
+                        <img src="${mentor.img || 'https://placehold.co/60x60/cccccc/ffffff?text=??'}" alt="" class="w-12 h-12 rounded-full mr-4 flex-shrink-0">
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 id="mentor-name-${mentor.id}" class="font-semibold text-gray-900">${name}</h4>
+                                <span class="match-score ${scoreClass}">${mentor.match}%</span>
                             </div>
-                        `);
-                    });
-                    
-                    mentorLoading.classList.add('hidden');
-                    mentorResults.classList.remove('hidden');
-                    findMentorBtn.disabled = false;
-                }, 1500);
-            });
-        }
+                            <p class="text-xs text-gray-500 mb-1">${title}</p>
+                            <p class="text-xs text-gray-700 mb-2">
+                                <strong>Relevant Expertise:</strong> 
+                                <span class="expertise-list">${expertise}</span>
+                             </p>
+                            <button class="secondary-button mentor-secondary-button" data-action="request-mentor" data-mentor-name="${name}">Request Mentorship</button>
+                        </div>
+                    </article>
+                `;
+            }
 
-        if (findGigBtn && gigLoading && gigResults) {
-            findGigBtn.addEventListener('click', () => {
-                gigLoading.classList.remove('hidden');
-                gigResults.classList.add('hidden');
-                findGigBtn.disabled = true;
-                gigResults.innerHTML = '';
+            function createGigCardHTML(gig) {
+                const scoreClass = getMatchScoreClass(gig.match);
+                const title = gig.title || 'Unnamed Gig';
+                const skills = gig.skills?.join(', ') || 'N/A';
+                const duration = gig.duration || 'N/A';
+
+                return `
+                    <article class="match-card fade-in" aria-labelledby="gig-title-${gig.id}">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 id="gig-title-${gig.id}" class="font-semibold text-gray-900">${title}</h4>
+                            <span class="match-score ${scoreClass}">${gig.match}%</span>
+                        </div>
+                        <p class="text-xs text-gray-700 mb-1"><strong>Skills Developed:</strong> ${skills}</p>
+                        <p class="text-xs text-gray-500 mb-2"><strong>Est. Duration:</strong> ${duration}</p>
+                        <button class="secondary-button gig-secondary-button" data-action="express-interest" data-gig-title="${title}">Express Interest</button>
+                    </article>
+                `;
+            }
+
+            function displayResults(container, items, cardCreator) {
+                if (!container) return;
+                container.innerHTML = items.map(cardCreator).join('');
+                showElement(container);
+                // Add sr-only text for screen reader confirmation
+                const confirmation = document.createElement('p');
+                confirmation.className = 'sr-only';
+                confirmation.textContent = `${items.length > 0 ? items.length : 'No'} results found.`;
+                container.appendChild(confirmation);
+            }
+            
+            function updateButtonState(button, text = 'Done', disable = true) {
+                if(button) {
+                    button.textContent = text;
+                    button.disabled = disable;
+                }
+            }
+
+            // --- Event Handlers ---
+            async function handleFindMatches(type) {
+                const config = type === 'mentor' ? 
+                    { 
+                        btn: elements.findMentorBtn, 
+                        loading: elements.mentorLoading, 
+                        container: elements.mentorResultsContainer, 
+                        delay: SIMULATION_DELAY.MENTOR,
+                        data: MOCK_DATA.mentors,
+                        cardCreator: createMentorCardHTML
+                    } : 
+                    { 
+                        btn: elements.findGigBtn, 
+                        loading: elements.gigLoading, 
+                        container: elements.gigResultsContainer, 
+                        delay: SIMULATION_DELAY.GIG,
+                        data: MOCK_DATA.gigs,
+                        cardCreator: createGigCardHTML
+                    };
                 
-                setTimeout(() => {
-                    mockGigs.forEach(gig => {
-                        const scoreClass = gig.match >= 85 ? 'high' : (gig.match >= 75 ? 'medium' : '');
-                        gigResults.insertAdjacentHTML('beforeend', `
-                            <div class="match-card p-4 border rounded-lg bg-gray-50 fade-in">
-                                <div class="flex justify-between items-center mb-1">
-                                    <h4 class="font-semibold text-gray-900">${gig.title}</h4>
-                                    <span class="match-score ${scoreClass} text-lg">${gig.match}%</span>
-                                </div>
-                                <p class="text-xs text-gray-700 mb-1"><strong>Skills Developed:</strong> ${gig.skills.join(', ')}</p>
-                                <p class="text-xs text-gray-500 mb-2"><strong>Est. Duration:</strong> ${gig.duration}</p>
-                                <button class="text-xs px-3 py-1 bg-teal-100 text-teal-700 rounded hover:bg-teal-200" onclick="mg_expressInterest('${gig.title}')">Express Interest</button>
-                            </div>
-                        `);
-                    });
-                    
-                    gigLoading.classList.add('hidden');
-                    gigResults.classList.remove('hidden');
-                    findGigBtn.disabled = false;
-                }, 1800);
-            });
-        }
+                if (!config.btn || !config.loading || !config.container) return;
+
+                showElement(config.loading);
+                hideElement(config.container);
+                disableButton(config.btn);
+                config.container.innerHTML = ''; // Clear previous results
+                
+                // Simulate API call
+                await simulateApiCall(config.delay);
+                
+                hideElement(config.loading);
+                enableButton(config.btn);
+                displayResults(config.container, config.data, config.cardCreator);
+            }
+
+            function handleResultActionClick(event) {
+                const button = event.target.closest('button[data-action]');
+                if (!button || button.disabled) return; // Ignore if not a button or already clicked
+
+                const action = button.dataset.action;
+
+                try {
+                    if (action === 'request-mentor') {
+                        const mentorName = button.dataset.mentorName;
+                        alert(`Mentorship request sent to ${mentorName}. (Simulation)`);
+                        updateButtonState(button, 'Requested');
+                    } else if (action === 'express-interest') {
+                        const gigTitle = button.dataset.gigTitle;
+                        alert(`Interest expressed for '${gigTitle}'. You will be contacted if selected. (Simulation)`);
+                        updateButtonState(button, 'Interest Expressed');
+                    }
+                } catch (error) {
+                    console.error("Error handling action:", error);
+                    alert("An error occurred. Please try again.");
+                     // Re-enable button if something went wrong before visual update
+                    updateButtonState(button, button.dataset.action === 'request-mentor' ? 'Request Mentorship' : 'Express Interest', false);
+                }
+            }
+
+            // --- Initialization ---
+            function initialize() {
+                // Check if all essential elements exist
+                if (Object.values(elements).some(el => !el)) {
+                    console.error("Initialization failed: Required DOM elements for matching demo not found.");
+                    return;
+                }
+
+                elements.findMentorBtn.addEventListener('click', () => handleFindMatches('mentor'));
+                elements.findGigBtn.addEventListener('click', () => handleFindMatches('gig'));
+                
+                // Use event delegation for result buttons
+                elements.mentorResultsContainer.addEventListener('click', handleResultActionClick);
+                elements.gigResultsContainer.addEventListener('click', handleResultActionClick);
+                
+                console.log("AI Matching Demo Initialized");
+            }
+
+            // Run initialization when the DOM is ready
+            document.addEventListener('DOMContentLoaded', initialize);
+
+        })();
     </script>
 </body>
 </html> 
