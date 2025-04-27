@@ -1,5 +1,5 @@
-
 from flask import Flask, send_from_directory
+import os
 
 app = Flask(__name__, static_folder='.')
 
@@ -13,4 +13,5 @@ def serve_files(path):
 
 if __name__ == '__main__':
     # Production configuration
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
