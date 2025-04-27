@@ -300,22 +300,7 @@
                 const contentDiv = document.createElement('div');
                 contentDiv.className = `p-3 max-w-xs lg:max-w-md ${isBot ? 'message-bot' : 'message-user'} fade-in`;
                 contentDiv.setAttribute('data-i18n', `demos.nudgeBot.${message.textKey}`);
-                contentDiv.textContent = `[${message.textKey}]`; // Placeholder text
                 
-                if (isBot && message.actions) {
-                    const actionsDiv = document.createElement('div');
-                    actionsDiv.className = 'mt-2 flex flex-wrap gap-2';
-                    message.actions.forEach(action => {
-                        const button = document.createElement('button');
-                        button.className = 'action-button';
-                        button.setAttribute('data-i18n', `demos.nudgeBot.${action.textKey}`);
-                        button.textContent = `[${action.textKey}]`; // Placeholder text
-                        button.onclick = () => handleActionClick(action);
-                        actionsDiv.appendChild(button);
-                    });
-                    contentDiv.appendChild(actionsDiv);
-                }
-
                 const timestampDiv = document.createElement('div');
                 timestampDiv.className = `timestamp text-right ${isBot ? 'mr-2' : 'ml-2'}`;
                 timestampDiv.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
@@ -329,6 +314,42 @@
                 }
                 
                 chatContainer.appendChild(msgDiv);
+                
+                // Apply translation to the newly added element
+                if (i18nextInstance && i18nextInstance.isInitialized) {
+                    contentDiv.textContent = i18nextInstance.t(`demos.nudgeBot.${message.textKey}`);
+                } else {
+                    // Fallback if i18next is not ready
+                    contentDiv.textContent = message.textKey;
+                }
+                
+                // Add action buttons if this is a bot message with actions
+                if (isBot && message.actions) {
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'mt-2 flex flex-wrap gap-2';
+                    
+                    message.actions.forEach(action => {
+                        const button = document.createElement('button');
+                        button.className = 'action-button';
+                        button.setAttribute('data-i18n', `demos.nudgeBot.${action.textKey}`);
+                        
+                        // Apply translation to the button
+                        if (i18nextInstance && i18nextInstance.isInitialized) {
+                            button.textContent = i18nextInstance.t(`demos.nudgeBot.${action.textKey}`);
+                        } else {
+                            // Fallback if i18next is not ready
+                            button.textContent = action.textKey;
+                        }
+                        
+                        button.onclick = function(event) {
+                            handleActionClick(action, event);
+                        };
+                        actionsDiv.appendChild(button);
+                    });
+                    
+                    contentDiv.appendChild(actionsDiv);
+                }
+                
                 scrollToBottom();
             }
 
@@ -381,10 +402,12 @@
             }
 
             // Handle user clicking an action button
-            function handleActionClick(action) {
-                 // Disable all buttons in the message once one is clicked
-                 const buttons = event.target.closest('.message-bot').querySelectorAll('.action-button');
-                 buttons.forEach(btn => btn.disabled = true);
+            function handleActionClick(action, event) {
+                // Disable all buttons in the message once one is clicked
+                if (event && event.target) {
+                    const buttons = event.target.closest('.message-bot').querySelectorAll('.action-button');
+                    buttons.forEach(btn => btn.disabled = true);
+                }
 
                 // Optional: Show user response message
                 if (action.userResponseKey) {
@@ -395,13 +418,13 @@
                 if (action.nextMsgIndex !== undefined) {
                     chatState.messageIndex = action.nextMsgIndex;
                 } else {
-                     // Default: just go to the next message in sequence if no index specified
-                    // This might happen if the last action doesn't lead anywhere
+                    // Default: just go to the next message in sequence if no index specified
+                    chatState.messageIndex++;
                 }
                 
                 // Schedule the determined next message
                 const nextDelay = action.delay || MESSAGE_DELAY; // Use specific delay if provided
-                 chatState.timeoutId = setTimeout(() => {
+                chatState.timeoutId = setTimeout(() => {
                     scheduleNextMessage();
                 }, nextDelay);
             }
@@ -429,27 +452,36 @@
             const elements = document.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                el.innerHTML = i18nextInstance.t(key);
+                if (key && i18nextInstance.exists(key)) {
+                    el.innerHTML = i18nextInstance.t(key);
+                }
             });
             // Update page title
             document.title = i18nextInstance.t('demos.nudgeBot.pageTitle');
+            
+            console.log('Content updated with translations');
         }
 
         function updateLanguageSwitcherUI(lang) {
             ['en', 'th'].forEach(l => {
-                document.getElementById(`lang-${l}-desktop`)?.classList.toggle('active', l === lang);
+                const button = document.getElementById(`lang-${l}-desktop`);
+                if (button) {
+                    button.classList.toggle('active', l === lang);
+                }
             });
             // Set HTML lang attribute
             document.documentElement.lang = lang;
             // Add specific lang attribute to body for non-Latin script handling
             document.body.setAttribute('lang', lang);
+            
+            console.log('Language switched to:', lang);
         }
 
         async function changeLanguage(lang) {
             try {
                 await i18nextInstance.changeLanguage(lang);
-                // updateContent(); // Called by languageChanged event
                 updateLanguageSwitcherUI(lang);
+                console.log('Language changed to:', lang);
             } catch (err) {
                 console.error('Error changing language:', err);
             }
@@ -475,14 +507,16 @@
                         }
                     });
 
-                    // Update content after initialization
+                // Update content after initialization
+                updateContent();
+                updateLanguageSwitcherUI(i18nextInstance.language);
+                
+                // Listen for language change event
+                i18nextInstance.on('languageChanged', () => {
                     updateContent();
-                    updateLanguageSwitcherUI(i18nextInstance.language);
-                    
-                    // Listen for language change event
-                    i18nextInstance.on('languageChanged', () => {
-                        updateContent();
-                    });
+                });
+                
+                console.log('i18next initialized successfully');
                 
             } catch (err) {
                 console.error('Error initializing i18next:', err);
@@ -490,7 +524,10 @@
         }
 
         // Initialize i18next when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeI18n);
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeI18n();
+            console.log('DOM content loaded, i18n initialization triggered');
+        });
     </script>
 </body>
 </html> 
