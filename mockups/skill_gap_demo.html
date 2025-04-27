@@ -521,451 +521,469 @@
             </div>
         </div>
         
-        <div class="explanation-box p-4 md:p-6 rounded-lg shadow-inner">
-            <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Dashboards</h2>
-             <div class="space-y-3 md:space-y-4 text-sm text-gray-700">
-                <div>
-                    <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
-                    <p class="text-xs md:text-sm">HR and managers lack a clear, forward-looking view of talent readiness and potential attrition. Identifying skill gaps across teams is often manual and time-consuming. Executives need quick visibility into overall workforce skills.</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900">AI Solution:</h3>
-                    <ul class="list-disc list-outside pl-5 space-y-2">
-                        <li>
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
-                                <div class="text-xs md:text-sm">
-                                    <strong>Skill-Gap Analyzer:</strong> Compares current skills (from enriched profiles) against target role requirements to automatically identify and highlight gaps.
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
-                                <div class="text-xs md:text-sm">
-                                    <strong>Skills Heat-Map:</strong> Aggregates skill data across business units or departments, visualizing strengths and weaknesses (Red/Yellow/Green) for quick executive overview.
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">ML</div>
-                                <div class="text-xs md:text-sm">
-                                    <strong>Readiness & Flight-Risk Predictor:</strong> Analyzes a combination of data (performance reviews, skill levels, engagement surveys, tenure, market trends) to score an employee's readiness for a future role and predict their likelihood of leaving.
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex items-start">
-                                <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
-                                <div class="text-xs md:text-sm">
-                                    <strong>Auto-CDP Updater:</strong> Consolidates data from various sources (LMS, PMS, 360 feedback) into a single, unified Career Development Profile timeline for each employee, ensuring data for predictions is current.
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                 <div>
-                    <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
-                    <div class="bg-white p-3 rounded-md border border-gray-200 shadow-sm">
-                        <p class="text-xs md:text-sm">A manager reviews the dashboard for their team. The heatmap instantly shows a critical gap in "Strategic Planning". The readiness table identifies two "Ready Now" successors for a key role, but flags one as a "High" flight risk, prompting immediate retention action.</p>
+        <!-- Individual View (initially hidden) -->
+        <div id="individual-view" class="hidden grid grid-cols-1 gap-4 md:gap-6 slide-in">
+            <div class="dashboard-card p-3 md:p-5 border border-gray-100">
+                <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
+                    <div>
+                        <h2 class="text-base md:text-lg font-semibold text-gray-800">Individual Skill Assessment</h2>
+                        <p class="text-xs text-gray-500 mt-1">Select an employee to view their personal skill gaps</p>
+                    </div>
+                    <div class="mt-2 md:mt-0">
+                        <select class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
+                            <option>Supaporn K.</option>
+                            <option selected>Anucha P.</option>
+                            <option>Somchai T.</option>
+                            <option>Pichai R.</option>
+                            <option>Nittaya S.</option>
+                        </select>
                     </div>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900">Benefits:</h3>
-                     <ul class="list-disc list-outside pl-5 space-y-1">
-                        <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Proactive Succession Planning:</span> Identify and develop future leaders based on data-driven readiness scores.</li>
-                         <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Targeted Retention Efforts:</span> Focus on high-potential employees identified as flight risks.</li>
-                         <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Data-Driven L&D:</span> Allocate training budgets effectively by focusing on the most critical, widespread skill gaps.</li>
-                         <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Strategic Workforce Insights:</span> Provide executives with clear visibility into the organization's overall skill health and talent pipeline.</li>
-                         <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Real-time Data:</span> Eliminates manual data consolidation, providing current insights.</li>
-                    </ul>
+                
+                <!-- AI Insight Box -->
+                <div class="mb-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg shadow-sm">
+                    <h4 class="text-sm font-semibold text-indigo-800 flex items-center mb-1">
+                        <i class="fas fa-robot mr-2"></i> AI Insight for Anucha P.
+                    </h4>
+                    <p class="text-xs text-indigo-700">
+                        High potential (85% Readiness) for Area Sales Manager role, but significant Negotiation gap (-3.0) requires urgent attention. High flight risk (75%) necessitates immediate retention focus.
+                    </p>
+                    <p class="text-xs text-indigo-700 mt-1">
+                        <span class="font-medium">Recommended Actions:</span> 1) Enroll in Advanced Negotiation course. 2) Schedule retention discussion. 3) Monitor Strategic Planning workshop progress.
+                    </p>
                 </div>
                 
-                <div class="mt-4 md:mt-6 p-3 bg-indigo-50 rounded-md border border-indigo-100">
-                    <h3 class="font-semibold text-indigo-800 flex items-center">
-                        <i class="fas fa-robot mr-2"></i> AI Recommendations
-                    </h3>
-                    <ul class="mt-2 space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
-                            <div>
-                                <span class="font-medium text-xs md:text-sm">Create Strategic Planning workshop series</span>
-                                <p class="text-xs text-gray-600">Addresses the most critical skill gap across the department</p>
+                <div class="flex flex-wrap items-center gap-4 p-3 bg-gray-50 rounded-md mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full border-2 border-white shadow" alt="Employee">
+                    <div>
+                        <h3 class="font-semibold">Anucha P.</h3>
+                        <p class="text-sm text-gray-600">Regional Sales Lead</p>
+                        <div class="mt-1 flex items-center">
+                            <span class="badge badge-green mr-2">
+                                <i class="fas fa-check-circle mr-1"></i> Ready Now (85%)
+                            </span>
+                            <span class="badge badge-red">
+                                <i class="fas fa-exclamation-triangle mr-1"></i> High Flight Risk
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto -mx-3 md:mx-0">
+                    <div class="min-w-full px-3 md:px-0">
+                        <table class="min-w-full border border-gray-200 text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-2 border text-left w-1/3 md:w-auto">Skill</th>
+                                    <th class="p-2 border text-center w-1/6 md:w-auto">Current Level</th>
+                                    <th class="p-2 border text-center w-1/6 md:w-auto">Required Level</th>
+                                    <th class="p-2 border text-center w-1/6 md:w-auto">Gap</th>
+                                    <th class="p-2 border text-center w-1/6 md:w-auto">AI Recommended Development</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">Strategic Planning</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-red" style="width: 60%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">3.0 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">4 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Strategic Planning</div>
+                                                <div>Gap: -1.0 levels</div>
+                                                <div>Priority: Medium</div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="text-xs text-indigo-600 bg-indigo-50 py-1 px-2 rounded">
+                                            <i class="fas fa-lightbulb mr-1 text-indigo-400"></i> Strategic Workshop (Enrolled)
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">Leadership</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-green" style="width: 80%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">4.0 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">4 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-green tooltip">Met
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Leadership</div>
+                                                <div>Gap: 0 levels</div>
+                                                <div>Priority: Low</div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="text-xs text-green-600 bg-green-50 py-1 px-2 rounded">
+                                            <i class="fas fa-check mr-1"></i> No Action Required
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50 transition-colors">
+                                    <td class="p-2 border font-medium">Negotiation</td>
+                                    <td class="p-2 border text-center">
+                                        <div class="flex items-center justify-center">
+                                            <div class="w-24">
+                                                <div class="skill-bar">
+                                                    <div class="skill-progress progress-red" style="width: 40%"></div>
+                                                </div>
+                                                <div class="text-xs mt-1">2.0 / 5</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">5 / 5</td>
+                                    <td class="p-0 border">
+                                        <div class="heatmap-cell bg-gap-red tooltip">Significant
+                                            <span class="tooltiptext">
+                                                <div class="font-semibold text-center mb-1">Negotiation</div>
+                                                <div>Gap: -3.0 levels</div>
+                                                <div>Priority: High</div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 border text-center">
+                                        <span class="text-xs text-red-600 bg-red-50 py-1 px-2 rounded">
+                                            <i class="fas fa-robot mr-1 text-red-400"></i> AI: Advanced Negotiation Course
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card p-3 md:p-5 border border-gray-100">
+                <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
+                    <h2 class="text-base md:text-lg font-semibold text-gray-800">AI-Powered Development Timeline</h2>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Anucha P.</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex">
+                        <div class="w-24 flex-shrink-0 text-center">
+                            <div class="w-10 h-10 bg-green-100 text-green-700 flex items-center justify-center rounded-full mx-auto">
+                                <i class="fas fa-check"></i>
                             </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
-                            <div>
-                                <span class="font-medium text-xs md:text-sm">Schedule retention discussion with Anucha P.</span>
-                                <p class="text-xs text-gray-600">High flight risk for a "Ready Now" successor requires immediate attention</p>
+                            <div class="text-xs mt-1">Completed</div>
+                            <div class="text-xs font-semibold">Jan 2023</div>
+                        </div>
+                        <div class="flex-grow pl-4 border-l border-gray-200">
+                            <h3 class="font-medium">Leadership Excellence Program</h3>
+                            <p class="text-xs text-gray-600 mt-1">Completed the 6-week leadership program with certification</p>
+                            <div class="text-xs text-green-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Skill Impact: Leadership +1.5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="w-24 flex-shrink-0 text-center">
+                            <div class="w-10 h-10 bg-indigo-100 text-indigo-700 flex items-center justify-center rounded-full mx-auto">
+                                <i class="fas fa-play"></i>
                             </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
-                            <div>
-                                <span class="font-medium text-xs md:text-sm">Accelerate IDP for Nittaya S.</span>
-                                <p class="text-xs text-gray-600">Could be ready sooner with targeted development in Strategic Planning</p>
+                            <div class="text-xs mt-1">In Progress</div>
+                            <div class="text-xs font-semibold">Apr 2023</div>
+                        </div>
+                        <div class="flex-grow pl-4 border-l border-gray-200">
+                            <h3 class="font-medium">Strategic Planning Workshop</h3>
+                            <p class="text-xs text-gray-600 mt-1">4 sessions completed out of 8 total sessions</p>
+                            <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Expected Skill Impact: Strategic Planning +1.0</div>
+                            <div class="mt-2 w-full bg-gray-200 h-2 rounded-full">
+                                <div class="bg-indigo-500 h-2 rounded-full" style="width: 50%"></div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="w-24 flex-shrink-0 text-center">
+                            <div class="w-10 h-10 bg-gray-100 text-gray-700 flex items-center justify-center rounded-full mx-auto">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="text-xs mt-1">Scheduled</div>
+                            <div class="text-xs font-semibold">Jun 2023</div>
+                        </div>
+                        <div class="flex-grow pl-4 border-l border-gray-200">
+                            <h3 class="font-medium"><i class="fas fa-robot mr-1 text-indigo-400"></i> AI Recommended: Advanced Negotiation Tactics</h3>
+                            <p class="text-xs text-gray-600 mt-1">2-day intensive negotiation skills bootcamp to address critical gap</p>
+                            <div class="text-xs text-indigo-600 mt-1"><i class="fas fa-chart-line mr-1"></i> Expected Skill Impact: Negotiation +2.0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic View (initially hidden) -->
+        <div id="strategic-view" class="hidden grid grid-cols-1 gap-4 md:gap-6 slide-in">
+            <div class="dashboard-card p-3 md:p-5 border border-gray-100">
+                <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
+                    <h2 class="text-base md:text-lg font-semibold text-gray-800">Workforce Skills Analysis</h2>
+                    <div class="flex items-center space-x-2 mt-2 md:mt-0">
+                        <span class="text-xs text-gray-500">Business Unit:</span>
+                        <span class="text-xs font-medium bg-indigo-100 text-indigo-700 px-2 py-1 rounded">Sales Department</span>
+                    </div>
+                </div>
+                
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase">Strategic Readiness</p>
+                            <p class="text-2xl font-bold text-indigo-600">68% <span class="text-base text-green-500 ml-1"><i class="fas fa-arrow-up"></i> 3%</span></p>
+                            <p class="text-xs text-gray-600">Sales team readiness for strategic goals (vs last Q)</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase">Skill Gaps</p>
+                            <p class="text-2xl font-bold text-red-600">12 <span class="text-base text-red-500 ml-1"><i class="fas fa-arrow-up"></i> 2</span></p>
+                            <p class="text-xs text-gray-600">Critical gaps across department (vs last Q)</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase">AI Projected Dev ROI</p>
+                            <p class="text-2xl font-bold text-green-600">1.4x <span class="text-base text-green-500 ml-1"><i class="fas fa-equals"></i></span></p>
+                            <p class="text-xs text-gray-600">Projected return on training investment (stable)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-sm font-semibold mb-1">Skill Distribution Across Department</h3>
+                <p class="text-xs text-gray-500 mb-3">Focus on skills critical for Q3 strategic goals.</p>
+                <div class="overflow-x-auto -mx-3 md:mx-0">
+                    <div class="px-3 md:px-0" style="min-width: 480px;">
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium">Strategic Planning</span>
+                                    <span class="text-xs text-gray-600">Priority: High</span>
+                                </div>
+                                <div class="h-4 bg-gray-200 rounded-full">
+                                    <div class="flex h-full rounded-full overflow-hidden">
+                                        <div style="width:15%" class="bg-red-500"></div>
+                                        <div style="width:45%" class="bg-yellow-500"></div>
+                                        <div style="width:40%" class="bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-xs mt-1">
+                                    <span>15% Below Standard</span>
+                                    <span>45% Developing</span>
+                                    <span>40% Proficient</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium">Leadership</span>
+                                    <span class="text-xs text-gray-600">Priority: Medium</span>
+                                </div>
+                                <div class="h-4 bg-gray-200 rounded-full">
+                                    <div class="flex h-full rounded-full overflow-hidden">
+                                        <div style="width:10%" class="bg-red-500"></div>
+                                        <div style="width:30%" class="bg-yellow-500"></div>
+                                        <div style="width:60%" class="bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-xs mt-1">
+                                    <span>10% Below Standard</span>
+                                    <span>30% Developing</span>
+                                    <span>60% Proficient</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium">Negotiation</span>
+                                    <span class="text-xs text-gray-600">Priority: High</span>
+                                </div>
+                                <div class="h-4 bg-gray-200 rounded-full">
+                                    <div class="flex h-full rounded-full overflow-hidden">
+                                        <div style="width:30%" class="bg-red-500"></div>
+                                        <div style="width:40%" class="bg-yellow-500"></div>
+                                        <div style="width:30%" class="bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-xs mt-1">
+                                    <span>30% Below Standard</span>
+                                    <span>40% Developing</span>
+                                    <span>30% Proficient</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card p-3 md:p-5 border border-gray-100">
+                <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
+                    <h2 class="text-base md:text-lg font-semibold text-gray-800">AI-Driven Strategic Recommendations</h2>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0"><i class="fas fa-robot mr-1"></i> AI Generated & Prioritized</span>
+                </div>
+                
+                <div class="divide-y">
+                    <div class="py-3">
+                        <div class="flex items-start">
+                            <div class="bg-red-100 text-red-700 p-1 rounded-full mr-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Address Critical Negotiation Skills Gap</h3>
+                                <p class="text-sm text-gray-600 mt-1">30% of sales team members are below standard (<span class="font-semibold">Gap: -3.0 avg</span>) in negotiation, directly impacting close rates. <span class="font-semibold text-indigo-700">AI identifies this as the highest impact area for training investment.</span></p>
+                                <p class="text-xs text-gray-500 mt-1">AI Suggestion: Implement targeted workshops, prioritizing Key Account Managers first due to direct revenue impact.</p>
+                                <div class="mt-2">
+                                    <span class="text-xs bg-red-50 text-red-600 px-2 py-1 rounded">Highest Priority</span>
+                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Targeted Training</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="py-3">
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 text-yellow-700 p-1 rounded-full mr-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Mitigate Retention Risk for Key Talent</h3>
+                                <p class="text-sm text-gray-600 mt-1">AI predicts high flight risk (75%) for <span class="font-semibold">Anucha P.</span> (Ready Now successor) and medium risk (55%) for <span class="font-semibold">Pichai R.</span> (Needs Development). Loss impacts succession pipeline for Area Sales Manager.</p>
+                                <p class="text-xs text-gray-500 mt-1">AI Suggestion: Initiate immediate retention talks with Anucha P. (compensation review, career pathing). Develop accelerated plan for Pichai R. focused on Strategic Planning.</p>
+                                <div class="mt-2">
+                                    <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded">Medium Priority</span>
+                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Retention & Development Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="py-3">
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-700 p-1 rounded-full mr-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Leverage Leadership Strengths for Peer Development</h3>
+                                <p class="text-sm text-gray-600 mt-1">60% of team shows proficiency in leadership skills. <span class="font-semibold text-indigo-700">AI identifies potential mentors like Supaporn K.</span> (Ready Now, Low Risk).</p>
+                                <p class="text-xs text-gray-500 mt-1">AI Suggestion: Implement a peer mentoring program pairing proficient leaders with those 'Developing' (30%) to accelerate skill uplift efficiently.</p>
+                                <div class="mt-2">
+                                    <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded">Opportunity</span>
+                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Peer Mentoring Program</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Individual View (initially hidden) -->
-    <div id="individual-view" class="hidden grid grid-cols-1 gap-4 md:gap-6 slide-in">
-        <div class="dashboard-card p-3 md:p-5 border border-gray-100">
-            <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-                <div>
-                    <h2 class="text-base md:text-lg font-semibold text-gray-800">Individual Skill Assessment</h2>
-                    <p class="text-xs text-gray-500 mt-1">Select an employee to view their personal skill gaps</p>
+    <!-- Explanation box moved to bottom -->
+    <div class="explanation-box p-4 md:p-6 rounded-lg shadow-inner mt-6">
+        <h2 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>How AI Enhances Dashboards</h2>
+         <div class="space-y-3 md:space-y-4 text-sm text-gray-700">
+            <div>
+                <h3 class="font-semibold text-gray-900">Pain Point Addressed:</h3>
+                <p class="text-xs md:text-sm">HR and managers lack a clear, forward-looking view of talent readiness and potential attrition. Identifying skill gaps across teams is often manual and time-consuming. Executives need quick visibility into overall workforce skills.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-gray-900">AI Solution:</h3>
+                <ul class="list-disc list-outside pl-5 space-y-2">
+                    <li>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
+                            <div class="text-xs md:text-sm">
+                                <strong>Skill-Gap Analyzer:</strong> Compares current skills (from enriched profiles) against target role requirements to automatically identify and highlight gaps.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
+                            <div class="text-xs md:text-sm">
+                                <strong>Skills Heat-Map:</strong> Aggregates skill data across business units or departments, visualizing strengths and weaknesses (Red/Yellow/Green) for quick executive overview.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">ML</div>
+                            <div class="text-xs md:text-sm">
+                                <strong>Readiness & Flight-Risk Predictor:</strong> Analyzes a combination of data (performance reviews, skill levels, engagement surveys, tenure, market trends) to score an employee's readiness for a future role and predict their likelihood of leaving.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">AI</div>
+                            <div class="text-xs md:text-sm">
+                                <strong>Auto-CDP Updater:</strong> Consolidates data from various sources (LMS, PMS, 360 feedback) into a single, unified Career Development Profile timeline for each employee, ensuring data for predictions is current.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+             <div>
+                <h3 class="font-semibold text-gray-900">Example Scenario:</h3>
+                <div class="bg-white p-3 rounded-md border border-gray-200 shadow-sm">
+                    <p class="text-xs md:text-sm">A manager reviews the dashboard for their team. The heatmap instantly shows a critical gap in "Strategic Planning". The readiness table identifies two "Ready Now" successors for a key role, but flags one as a "High" flight risk, prompting immediate retention action.</p>
                 </div>
-                <div class="mt-2 md:mt-0">
-                    <select class="px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm">
-                        <option>Supaporn K.</option>
-                        <option selected>Anucha P.</option>
-                        <option>Somchai T.</option>
-                        <option>Pichai R.</option>
-                        <option>Nittaya S.</option>
-                    </select>
-                </div>
+            </div>
+            <div>
+                <h3 class="font-semibold text-gray-900">Benefits:</h3>
+                 <ul class="list-disc list-outside pl-5 space-y-1">
+                    <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Proactive Succession Planning:</span> Identify and develop future leaders based on data-driven readiness scores.</li>
+                     <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Targeted Retention Efforts:</span> Focus on high-potential employees identified as flight risks.</li>
+                     <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Data-Driven L&D:</span> Allocate training budgets effectively by focusing on the most critical, widespread skill gaps.</li>
+                     <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Strategic Workforce Insights:</span> Provide executives with clear visibility into the organization's overall skill health and talent pipeline.</li>
+                     <li class="text-xs md:text-sm"><span class="text-green-600 font-medium">Real-time Data:</span> Eliminates manual data consolidation, providing current insights.</li>
+                </ul>
             </div>
             
-            <div class="flex flex-wrap items-center gap-4 p-3 bg-indigo-50 rounded-md mb-4">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full border-2 border-white shadow" alt="Employee">
-                <div>
-                    <h3 class="font-semibold">Anucha P.</h3>
-                    <p class="text-sm text-gray-600">Regional Sales Lead</p>
-                    <div class="mt-1 flex items-center">
-                        <span class="badge badge-green mr-2">
-                            <i class="fas fa-check-circle mr-1"></i> Ready Now (85%)
-                        </span>
-                        <span class="badge badge-red">
-                            <i class="fas fa-exclamation-triangle mr-1"></i> High Flight Risk
-                        </span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="overflow-x-auto -mx-3 md:mx-0">
-                <div class="min-w-full px-3 md:px-0">
-                    <table class="min-w-full border border-gray-200 text-sm">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="p-2 border text-left w-1/3 md:w-auto">Skill</th>
-                                <th class="p-2 border text-center w-1/6 md:w-auto">Current Level</th>
-                                <th class="p-2 border text-center w-1/6 md:w-auto">Required Level</th>
-                                <th class="p-2 border text-center w-1/6 md:w-auto">Gap</th>
-                                <th class="p-2 border text-center w-1/6 md:w-auto">Development Plan</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr class="hover:bg-indigo-50 transition-colors">
-                                <td class="p-2 border font-medium">Strategic Planning</td>
-                                <td class="p-2 border text-center">
-                                    <div class="flex items-center justify-center">
-                                        <div class="w-24">
-                                            <div class="skill-bar">
-                                                <div class="skill-progress progress-red" style="width: 60%"></div>
-                                            </div>
-                                            <div class="text-xs mt-1">3.0 / 5</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">4 / 5</td>
-                                <td class="p-0 border">
-                                    <div class="heatmap-cell bg-gap-yellow tooltip">Moderate
-                                        <span class="tooltiptext">
-                                            <div class="font-semibold text-center mb-1">Strategic Planning</div>
-                                            <div>Gap: -1.0 levels</div>
-                                            <div>Priority: Medium</div>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">
-                                    <span class="text-xs text-indigo-600 bg-indigo-50 py-1 px-2 rounded">
-                                        Strategic Workshop (Enrolled)
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-indigo-50 transition-colors">
-                                <td class="p-2 border font-medium">Leadership</td>
-                                <td class="p-2 border text-center">
-                                    <div class="flex items-center justify-center">
-                                        <div class="w-24">
-                                            <div class="skill-bar">
-                                                <div class="skill-progress progress-green" style="width: 80%"></div>
-                                            </div>
-                                            <div class="text-xs mt-1">4.0 / 5</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">4 / 5</td>
-                                <td class="p-0 border">
-                                    <div class="heatmap-cell bg-gap-green tooltip">Met
-                                        <span class="tooltiptext">
-                                            <div class="font-semibold text-center mb-1">Leadership</div>
-                                            <div>Gap: 0 levels</div>
-                                            <div>Priority: Low</div>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">
-                                    <span class="text-xs text-green-600 bg-green-50 py-1 px-2 rounded">
-                                        No Action Required
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-indigo-50 transition-colors">
-                                <td class="p-2 border font-medium">Negotiation</td>
-                                <td class="p-2 border text-center">
-                                    <div class="flex items-center justify-center">
-                                        <div class="w-24">
-                                            <div class="skill-bar">
-                                                <div class="skill-progress progress-red" style="width: 40%"></div>
-                                            </div>
-                                            <div class="text-xs mt-1">2.0 / 5</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">5 / 5</td>
-                                <td class="p-0 border">
-                                    <div class="heatmap-cell bg-gap-red tooltip">Significant
-                                        <span class="tooltiptext">
-                                            <div class="font-semibold text-center mb-1">Negotiation</div>
-                                            <div>Gap: -3.0 levels</div>
-                                            <div>Priority: High</div>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="p-2 border text-center">
-                                    <span class="text-xs text-red-600 bg-red-50 py-1 px-2 rounded">
-                                        Advanced Course Required
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <div class="dashboard-card p-3 md:p-5 border border-gray-100">
-            <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-                <h2 class="text-base md:text-lg font-semibold text-gray-800">Development Timeline</h2>
-                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Anucha P.</span>
-            </div>
-            
-            <div class="space-y-4">
-                <div class="flex">
-                    <div class="w-24 flex-shrink-0 text-center">
-                        <div class="w-10 h-10 bg-green-100 text-green-700 flex items-center justify-center rounded-full mx-auto">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="text-xs mt-1">Completed</div>
-                        <div class="text-xs font-semibold">Jan 2023</div>
-                    </div>
-                    <div class="flex-grow pl-4 border-l border-gray-200">
-                        <h3 class="font-medium">Leadership Excellence Program</h3>
-                        <p class="text-xs text-gray-600 mt-1">Completed the 6-week leadership program with certification</p>
-                        <div class="text-xs text-green-600 mt-1">Skill Impact: Leadership +1.5</div>
-                    </div>
-                </div>
-                
-                <div class="flex">
-                    <div class="w-24 flex-shrink-0 text-center">
-                        <div class="w-10 h-10 bg-indigo-100 text-indigo-700 flex items-center justify-center rounded-full mx-auto">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="text-xs mt-1">In Progress</div>
-                        <div class="text-xs font-semibold">Apr 2023</div>
-                    </div>
-                    <div class="flex-grow pl-4 border-l border-gray-200">
-                        <h3 class="font-medium">Strategic Planning Workshop</h3>
-                        <p class="text-xs text-gray-600 mt-1">4 sessions completed out of 8 total sessions</p>
-                        <div class="text-xs text-indigo-600 mt-1">Expected Skill Impact: Strategic Planning +1.0</div>
-                        <div class="mt-2 w-full bg-gray-200 h-2 rounded-full">
-                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 50%"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex">
-                    <div class="w-24 flex-shrink-0 text-center">
-                        <div class="w-10 h-10 bg-gray-100 text-gray-700 flex items-center justify-center rounded-full mx-auto">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <div class="text-xs mt-1">Scheduled</div>
-                        <div class="text-xs font-semibold">Jun 2023</div>
-                    </div>
-                    <div class="flex-grow pl-4 border-l border-gray-200">
-                        <h3 class="font-medium">Advanced Negotiation Tactics</h3>
-                        <p class="text-xs text-gray-600 mt-1">2-day intensive negotiation skills bootcamp</p>
-                        <div class="text-xs text-indigo-600 mt-1">Expected Skill Impact: Negotiation +2.0</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Strategic View (initially hidden) -->
-    <div id="strategic-view" class="hidden grid grid-cols-1 gap-4 md:gap-6 slide-in">
-        <div class="dashboard-card p-3 md:p-5 border border-gray-100">
-            <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-                <h2 class="text-base md:text-lg font-semibold text-gray-800">Workforce Skills Analysis</h2>
-                <div class="flex items-center space-x-2 mt-2 md:mt-0">
-                    <span class="text-xs text-gray-500">Business Unit:</span>
-                    <span class="text-xs font-medium bg-indigo-100 text-indigo-700 px-2 py-1 rounded">Sales Department</span>
-                </div>
-            </div>
-            
-            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div>
-                        <p class="text-xs text-gray-500 uppercase">Strategic Readiness</p>
-                        <p class="text-2xl font-bold text-indigo-600">68%</p>
-                        <p class="text-xs text-gray-600">Sales team readiness for strategic goals</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 uppercase">Skill Gaps</p>
-                        <p class="text-2xl font-bold text-red-600">12</p>
-                        <p class="text-xs text-gray-600">Critical gaps across department</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 uppercase">Development ROI</p>
-                        <p class="text-2xl font-bold text-green-600">1.4x</p>
-                        <p class="text-xs text-gray-600">Projected return on training investment</p>
-                    </div>
-                </div>
-            </div>
-            
-            <h3 class="text-sm font-semibold mb-3">Skill Distribution Across Department</h3>
-            <div class="overflow-x-auto -mx-3 md:mx-0">
-                <div class="px-3 md:px-0" style="min-width: 480px;">
-                    <div class="space-y-4">
+            <div class="mt-4 md:mt-6 p-3 bg-indigo-50 rounded-md border border-indigo-100">
+                <h3 class="font-semibold text-indigo-800 flex items-center">
+                    <i class="fas fa-robot mr-2"></i> AI Recommendations
+                </h3>
+                <ul class="mt-2 space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium">Strategic Planning</span>
-                                <span class="text-xs text-gray-600">Priority: High</span>
-                            </div>
-                            <div class="h-4 bg-gray-200 rounded-full">
-                                <div class="flex h-full rounded-full overflow-hidden">
-                                    <div style="width:15%" class="bg-red-500"></div>
-                                    <div style="width:45%" class="bg-yellow-500"></div>
-                                    <div style="width:40%" class="bg-green-500"></div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between text-xs mt-1">
-                                <span>15% Below Standard</span>
-                                <span>45% Developing</span>
-                                <span>40% Proficient</span>
-                            </div>
+                            <span class="font-medium text-xs md:text-sm">Create Strategic Planning workshop series</span>
+                            <p class="text-xs text-gray-600">Addresses the most critical skill gap across the department</p>
                         </div>
-                        
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium">Leadership</span>
-                                <span class="text-xs text-gray-600">Priority: Medium</span>
-                            </div>
-                            <div class="h-4 bg-gray-200 rounded-full">
-                                <div class="flex h-full rounded-full overflow-hidden">
-                                    <div style="width:10%" class="bg-red-500"></div>
-                                    <div style="width:30%" class="bg-yellow-500"></div>
-                                    <div style="width:60%" class="bg-green-500"></div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between text-xs mt-1">
-                                <span>10% Below Standard</span>
-                                <span>30% Developing</span>
-                                <span>60% Proficient</span>
-                            </div>
+                            <span class="font-medium text-xs md:text-sm">Schedule retention discussion with Anucha P.</span>
+                            <p class="text-xs text-gray-600">High flight risk for a "Ready Now" successor requires immediate attention</p>
                         </div>
-                        
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-indigo-600 mt-1 mr-2 flex-shrink-0"></i>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm font-medium">Negotiation</span>
-                                <span class="text-xs text-gray-600">Priority: High</span>
-                            </div>
-                            <div class="h-4 bg-gray-200 rounded-full">
-                                <div class="flex h-full rounded-full overflow-hidden">
-                                    <div style="width:30%" class="bg-red-500"></div>
-                                    <div style="width:40%" class="bg-yellow-500"></div>
-                                    <div style="width:30%" class="bg-green-500"></div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between text-xs mt-1">
-                                <span>30% Below Standard</span>
-                                <span>40% Developing</span>
-                                <span>30% Proficient</span>
-                            </div>
+                            <span class="font-medium text-xs md:text-sm">Accelerate IDP for Nittaya S.</span>
+                            <p class="text-xs text-gray-600">Could be ready sooner with targeted development in Strategic Planning</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="dashboard-card p-3 md:p-5 border border-gray-100">
-            <div class="flex flex-wrap justify-between items-center mb-3 md:mb-4">
-                <h2 class="text-base md:text-lg font-semibold text-gray-800">Strategic Recommendations</h2>
-                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-1 md:mt-0">AI Generated</span>
-            </div>
-            
-            <div class="divide-y">
-                <div class="py-3">
-                    <div class="flex items-start">
-                        <div class="bg-red-100 text-red-700 p-1 rounded-full mr-3 flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-medium">Address Critical Negotiation Skills Gap</h3>
-                            <p class="text-sm text-gray-600 mt-1">30% of sales team members are below standard in negotiation skills, directly impacting close rates and deal value.</p>
-                            <div class="mt-2">
-                                <span class="text-xs bg-red-50 text-red-600 px-2 py-1 rounded">High Priority</span>
-                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Training Required</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="py-3">
-                    <div class="flex items-start">
-                        <div class="bg-yellow-100 text-yellow-700 p-1 rounded-full mr-3 flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-medium">Retention Risk for Strategic Planning Talent</h3>
-                            <p class="text-sm text-gray-600 mt-1">Two team members with strong strategic planning skills (Anucha P. and Nittaya S.) show flight risk indicators. Develop retention plans.</p>
-                            <div class="mt-2">
-                                <span class="text-xs bg-yellow-50 text-yellow-600 px-2 py-1 rounded">Medium Priority</span>
-                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Retention Plan</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="py-3">
-                    <div class="flex items-start">
-                        <div class="bg-green-100 text-green-700 p-1 rounded-full mr-3 flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-medium">Leverage Leadership Strengths</h3>
-                            <p class="text-sm text-gray-600 mt-1">60% of team shows proficiency in leadership skills. Implement peer mentoring program to elevate remaining team members.</p>
-                            <div class="mt-2">
-                                <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded">Opportunity</span>
-                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-1">Knowledge Transfer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
