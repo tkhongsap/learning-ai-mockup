@@ -11,6 +11,14 @@ class RateLimitedHandler(SimpleHTTPRequestHandler):
     TIME_WINDOW = 10  # seconds
 
     def do_GET(self):
+        # Health check endpoint
+        if self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b'OK')
+            return
+
         client_ip = self.client_address[0]
         current_time = time.time()
         
@@ -31,8 +39,8 @@ if __name__ == '__main__':
     # Change to the directory containing index.html
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     
-    # Use port 8080 which is forwarded to port 80 in production
-    server_address = ('0.0.0.0', 8080)
+    # Use port 5000 which is forwarded to port 80 in production
+    server_address = ('0.0.0.0', 5000)
     httpd = HTTPServer(server_address, RateLimitedHandler)
     print(f'Serving HTTP on {server_address[0]} port {server_address[1]}...')
     httpd.serve_forever()
