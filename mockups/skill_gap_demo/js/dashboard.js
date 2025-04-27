@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize default tab
+    const defaultTab = document.querySelector('[data-tab]');
+    if (defaultTab) {
+        defaultTab.click();
+    }
+
     // Tab switching functionality
     const tabButtons = document.querySelectorAll('[data-tab]');
     const tabContents = document.querySelectorAll('[data-tab-content]');
